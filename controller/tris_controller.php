@@ -4,7 +4,7 @@
 require_once ('../model/class.TrisMainClass.php');
 
 // Switch controller request
-switch ($_POST ['request']) {
+switch (filter_input(INPUT_POST, 'request')) {
 	
 	case 'nextMoveRequest' :
 		$tris_main_object = new TrissMainClass ();
@@ -12,4 +12,8 @@ switch ($_POST ['request']) {
 		if ($nextMove)
 			echo $nextMove;
 		break;
+                
+        case false:
+            //Do something!
+            break;
 }
