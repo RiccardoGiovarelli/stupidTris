@@ -138,6 +138,33 @@ var myTris = {
                 if (stupid_ia_hit === 3) return 5;
             }
         }
+        
+        //Check for winneer in cross            
+        var player_hit_left = 0;
+        var player_hit_right = 0;
+        var stupid_ia_hit_left = 0;
+        var stupid_ia_hit_right = 0;
+        for (var i = 0; i < field.length; i++) {
+            switch (field[i][i]) {
+                case 1:
+                    player_hit_left++;
+                    break;
+                case 2:
+                    stupid_ia_hit_left++;
+                    break;
+            }
+            var reverse_i = field.length - i - 1;
+            switch (field[i][field.length - i - 1]) {
+                case 1:
+                    player_hit_right++;
+                    break;
+                case 2:
+                    stupid_ia_hit_right++;
+                    break;
+            }  
+        }
+        if ((player_hit_left === 3)||(player_hit_right === 3)) return 4;
+        if ((stupid_ia_hit_left === 3)||(stupid_ia_hit_right === 3)) return 5;
 
         //No results
         return 6;
