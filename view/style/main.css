@@ -1,20 +1,13 @@
 @CHARSET "UTF-8";
 
 /* Page general  <START> */
-.header h1 {
-	margin: 0;
-	text-align: center;
-        font-family: sans-serif;
-}
 
 .header {
 	background-color: darkcyan;
 	position: absolute;
 	top: 0px;
 	width: 100%;
-	height: 70px;
-	display: inline-block;
-	line-height: 70px;
+	height: 15%;
 }
 
 .center {
@@ -22,20 +15,66 @@
 	position: absolute;
 	width: 100%;
 	display: inline-block;
-	bottom: 40px;
-	top: 70px;
+	bottom: 10%;
+	top: 15%;
 }
 
 .footer {
 	background-color: darkcyan;
 	position: absolute;
 	width: 100%;
-	height: 40px;
+	height: 10%;
 	bottom: 0px;
 	display: inline-block;
 }
 
 /* Page general  <STOP> */
+
+.title {
+    margin: 0;
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 2.5vw;
+    display: block;
+    width: 100%;
+}
+
+.title_container {
+    height: 40%;
+}
+
+.info_bar {
+    margin: 0;
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 1.5vw;
+    display: block;
+    width: 100%;
+    height: 60%;
+}
+
+.info_bar > span {
+    margin-left: 2px;
+    margin-right: 2px;
+    border: darkslategrey;
+    border-width: 1px;
+    border-style: solid;
+    padding: 3px;
+    border-radius: 5px;
+    background-color: lightgrey;
+    color: #3E4046;
+    display: inline-block;
+    margin-top: 4px;
+}
+
+
+.info_bar > span > span {
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+/* Grid  <START> */
+
 .grid_container {
 	width: 60%;
 	margin-left: 20%;
@@ -69,3 +108,5 @@
 	font-size: 15vh;
 	text-align: center;
 }
+
+/* Grid  <STOP> */

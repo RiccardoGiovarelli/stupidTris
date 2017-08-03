@@ -12,7 +12,12 @@
 
 	<!-- Header -->
 	<div id='header' class='header'>
-		<h1>Tris</h1>
+		<div id='title_container' class='title_container'>
+		<span class='title'>Stupid Tris</span>
+		</div>
+		<div id='info_bar' class='info_bar'>
+			<span>Player: <span>0</span></span><span>Stupid IA: <span>0</span></span><span>Match #<span>0</span></span>
+		</div>
 	</div>
 
 	<!-- Center -->
