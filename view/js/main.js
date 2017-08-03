@@ -48,22 +48,50 @@ var myTris = {
             this.manageResults(current_result);
             return;
         }
-
-        //Check the state of the match
-        response = this.respondToMove();
         
-        if (response) {
-            //IA make her move
-            this.makeMove(response[0], response[1], 'ia');
-        }
+        //Building promise to respond to player
+		var response_promise = new Promise(
 
-        //Check if match ended
-        if ((current_result = this.checkCurrentState(this.field)) !== 6) {
-            this.manageResults(current_result);
-            return;
-        }
+			function(resolve, reject) {
 
+			var nextMove = '';
+
+			//New Ajax
+			var xhttp = new XMLHttpRequest();
+
+			//State management
+			xhttp.onreadystatechange = function () {
+				if (this.readyState === 4 && this.status === 200) {
+
+					resolve(JSON.parse(this.responseText));
+				}
+			};
+
+			//Ajax call
+			xhttp.open("POST", "../controller/tris_controller.php", true);
+			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhttp.send("request=nextMoveRequest" + "&currentGrid=" + myTris.field);
+		});
+
+		response_promise.then(
+
+			function(response) {
+
+				myTris.makeMove(response[0], response[1], 'ia');
+				
+				//Check if match ended
+				if ((current_result = this.checkCurrentState(myTris.field)) !== 6) {
+					myTris.manageResults(current_result);
+					return;
+				}  
+		}).catch(
+		
+			function(reason) {
+				//TODO: Something in case of errors
+		});
+		
     },
+
 
     //Make move (graphic)
     makeMove: function (x, y, who) {
@@ -79,6 +107,7 @@ var myTris = {
                 break;
         }
     },
+
 
     //Manage final results
     manageResults: function (state) {
@@ -102,7 +131,7 @@ var myTris = {
         }
         if (count_box === 9) return 3;
         
-        //Check for winneer in rows
+        //Check for winner in rows
         for (var i = 0; i < field.length; i++) {
             var player_hit = 0;
             var stupid_ia_hit = 0;
@@ -121,7 +150,7 @@ var myTris = {
             }
         }
 
-        //Check for winneer in column
+        //Check for winner in column
         for (var i = 0; i < field[0].length; i++) {
             var player_hit = 0;
             var stupid_ia_hit = 0;
@@ -185,15 +214,11 @@ var myTris = {
         };
 
         //Ajax call
-        xhttp.open("POST", "../controller/tris_controller.php", false);
+        xhttp.open("POST", "../controller/tris_controller.php", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send("request=nextMoveRequest" + "&currentGrid=" + this.field);
 
         //Return value
         return nextMove;
-
     }
 };
-
-
-
