@@ -113,6 +113,19 @@ var myTris = {
     manageResults: function (state) {
 
         console.log("Risultato = " + state);
+        
+        
+        switch (state) {
+			case 4:
+			$( "#msg_box" ).text("You won!");
+			$( "#msg_button" ).css("visibility", 'visible');
+				break;
+			case 5:
+			$( "#msg_box" ).text("Stupid IA won!");
+			$( "#msg_button" ).css("visibility", 'visible');
+				break;
+		}
+        
        
         //TODO: Manage Even or Victory
 

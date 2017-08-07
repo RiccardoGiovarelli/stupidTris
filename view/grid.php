@@ -48,7 +48,12 @@
 	</div>
 
 	<!-- Footer -->
-	<div id='footer' class='footer'></div>
+	<div id='footer' class='footer'>
+		<div id='msg_container' class='msg_container'>
+			<span id='msg_box' class='msg_box'></span>
+			<span id='msg_button' class='msg_button'>RESTART</span>
+		</div>
+	</div>
 
 </body>
 
