@@ -45,7 +45,7 @@ var myTris = {
 
         //Check if match ended
         if ((current_result = this.checkCurrentState(this.field)) !== 6) {
-            this.manageResults(current_result);
+            myTris.manageResults(current_result);
             return;
         }
         
@@ -80,7 +80,7 @@ var myTris = {
 				myTris.makeMove(response[0], response[1], 'ia');
 				
 				//Check if match ended
-				if ((current_result = this.checkCurrentState(myTris.field)) !== 6) {
+				if ((current_result = myTris.checkCurrentState(myTris.field)) !== 6) {
 					myTris.manageResults(current_result);
 					return;
 				}  
@@ -112,37 +112,30 @@ var myTris = {
     //Manage final results
     manageResults: function (state) {
 
-        console.log("Risultato = " + state);
-        
-        
         switch (state) {
+			case 3:
+			$( "#msg_box" ).css("visibility", 'visible');
+			$( "#msg_box" ).text("Even!");
+			$( "#msg_button" ).css("visibility", 'visible');
+				break;
 			case 4:
+			$( "#msg_box" ).css("visibility", 'visible');
 			$( "#msg_box" ).text("You won!");
 			$( "#msg_button" ).css("visibility", 'visible');
 				break;
 			case 5:
+			$( "#msg_box" ).css("visibility", 'visible');
 			$( "#msg_box" ).text("Stupid IA won!");
 			$( "#msg_button" ).css("visibility", 'visible');
 				break;
 		}
         
-       
         //TODO: Manage Even or Victory
 
     },
 
 
     checkCurrentState: function (field) {
-
-        //Check for even match
-        var count_box = 0;
-        for (var i = 0; i < field.length; i++) {
-            var line = field[i];
-            for (var j = 0; j < line.length; j++) {
-                if (line[j] !== 0) count_box++;
-            }
-        }
-        if (count_box === 9) return 3;
         
         //Check for winner in rows
         for (var i = 0; i < field.length; i++) {
@@ -207,6 +200,16 @@ var myTris = {
         }
         if ((player_hit_left === 3)||(player_hit_right === 3)) return 4;
         if ((stupid_ia_hit_left === 3)||(stupid_ia_hit_right === 3)) return 5;
+        
+        //Check for even match
+        var count_box = 0;
+        for (var i = 0; i < field.length; i++) {
+            var line = field[i];
+            for (var j = 0; j < line.length; j++) {
+                if (line[j] !== 0) count_box++;
+            }
+        }
+        if (count_box === 9) return 3;
 
         //No results
         return 6;
