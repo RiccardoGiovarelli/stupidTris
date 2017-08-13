@@ -41,10 +41,10 @@ var myTris = {
         matched = e.target.id.match(/td-(\d)-(\d)/);
 
         //Make current move for player
-        this.makeMove(matched[1], matched[2], 'player');
+        myTris.makeMove(matched[1], matched[2], 'player');
 
         //Check if match ended
-        if ((current_result = this.checkCurrentState(this.field)) !== 6) {
+        if ((current_result = myTris.checkCurrentState(myTris.field)) !== 6) {
             myTris.manageResults(current_result);
             return;
         }
@@ -61,9 +61,8 @@ var myTris = {
 
 			//State management
 			xhttp.onreadystatechange = function () {
-				if (this.readyState === 4 && this.status === 200) {
-
-					resolve(JSON.parse(this.responseText));
+				if (xhttp.readyState === 4 && xhttp.status === 200) {
+					resolve(JSON.parse(xhttp.responseText));
 				}
 			};
 
@@ -98,12 +97,12 @@ var myTris = {
 
         switch (who) {
             case 'player':
-                $("#" + x + "-" + y).addClass(this.faX);
-                this.field[x - 1][y - 1] = 1;
+                $("#" + x + "-" + y).addClass(myTris.faX);
+                myTris.field[x - 1][y - 1] = 1;
                 break;
             case 'ia':
-                $("#" + (+x + 1) + "-" + (+y + 1)).addClass(this.fa0);
-                this.field[x][y] = 2;
+                $("#" + (+x + 1) + "-" + (+y + 1)).addClass(myTris.fa0);
+                myTris.field[x][y] = 2;
                 break;
         }
     },
@@ -213,28 +212,6 @@ var myTris = {
 
         //No results
         return 6;
-    },
-
-
-    //Generate the response
-    respondToMove: function () {
-
-        var nextMove = '';
-
-        //New Ajax
-        var xhttp = new XMLHttpRequest();
-
-        //State management
-        xhttp.onreadystatechange = function () {
-            nextMove = (this.readyState === 4 && this.status === 200) ? JSON.parse(this.responseText) : false;
-        };
-
-        //Ajax call
-        xhttp.open("POST", "../controller/tris_controller.php", true);
-        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send("request=nextMoveRequest" + "&currentGrid=" + this.field);
-
-        //Return value
-        return nextMove;
     }
+    
 };
