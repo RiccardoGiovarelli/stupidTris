@@ -11,9 +11,7 @@ $(document).ready(function () {
 
 });
 
-//Play object
 var myTris = {
-
 
     //////////////	
     //Properties//
@@ -131,6 +129,17 @@ var myTris = {
         
         //TODO: Manage Even or Victory
 
+    },
+    
+    
+	cleanField: function (field) {
+        for (var x = 0; x < field.length; x++) {
+            var line = field[x];
+            for (var y = 0; y < line.length; y++) {
+                $("#" + (x + +1) + "-" + (y + +1)).removeClass(myTris.faX + " " + myTris.fa0);
+                myTris.field[x][y] = 0;
+            }
+        }
     },
 
 
