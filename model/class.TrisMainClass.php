@@ -7,6 +7,7 @@ class TrissMainClass {
     protected $db_password = 'mysql';
     protected $db_name = 'u296297717_kal';
 
+
     public function getNextMove($current_grid) {
 
         //Variables
@@ -47,5 +48,14 @@ class TrissMainClass {
         //Return move
         if (count($result)) echo json_encode($result, true);
     }
+    
+    
+    public function saveScore($who) {
+
+		//Do something!
+
+    }
+    
+    
 
 }

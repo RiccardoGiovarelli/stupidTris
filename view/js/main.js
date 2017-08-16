@@ -19,6 +19,7 @@ var myTris = {
     
     turnNumber: 1,
     firstPlayer: '',
+    stateOfMatch: 1,
     faX: 'fa fa-times',
     fa0: 'fa fa-circle-o',
     field: [
@@ -34,6 +35,8 @@ var myTris = {
 
     //Manage the current move
     manageMove: function (e) {
+		
+		if (myTris.stateOfMatch == 0) return;
 
         //Get clicked square id
         matched = e.target.id.match(/td-(\d)-(\d)/);
@@ -104,6 +107,47 @@ var myTris = {
                 break;
         }
     },
+    
+    
+    //Save score
+    saveScore: function (who) {
+				
+		//Building promise to respond to player
+		var response_promise = new Promise(
+
+			function(resolve, reject) {
+
+			//New Ajax
+			var xhttp = new XMLHttpRequest();
+
+			//State management
+			xhttp.onreadystatechange = function () {
+				if (xhttp.readyState === 4 && xhttp.status === 200) {
+					resolve(JSON.parse(xhttp.responseText));
+				}
+			};
+
+			//Ajax call
+			xhttp.open("POST", "../controller/tris_controller.php", true);
+			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhttp.send("request=saveScore" + "&who=" + who);
+			
+		});
+
+		response_promise.then(
+
+			function(response) {
+
+				return true;
+
+		}).catch(
+		
+			function(reason) {
+				
+				return false;
+				
+		});
+    },
 
 
     //Manage final results
@@ -111,16 +155,21 @@ var myTris = {
 
         switch (state) {
 			case 3:
+			myTris.stateOfMatch = 0;
 			$( "#msg_box" ).css("visibility", 'visible');
 			$( "#msg_box" ).text("Even!");
 			$( "#msg_button" ).css("visibility", 'visible');
 				break;
 			case 4:
+			myTris.saveScore('player');
+			myTris.stateOfMatch = 0;
 			$( "#msg_box" ).css("visibility", 'visible');
 			$( "#msg_box" ).text("You won!");
 			$( "#msg_button" ).css("visibility", 'visible');
 				break;
 			case 5:
+			myTris.saveScore('is');
+			myTris.stateOfMatch = 0;
 			$( "#msg_box" ).css("visibility", 'visible');
 			$( "#msg_box" ).text("Stupid IA won!");
 			$( "#msg_button" ).css("visibility", 'visible');

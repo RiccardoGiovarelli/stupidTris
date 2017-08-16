@@ -9,11 +9,18 @@ switch (filter_input(INPUT_POST, 'request')) {
 	case 'nextMoveRequest' :
 		$tris_main_object = new TrissMainClass ();
 		$nextMove = $tris_main_object->getNextMove ( filter_input(INPUT_POST, 'currentGrid') );
-		if ($nextMove)
-			echo $nextMove;
+		unset($tris_main_object);
+		if ($nextMove) echo $nextMove;
 		break;
                 
-        case false:
-            //Do something!
-            break;
+   case 'saveScore' :
+   		$tris_main_object = new TrissMainClass ();
+		$saveResponse = $tris_main_object->saveScore ( filter_input(INPUT_POST, 'who') );
+		unset($tris_main_object);
+		if ($saveResponse) echo $saveResponse;
+		break;
+        
+   case false:
+		//Do something!
+		break;
 }
