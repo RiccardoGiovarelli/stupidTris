@@ -137,6 +137,8 @@ var myTris = {
 		response_promise.then(
 
 			function(response) {
+				
+				console.log(response);
 
 				return true;
 
@@ -168,7 +170,7 @@ var myTris = {
 			$( "#msg_button" ).css("visibility", 'visible');
 				break;
 			case 5:
-			myTris.saveScore('is');
+			myTris.saveScore('ia');
 			myTris.stateOfMatch = 0;
 			$( "#msg_box" ).css("visibility", 'visible');
 			$( "#msg_box" ).text("Stupid IA won!");
