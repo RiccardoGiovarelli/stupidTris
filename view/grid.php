@@ -51,7 +51,7 @@
 	<div id='footer' class='footer'>
 		<div id='msg_container' class='msg_container'>
 			<span id='msg_box' class='msg_box'></span>
-			<span id='msg_button' class='msg_button'>RESTART</span>
+			<span id='msg_button' class='msg_button' onclick="myTris.restartMatch()">RESTART</span>
 		</div>
 	</div>
 

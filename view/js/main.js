@@ -1,3 +1,5 @@
+
+
 $(document).ready(function () {
 
     //Add event listener
@@ -11,14 +13,14 @@ $(document).ready(function () {
 
 });
 
+
 var myTris = {
 
     //////////////	
     //Properties//
     //////////////
     
-    turnNumber: 1,
-    firstPlayer: '',
+    stateOfScoreTable: [],
     stateOfMatch: 1,
     faX: 'fa fa-times',
     fa0: 'fa fa-circle-o',
@@ -84,10 +86,6 @@ var myTris = {
 					myTris.manageResults(current_result);
 					return;
 				}  
-		}).catch(
-		
-			function(reason) {
-				//TODO: Something in case of errors
 		});
 		
     },
@@ -112,7 +110,7 @@ var myTris = {
     //Save score
     saveScore: function (who) {
 				
-		//Building promise to respond to player
+		//Building promise to save score
 		var response_promise = new Promise(
 
 			function(resolve, reject) {
@@ -133,25 +131,68 @@ var myTris = {
 			xhttp.send("request=saveScore" + "&who=" + who);
 			
 		});
-
-		response_promise.then(
-
-			function(response) {
-				
-				console.log(response);
-
-				return true;
-
-		}).catch(
-		
-			function(reason) {
-				
-				return false;
-				
-		});
     },
 
 
+    //Reset score table
+    resetScore: function () {
+		
+		//Building promise to reset score table
+		var response_promise = new Promise(
+
+			function(resolve, reject) {
+
+			//New Ajax
+			var xhttp = new XMLHttpRequest();
+
+			//State management
+			xhttp.onreadystatechange = function () {
+				if (xhttp.readyState === 4 && xhttp.status === 200) {
+					resolve(JSON.parse(xhttp.responseText));
+				}
+			};
+
+			//Ajax call
+			xhttp.open("POST", "../controller/tris_controller.php", true);
+			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhttp.send("request=resetScoreTable");
+			
+		});
+    },
+    
+    
+    //Reset score table
+    readScore: function () {
+		
+		//Building promise to reset score table
+		var response_promise = new Promise(
+
+			function(resolve, reject) {
+
+			//New Ajax
+			var xhttp = new XMLHttpRequest();
+
+			//State management
+			xhttp.onreadystatechange = function () {
+				if (xhttp.readyState === 4 && xhttp.status === 200) {
+					resolve(JSON.parse(xhttp.responseText));
+				}
+			};
+
+			//Ajax call
+			xhttp.open("POST", "../controller/tris_controller.php", true);
+			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhttp.send("request=readScoreTable");
+			
+		});
+
+		response_promise.then(
+			function(response) {
+			myTris.stateOfScoreTable = response;
+		});
+    },
+    
+    
     //Manage final results
     manageResults: function (state) {
 
@@ -183,6 +224,7 @@ var myTris = {
     },
     
     
+    //Clean field
 	cleanField: function (field) {
         for (var x = 0; x < field.length; x++) {
             var line = field[x];
@@ -192,8 +234,17 @@ var myTris = {
             }
         }
     },
+    
+    
+    //
+    restartMatch: function () {
+		console.log(myTris.readScore());
+		myTris.stateOfMatch = 1;
+		myTris.cleanField(myTris.field);
+	},
 
 
+	//Check current field state
     checkCurrentState: function (field) {
         
         //Check for winner in rows

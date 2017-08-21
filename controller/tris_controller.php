@@ -20,6 +20,20 @@ switch (filter_input(INPUT_POST, 'request')) {
 		if ($saveResponse) echo $saveResponse;
 		break;
         
+   case 'resetScoreTable':
+      	$tris_main_object = new TrissMainClass ();
+		$resetScoreResponse = $tris_main_object->resetScoreTable ();
+		unset($tris_main_object);
+		if ($resetScoreResponse) echo $resetScoreResponse;
+		break;
+		
+	case 'readScoreTable':
+		$tris_main_object = new TrissMainClass ();
+		$readScoreResponse = $tris_main_object->readScoreTable ();
+		unset($tris_main_object);
+		if ($readScoreResponsee) echo $readScoreResponse;
+		break;
+        
    case false:
 		//Do something!
 		break;
