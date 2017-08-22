@@ -37,14 +37,14 @@ var myTris = {
 
     //Manage the current move
     manageMove: function (e) {
-		
+
 		if (myTris.stateOfMatch == 0) return;
 
         //Get clicked square id
-        matched = e.target.id.match(/td-(\d)-(\d)/);
+        if((matched = e.target.id.match(/td-(\d)-(\d)/)) == null) return;
 
         //Make current move for player
-        myTris.makeMove(matched[1], matched[2], 'player');
+		myTris.makeMove(matched[1], matched[2], 'player');
 
         //Check if match ended
         if ((current_result = myTris.checkCurrentState(myTris.field)) !== 6) {
@@ -93,17 +93,19 @@ var myTris = {
 
     //Make move (graphic)
     makeMove: function (x, y, who) {
-
-        switch (who) {
-            case 'player':
-                $("#" + x + "-" + y).addClass(myTris.faX);
-                myTris.field[x - 1][y - 1] = 1;
-                break;
-            case 'ia':
-                $("#" + (+x + 1) + "-" + (+y + 1)).addClass(myTris.fa0);
-                myTris.field[x][y] = 2;
-                break;
-        }
+		switch (who) {
+			case 'player':
+				$("#" + x + "-" + y).addClass(myTris.faX);
+				myTris.field[x - 1][y - 1] = 1;
+				return true;
+				break;
+			case 'ia':
+				$("#" + (+x + 1) + "-" + (+y + 1)).addClass(myTris.fa0);
+				myTris.field[x][y] = 2;
+				return true;
+				break;
+			return false;
+		}
     },
     
     
