@@ -1,9 +1,7 @@
-
-
-$(document).ready(function () {
+$(document).ready(function() {
 
     //Add event listener
-    document.getElementById("tris_grid").addEventListener("click", function (e) {
+    document.getElementById("tris_grid").addEventListener("click", function(e) {
         nowWePlayTris.manageMove(e);
     });
 
@@ -19,7 +17,7 @@ var myTris = {
     //////////////	
     //Properties//
     //////////////
-    
+
     stateOfScoreTable: [],
     stateOfMatch: 1,
     faX: 'fa fa-times',
@@ -36,198 +34,200 @@ var myTris = {
     ///////////
 
     //Manage the current move
-    manageMove: function (e) {
+    manageMove: function(e) {
 
-		if (myTris.stateOfMatch == 0) return;
+        if (myTris.stateOfMatch == 0) return;
 
         //Get clicked square id
-        if((matched = e.target.id.match(/td-(\d)-(\d)/)) == null) return;
+        if ((matched = e.target.id.match(/td-(\d)-(\d)/)) == null) return;
 
         //Make current move for player
-		myTris.makeMove(matched[1], matched[2], 'player');
+        myTris.makeMove(matched[1], matched[2], 'player');
 
         //Check if match ended
         if ((current_result = myTris.checkCurrentState(myTris.field)) !== 6) {
             myTris.manageResults(current_result);
             return;
         }
-        
-        //Building promise to respond to player
-		var response_promise = new Promise(
 
-			function(resolve, reject) {
+        var response_promise = new Promise(
 
-			var nextMove = '';
+            function(resolve, reject) {
 
-			//New Ajax
-			var xhttp = new XMLHttpRequest();
+                var nextMove = '';
 
-			//State management
-			xhttp.onreadystatechange = function () {
-				if (xhttp.readyState === 4 && xhttp.status === 200) {
-					resolve(JSON.parse(xhttp.responseText));
-				}
-			};
+                //New Ajax
+                var xhttp = new XMLHttpRequest();
 
-			//Ajax call
-			xhttp.open("POST", "../controller/tris_controller.php", true);
-			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-			xhttp.send("request=nextMoveRequest" + "&currentGrid=" + myTris.field);
-		});
+                //State management
+                xhttp.onreadystatechange = function() {
+                    if (xhttp.readyState === 4 && xhttp.status === 200) {
+                        resolve(JSON.parse(xhttp.responseText));
+                    }
+                };
 
-		response_promise.then(
+                //Ajax call
+                xhttp.open("POST", "../controller/tris_controller.php", true);
+                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhttp.send("request=nextMoveRequest" + "&currentGrid=" + myTris.field);
+            });
 
-			function(response) {
+        response_promise.then(
 
-				myTris.makeMove(response[0], response[1], 'ia');
-				
-				//Check if match ended
-				if ((current_result = myTris.checkCurrentState(myTris.field)) !== 6) {
-					myTris.manageResults(current_result);
-					return;
-				}  
-		});
-		
+            function(response) {
+
+                myTris.makeMove(response[0], response[1], 'ia');
+
+                //Check if match ended
+                if ((current_result = myTris.checkCurrentState(myTris.field)) !== 6) {
+                    myTris.manageResults(current_result);
+                    return;
+                }
+            });
+
     },
 
 
     //Make move (graphic)
-    makeMove: function (x, y, who) {
-		switch (who) {
-			case 'player':
-				$("#" + x + "-" + y).addClass(myTris.faX);
-				myTris.field[x - 1][y - 1] = 1;
-				return true;
-				break;
-			case 'ia':
-				$("#" + (+x + 1) + "-" + (+y + 1)).addClass(myTris.fa0);
-				myTris.field[x][y] = 2;
-				return true;
-				break;
-			return false;
-		}
+    makeMove: function(x, y, who) {
+        switch (who) {
+            case 'player':
+                $("#" + x + "-" + y).addClass(myTris.faX);
+                myTris.field[x - 1][y - 1] = 1;
+                return true;
+                break;
+            case 'ia':
+                $("#" + (+x + 1) + "-" + (+y + 1)).addClass(myTris.fa0);
+                myTris.field[x][y] = 2;
+                return true;
+                break;
+                return false;
+        }
     },
-    
-    
+
+
     //Save score
-    saveScore: function (who) {
-				
-		//Building promise to save score
-		var response_promise = new Promise(
+    saveScore: function(who) {
 
-			function(resolve, reject) {
+        var save_promise = new Promise(
 
-			//New Ajax
-			var xhttp = new XMLHttpRequest();
+            function(resolve, reject) {
 
-			//State management
-			xhttp.onreadystatechange = function () {
-				if (xhttp.readyState === 4 && xhttp.status === 200) {
-					resolve(JSON.parse(xhttp.responseText));
-				}
-			};
+                //New Ajax
+                var xhttp = new XMLHttpRequest();
 
-			//Ajax call
-			xhttp.open("POST", "../controller/tris_controller.php", true);
-			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-			xhttp.send("request=saveScore" + "&who=" + who);
-			
-		});
+                //State management
+                xhttp.onreadystatechange = function() {
+                    if (xhttp.readyState === 4 && xhttp.status === 200) {
+                        resolve(JSON.parse(xhttp.responseText));
+                    }
+                };
+
+                //Ajax call
+                xhttp.open("POST", "../controller/tris_controller.php", true);
+                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhttp.send("request=saveScore" + "&who=" + who);
+
+            });
     },
 
 
     //Reset score table
-    resetScore: function () {
-		
-		//Building promise to reset score table
-		var response_promise = new Promise(
+    resetScore: function() {
 
-			function(resolve, reject) {
+        var reset_promise = new Promise(
 
-			//New Ajax
-			var xhttp = new XMLHttpRequest();
+            function(resolve, reject) {
 
-			//State management
-			xhttp.onreadystatechange = function () {
-				if (xhttp.readyState === 4 && xhttp.status === 200) {
-					resolve(JSON.parse(xhttp.responseText));
-				}
-			};
+                //New Ajax
+                var xhttp = new XMLHttpRequest();
 
-			//Ajax call
-			xhttp.open("POST", "../controller/tris_controller.php", true);
-			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-			xhttp.send("request=resetScoreTable");
-			
-		});
+                //State management
+                xhttp.onreadystatechange = function() {
+                    if (xhttp.readyState === 4 && xhttp.status === 200) {
+                        resolve(JSON.parse(xhttp.responseText));
+                    }
+                };
+
+                //Ajax call
+                xhttp.open("POST", "../controller/tris_controller.php", true);
+                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhttp.send("request=resetScoreTable");
+
+            });
     },
-    
-    
-    //Reset score table
-    readScore: function () {
-		
-		//Building promise to reset score table
-		var response_promise = new Promise(
 
-			function(resolve, reject) {
 
-			//New Ajax
-			var xhttp = new XMLHttpRequest();
+    //Read score table
+    readScore: function() {
 
-			//State management
-			xhttp.onreadystatechange = function () {
-				if (xhttp.readyState === 4 && xhttp.status === 200) {
-					resolve(JSON.parse(xhttp.responseText));
-				}
-			};
+        var read_promise = new Promise(
 
-			//Ajax call
-			xhttp.open("POST", "../controller/tris_controller.php", true);
-			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-			xhttp.send("request=readScoreTable");
-			
-		});
+            function(resolve, reject) {
 
-		response_promise.then(
-			function(response) {
-			myTris.stateOfScoreTable = response;
-		});
+                //New Ajax
+                var xhttp = new XMLHttpRequest();
+
+                //State management
+                xhttp.onreadystatechange = function() {
+                    if (xhttp.readyState === 4 && xhttp.status === 200) {
+                        resolve(JSON.parse(xhttp.responseText));
+                    }
+                };
+
+                //Ajax call
+                xhttp.open("POST", "../controller/tris_controller.php", true);
+                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhttp.send("request=readScoreTable");
+
+            });
+
+        read_promise.then();
+
+        return read_promise;
     },
-    
-    
+
+
     //Manage final results
-    manageResults: function (state) {
+    manageResults: function(state) {
 
         switch (state) {
-			case 3:
-			myTris.stateOfMatch = 0;
-			$( "#msg_box" ).css("visibility", 'visible');
-			$( "#msg_box" ).text("Even!");
-			$( "#msg_button" ).css("visibility", 'visible');
-				break;
-			case 4:
-			myTris.saveScore('player');
-			myTris.stateOfMatch = 0;
-			$( "#msg_box" ).css("visibility", 'visible');
-			$( "#msg_box" ).text("You won!");
-			$( "#msg_button" ).css("visibility", 'visible');
-				break;
-			case 5:
-			myTris.saveScore('ia');
-			myTris.stateOfMatch = 0;
-			$( "#msg_box" ).css("visibility", 'visible');
-			$( "#msg_box" ).text("Stupid IA won!");
-			$( "#msg_button" ).css("visibility", 'visible');
-				break;
-		}
-        
-        //TODO: Manage Even or Victory
+            case 3:
+                myTris.stateOfMatch = 0;
+                $("#msg_box").css("visibility", 'visible');
+                $("#msg_box").text("Even!");
+                $("#msg_button").css("visibility", 'visible');
+                break;
+            case 4:
+                myTris.saveScore('player');
+                myTris.stateOfMatch = 0;
+                $("#msg_box").css("visibility", 'visible');
+                $("#msg_box").text("You won!");
+                $("#msg_button").css("visibility", 'visible');
+                break;
+            case 5:
+                myTris.saveScore('ia');
+                myTris.stateOfMatch = 0;
+                $("#msg_box").css("visibility", 'visible');
+                $("#msg_box").text("Stupid IA won!");
+                $("#msg_button").css("visibility", 'visible');
+                break;
+        }
 
+        var read_promise = new Promise(
+            function(resolve, reject) {
+                resolve(myTris.readScore());
+            });
+
+        read_promise.then(
+            function(response) {
+                console.log("RESPONSE => " + response);
+            });
     },
-    
-    
+
+
     //Clean field
-	cleanField: function (field) {
+    cleanField: function(field) {
         for (var x = 0; x < field.length; x++) {
             var line = field[x];
             for (var y = 0; y < line.length; y++) {
@@ -236,19 +236,18 @@ var myTris = {
             }
         }
     },
-    
-    
-    //
-    restartMatch: function () {
-		console.log(myTris.readScore());
-		myTris.stateOfMatch = 1;
-		myTris.cleanField(myTris.field);
-	},
 
 
-	//Check current field state
-    checkCurrentState: function (field) {
-        
+    //Restart match
+    restartMatch: function() {
+        myTris.stateOfMatch = 1;
+        myTris.cleanField(myTris.field);
+    },
+
+
+    //Check current field state
+    checkCurrentState: function(field) {
+
         //Check for winner in rows
         for (var i = 0; i < field.length; i++) {
             var player_hit = 0;
@@ -285,7 +284,7 @@ var myTris = {
                 if (stupid_ia_hit === 3) return 5;
             }
         }
-        
+
         //Check for winneer in cross            
         var player_hit_left = 0;
         var player_hit_right = 0;
@@ -308,11 +307,11 @@ var myTris = {
                 case 2:
                     stupid_ia_hit_right++;
                     break;
-            }  
+            }
         }
-        if ((player_hit_left === 3)||(player_hit_right === 3)) return 4;
-        if ((stupid_ia_hit_left === 3)||(stupid_ia_hit_right === 3)) return 5;
-        
+        if ((player_hit_left === 3) || (player_hit_right === 3)) return 4;
+        if ((stupid_ia_hit_left === 3) || (stupid_ia_hit_right === 3)) return 5;
+
         //Check for even match
         var count_box = 0;
         for (var i = 0; i < field.length; i++) {
@@ -326,5 +325,5 @@ var myTris = {
         //No results
         return 6;
     }
-    
+
 };
