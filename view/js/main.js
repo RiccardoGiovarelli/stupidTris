@@ -70,7 +70,8 @@ var myTris = {
                 xhttp.open("POST", "../controller/tris_controller.php", true);
                 xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                 xhttp.send("request=nextMoveRequest" + "&currentGrid=" + myTris.field);
-            });
+            }
+        );
 
         response_promise.then(
 
@@ -83,8 +84,8 @@ var myTris = {
                     myTris.manageResults(current_result);
                     return;
                 }
-            });
-
+            }
+        );
     },
 
 
@@ -128,7 +129,8 @@ var myTris = {
                 xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                 xhttp.send("request=saveScore" + "&who=" + who);
 
-            });
+            }
+        );
     },
 
 
@@ -154,7 +156,8 @@ var myTris = {
                 xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                 xhttp.send("request=resetScoreTable");
 
-            });
+            }
+        );
     },
 
 
@@ -180,7 +183,8 @@ var myTris = {
                 xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                 xhttp.send("request=readScoreTable");
 
-            });
+            }
+        );
 
         read_promise.then();
 
@@ -217,12 +221,26 @@ var myTris = {
         var read_promise = new Promise(
             function(resolve, reject) {
                 resolve(myTris.readScore());
-            });
+            }
+        );
 
         read_promise.then(
             function(response) {
-                console.log("RESPONSE => " + response);
-            });
+                var current_round = 0;
+                var player_score = 0;
+                var ia_score = 0;
+                for (var key in response) {
+                    if (response.hasOwnProperty(key)) {
+                        current_round = response[key]['round'];
+                        player_score = player_score + +response[key]['player'];
+                        ia_score = ia_score + +response[key]['ia'];
+                        $("#player_score_value").text(player_score);
+                        $("#player_ia_value").text(ia_score);
+                        $("#match_value").text(current_round);
+                    }
+                  }
+            }
+        );
     },
 
 

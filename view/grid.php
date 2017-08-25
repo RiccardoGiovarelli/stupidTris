@@ -16,7 +16,7 @@
 		<span class='title'>Stupid Tris</span>
 		</div>
 		<div id='info_bar' class='info_bar'>
-			<span>Player: <span>0</span></span><span>Stupid IA: <span>0</span></span><span>Match #<span>0</span></span>
+			<span id='player_score_text'>Player: <span id='player_score_value'>0</span></span><span id='player_ia_text'>Stupid IA: <span id='player_ia_value'>0</span></span><span id='match_text'>Match #<span id='match_value'>0</span></span>
 		</div>
 	</div>
 
