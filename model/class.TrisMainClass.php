@@ -47,17 +47,28 @@ class TrissMainClass {
 		}
 		
 		//Building results
-		$i = 0;
-		while ($row = mysqli_fetch_array($select_all_result)) {
-			$select_results_array[$i]['round'] = $row['round'];
-			$select_results_array[$i]['player'] = $row['player'];
-			$select_results_array[$i]['ia'] = $row['ia'];
-			$i++;
+		switch (mysqli_num_rows($select_all_result) > 0) {
+			
+			case true:
+				$i = 0;
+				while ($row = mysqli_fetch_array($select_all_result)) {
+					$select_results_array[$i]['round'] = $row['round'];
+					$select_results_array[$i]['player'] = $row['player'];
+					$select_results_array[$i]['ia'] = $row['ia'];
+					$i++;
+				}
+				echo json_encode($select_results_array, true);
+				break;
+
+			case false:
+				$select_results_array[0]['round'] = 0;
+				$select_results_array[0]['player'] = 0;
+				$select_results_array[0]['ia'] = 0;
+				echo json_encode($select_results_array, true);
+				break;
+				
 		}
 
-		//Return table state
-		if (count($select_results_array)) echo json_encode($select_results_array, true);
-		
 		@mysqli_close($connection);
 		return;
 	}

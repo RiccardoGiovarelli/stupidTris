@@ -7,7 +7,31 @@ $(document).ready(function() {
 
     //New play object
     var nowWePlayTris = Object.create(myTris);
-    nowWePlayTris.firstPlayer = 'user';
+
+    //Read current score ad set results
+    var read_promise = new Promise(
+        function(resolve, reject) {
+            resolve(nowWePlayTris.readScore());
+        }
+    );
+
+    read_promise.then(
+        function(response) {
+            var current_round = 0;
+            var player_score = 0;
+            var ia_score = 0;
+            for (var key in response) {
+                if (response.hasOwnProperty(key)) {
+                    current_round = response[key]['round'];
+                    player_score = player_score + +response[key]['player'];
+                    ia_score = ia_score + +response[key]['ia'];
+                    $("#player_score_value").text(player_score);
+                    $("#player_ia_value").text(ia_score);
+                    $("#match_value").text(current_round);
+                }
+              }
+        }
+    );
 
 });
 
@@ -201,6 +225,7 @@ var myTris = {
                 $("#msg_box").css("visibility", 'visible');
                 $("#msg_box").text("Even!");
                 $("#msg_button").css("visibility", 'visible');
+                $("#reset_button").css("visibility", 'visible');
                 break;
             case 4:
                 myTris.saveScore('player');
@@ -208,6 +233,7 @@ var myTris = {
                 $("#msg_box").css("visibility", 'visible');
                 $("#msg_box").text("You won!");
                 $("#msg_button").css("visibility", 'visible');
+                $("#reset_button").css("visibility", 'visible');
                 break;
             case 5:
                 myTris.saveScore('ia');
@@ -215,6 +241,7 @@ var myTris = {
                 $("#msg_box").css("visibility", 'visible');
                 $("#msg_box").text("Stupid IA won!");
                 $("#msg_button").css("visibility", 'visible');
+                $("#reset_button").css("visibility", 'visible');
                 break;
         }
 
@@ -238,7 +265,7 @@ var myTris = {
                         $("#player_ia_value").text(ia_score);
                         $("#match_value").text(current_round);
                     }
-                  }
+                }
             }
         );
     },
@@ -260,6 +287,20 @@ var myTris = {
     restartMatch: function() {
         myTris.stateOfMatch = 1;
         myTris.cleanField(myTris.field);
+        $("#msg_box").css("visibility", 'hidden');
+        $("#msg_button").css("visibility", 'hidden');
+        $("#reset_button").css("visibility", 'hidden');
+    },
+
+
+    //Reset IA and match
+    resetIA: function() {
+        myTris.resetScore();
+        myTris.stateOfMatch = 1;
+        myTris.cleanField(myTris.field);
+        $("#msg_box").css("visibility", 'hidden');
+        $("#msg_button").css("visibility", 'hidden');
+        $("#reset_button").css("visibility", 'hidden');
     },
 
 
