@@ -224,7 +224,7 @@ var myTris = {
                 myTris.stateOfMatch = 0;
                 $("#msg_box").css("visibility", 'visible');
                 $("#msg_box").text("Even!");
-                $("#msg_button").css("visibility", 'visible');
+                $("#restart_button").css("visibility", 'visible');
                 $("#reset_button").css("visibility", 'visible');
                 break;
             case 4:
@@ -232,7 +232,7 @@ var myTris = {
                 myTris.stateOfMatch = 0;
                 $("#msg_box").css("visibility", 'visible');
                 $("#msg_box").text("You won!");
-                $("#msg_button").css("visibility", 'visible');
+                $("#restart_button").css("visibility", 'visible');
                 $("#reset_button").css("visibility", 'visible');
                 break;
             case 5:
@@ -240,7 +240,7 @@ var myTris = {
                 myTris.stateOfMatch = 0;
                 $("#msg_box").css("visibility", 'visible');
                 $("#msg_box").text("Stupid IA won!");
-                $("#msg_button").css("visibility", 'visible');
+                $("#restart_button").css("visibility", 'visible');
                 $("#reset_button").css("visibility", 'visible');
                 break;
         }
@@ -288,7 +288,7 @@ var myTris = {
         myTris.stateOfMatch = 1;
         myTris.cleanField(myTris.field);
         $("#msg_box").css("visibility", 'hidden');
-        $("#msg_button").css("visibility", 'hidden');
+        $("#restart_button").css("visibility", 'hidden');
         $("#reset_button").css("visibility", 'hidden');
     },
 
@@ -299,7 +299,7 @@ var myTris = {
         myTris.stateOfMatch = 1;
         myTris.cleanField(myTris.field);
         $("#msg_box").css("visibility", 'hidden');
-        $("#msg_button").css("visibility", 'hidden');
+        $("#restart_button").css("visibility", 'hidden');
         $("#reset_button").css("visibility", 'hidden');
     },
 

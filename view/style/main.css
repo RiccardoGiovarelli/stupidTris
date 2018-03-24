@@ -3,6 +3,10 @@
 
 /* Page general  <START> */
 
+body {
+    margin: 0px;
+}
+
 .header {
 	background-color: darkcyan;
 	position: absolute;
@@ -39,34 +43,59 @@
 
 /* Message Box  <START> */
 
-.msg_container {
-    text-align: center;
+.tools_container {
     font-family: sans-serif;
     font-size: 25px;
+    display: flex; 
+}
+
+.left_tools {
+    width: 50%;
+    height: 100%;
+    text-align: left;
+}
+
+.right_tools {
+    width: 50%;
+    height: 100%;
+    text-align: right;
 }
 
 .msg_box {
     padding: 10px;
     color: darkgray;
     display: inline-block;
-    margin-top: 10px;
+    margin: 10px;
     border-radius: 5px;
     visibility: hidden;
     border-style: dashed;
     border-width: 2px;
 }
 
-.msg_button {
+.restart_button {
     padding: 8px;
     color: darkcyan;
     display: inline-block;
-    margin-top: 10px;
     visibility: hidden;
     background-color: darkgray;
-    margin-left: 10px;
+    margin: 10px;
     border-radius: 8px;
     cursor: pointer;
 }
+
+.reset_button {
+    padding: 6px;
+    color: darkcyan;
+    display: inline-block;
+    visibility: hidden;
+    background-color: darkgray;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    margin-right: 8px;
+    margin-top: 20px;
+}
+
 /* Message Box  <STOP> */
 
 
@@ -83,7 +112,6 @@
     width: 100%;
     margin-top: 5px;
     color: darkgray;
-    text-shadow: 5px 3px 4px rgb(58, 55, 55);
 }
 
 .title_container {
