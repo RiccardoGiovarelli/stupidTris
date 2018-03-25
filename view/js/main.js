@@ -255,7 +255,7 @@ var myTris = {
         read_promise.then(
             function(response) {
                 var current_round = 0;
-                var player_score = 0;
+                var player_score = 0; 
                 var ia_score = 0;
                 for (var key in response) {
                     if (response.hasOwnProperty(key)) {
