@@ -87,7 +87,6 @@ body {
     padding: 6px;
     color: darkcyan;
     display: inline-block;
-    visibility: hidden;
     background-color: darkgray;
     border-radius: 8px;
     cursor: pointer;

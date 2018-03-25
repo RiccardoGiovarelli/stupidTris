@@ -55,7 +55,7 @@
 				<span id='msg_box' class='msg_box'></span>
 			</div>
 			<div id='right_tools' class='right_tools'>
-				<span id='reset_button' class='reset_button' onclick="myTris.resetIA()">RESET AI</span>
+				<span id='reset_button' class='reset_button' onclick="myTris.resetAI()">RESET AI</span>
 			</div>
 		</div>
 	</div>

@@ -28,6 +28,7 @@ $(document).ready(function() {
                     $("#player_score_value").text(player_score);
                     $("#player_ia_value").text(ia_score);
                     $("#match_value").text(current_round);
+                    if (current_round == 0) $("#reset_button").css("visibility", 'hidden');
                 }
               }
         }
@@ -289,12 +290,11 @@ var myTris = {
         myTris.cleanField(myTris.field);
         $("#msg_box").css("visibility", 'hidden');
         $("#restart_button").css("visibility", 'hidden');
-        $("#reset_button").css("visibility", 'hidden');
     },
 
 
     //Reset IA and match
-    resetIA: function() {
+    resetAI: function() {
         myTris.resetScore();
         myTris.stateOfMatch = 1;
         myTris.cleanField(myTris.field);
