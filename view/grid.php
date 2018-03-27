@@ -6,7 +6,15 @@
 <link rel="stylesheet" href="style/main.css">
 <link rel="stylesheet" href="../lib/font-awesome-4.7.0/css/font-awesome.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="js/main.js"></script>
+
+
+
+<?php
+foreach (glob("js/*.js") as $filename) {
+	echo "<script src=\"" . $filename . "\"></script>";
+}
+?>
+
 </head>
 <body>
 
@@ -16,7 +24,7 @@
 		<span class='title'>Stupid Tris</span>
 		</div>
 		<div id='info_bar' class='info_bar'>
-			<span id='player_score_text'>Player: <span id='player_score_value'>0</span></span><span id='player_ia_text'>Stupid IA: <span id='player_ia_value'>0</span></span><span id='match_text'>Match #<span id='match_value'>0</span></span>
+			<span id='player_score_text'>Player: <span id='player_score_value'>0</span></span><span id='player_ia_text'>Stupid AI: <span id='player_ia_value'>0</span></span><span id='match_text'>Match #<span id='match_value'>0</span></span>
 		</div>
 	</div>
 
@@ -49,10 +57,14 @@
 
 	<!-- Footer -->
 	<div id='footer' class='footer'>
-		<div id='msg_container' class='msg_container'>
-			<span id='msg_box' class='msg_box'></span>
-			<span id='msg_button' class='msg_button' onclick="myTris.restartMatch()">RESTART</span>
-			<span id='reset_button' class='msg_button' onclick="myTris.resetIA()">RESET IA</span>
+		<div id='tools_container' class='tools_container'>
+			<div id='left_tools' class='left_tools'>
+				<span id='restart_button' class='restart_button' onclick="myTris.restartMatch()">RESTART</span>
+				<span id='msg_box' class='msg_box'></span>
+			</div>
+			<div id='right_tools' class='right_tools'>
+				<span id='reset_button' class='reset_button' onclick="myTris.resetAI()">RESET AI</span>
+			</div>
 		</div>
 	</div>
 
