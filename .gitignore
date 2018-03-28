@@ -1,3 +1,2 @@
-/.DS_Store
-/nbproject/private/
-/.vscode
+www/.vscode
+*.DS_Store
