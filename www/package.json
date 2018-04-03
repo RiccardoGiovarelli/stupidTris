@@ -2,16 +2,26 @@
   "name": "stupid-tris",
   "version": "0.0.1",
   "description": "Another implementation of the Tris game",
-  "main": "index.php",
+  "private": true,
   "directories": {
     "lib": "lib"
   },
   "dependencies": {
     "eslint": "^4.19.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
+    "css-loader": "^0.28.11",
+    "style-loader": "^0.20.3",
+    "webpack": "^4.4.1",
+    "webpack-cli": "^2.0.13"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run webpack",
+    "webpack": "webpack -d --optimize-minimize"
   },
   "repository": {
     "type": "git",
