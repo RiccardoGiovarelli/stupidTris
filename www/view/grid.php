@@ -6,17 +6,11 @@
 <link rel="stylesheet" href="style/main.css">
 <link rel="stylesheet" href="../lib/font-awesome-4.7.0/css/font-awesome.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
-
-
-<?php
-foreach (glob("js/*.js") as $filename) {
-	echo "<script src=\"" . $filename . "\"></script>";
-}
-?>
-
 </head>
 <body>
+
+	<!-- JS Import -->
+	<script src="./js-dist/bundle.js"></script>
 
 	<!-- Header -->
 	<div id='header' class='header'>
