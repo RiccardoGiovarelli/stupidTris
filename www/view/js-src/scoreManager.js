@@ -20,12 +20,12 @@ export var scoreManager = {
 
         switch (who) {
             case 'ai':
-                $.cookie(scoreManager.round_cookie_name, current_situation['currentRound'] + 1);
-                $.cookie(scoreManager.ai_cookie_name, current_situation['currentAiScore'] + 1);
+                $.cookie(scoreManager.round_cookie_name, +current_situation['currentRound'] + +1);
+                $.cookie(scoreManager.ai_cookie_name, +current_situation['currentAiScore'] + +1);
                 break;
             case 'player':
-                $.cookie(scoreManager.round_cookie_name, current_situation['currentRound'] + 1);
-                $.cookie(scoreManager.player_cookie_name, current_situation['currentPlayerScore'] + 1);
+                $.cookie(scoreManager.round_cookie_name, +current_situation['currentRound'] + +1);
+                $.cookie(scoreManager.player_cookie_name, +current_situation['currentPlayerScore'] + +1);
                 break;
 
         }

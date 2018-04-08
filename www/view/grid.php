@@ -29,17 +29,15 @@
 
 		<!-- Top Bar -->
 		<div id='top_bar' class='row top_bar'>
-			<h1>
-				<div class='col-sm-4 center-text'>
-					<span id='player_score_text' class='label label-default' >Player: <span id='player_score_value'>0</span></span>
-				</div>
-				<div class='col-sm-4 center-text'>
-					<span id='player_ia_text' class='label label-default'>Stupid AI: <span id='player_ia_value'>0</span></span>
-				</div>
-				<div class='col-sm-4 center-text'>
-					<span id='match_text' class='label label-default'>Match #<span id='match_value'>0</span></span>
-				</div>
-			</h1>				
+			<div class='col-sm-4 center-text'>
+				<h1><span id='player_score_text' class='label label-default' >Player: <span id='player_score_value'>0</span></span></h1>
+			</div>
+			<div class='col-sm-4 center-text'>
+				<h1><span id='player_ia_text' class='label label-default'>Stupid AI: <span id='player_ia_value'>0</span></span></h1>
+			</div>
+			<div class='col-sm-4 center-text'>
+				<h1><span id='match_text' class='label label-default'>Match #<span id='match_value'>0</span></span></h1>
+			</div>			
 		</div>
 
 		<!-- Center -->
@@ -67,17 +65,15 @@
 
 		<!-- Footer -->
 		<div id='footer' class='row footer'>
-			<h2>
-				<div id='left_tools' class='center-text col-sm-3'>
-					<span id='restart_button' class='restart_button btn btn-lg btn-warning' onclick="myTris.restartMatch()">RESTART</span>
-				</div>
-				<div id='center_tools' class='center-text col-sm-3'>
-					<span id='msg_box' class='label label-default msg_box'></span>
-				</div>
-				<div id='right_tools' class='center-text col-sm-6'>
-					<span id='reset_button' class='btn btn-lg btn-danger' onclick="myTris.resetAI()">RESET AI</span>
-				</div>
-			</h2>
+			<div id='left_tools' class='center-text col-sm-4'>
+				<h2><button id='restart_button' type="button" class="restart_button btn btn-warning btn-lg" onclick="myTris.restartMatch()">RESTART</button></h2>
+			</div>
+			<div id='center_tools' class='center-text col-sm-4'>
+				<h2><span id='msg_box' class='label label-default msg_box'></span></h2>
+			</div>
+			<div id='right_tools' class='center-text col-sm-4'>
+				<h2><button id='reset_button' type="button" class="btn btn-danger btn-lg" onclick="myTris.resetAI()">RESET AI</button></h2>
+			</div>
 		</div>
 
 	</div>
