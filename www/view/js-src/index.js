@@ -1,5 +1,6 @@
 import {myTris} from './myTris.js';
 import {scoreManager} from './scoreManager.js';
+import './../style/main.css';
 
 $(document).ready(function() {
 
