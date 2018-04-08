@@ -1,3 +1,5 @@
+import {scoreManager} from './scoreManager.js';
+
 export var myTris = {
 
     //////////////	
@@ -24,13 +26,15 @@ export var myTris = {
         if (myTris.stateOfMatch == 0) return;
 
         //Get clicked square id
-        if ((matched = e.target.id.match(/td-(\d)-(\d)/)) == null) return;
+        var matched = e.target.id.match(/td-(\d)-(\d)/);
+        if (matched == null) return;
 
         //Make current move for player
         myTris.makeMove(matched[1], matched[2], 'player');
 
         //Check if match ended
-        if ((current_result = myTris.checkCurrentState(myTris.field)) !== 6) {
+        var current_result = myTris.checkCurrentState(myTris.field);
+        if (current_result !== 6) {
             myTris.manageResults(current_result);
             return;
         }
@@ -112,7 +116,7 @@ export var myTris = {
                 $("#reset_button").css("visibility", 'visible');
                 break;
             case 5:
-                scoreManager.saveScore('ia');
+                scoreManager.saveScore('ai');
                 myTris.stateOfMatch = 0;
                 $("#msg_box").css("visibility", 'visible');
                 $("#msg_box").text("Stupid IA won!");
@@ -121,29 +125,12 @@ export var myTris = {
                 break;
         }
 
-        var read_promise = new Promise(
-            function(resolve, reject) {
-                resolve(scoreManager.readScore());
-            }
-        );
+        //Read current score ad set results
+        var current_situation = scoreManager.readScore()
+        $("#player_score_value").text(current_situation['currentPlayerScore']);
+        $("#player_ia_value").text(current_situation['currentAiScore']);
+        $("#match_value").text(current_situation['currentRound']);
 
-        read_promise.then(
-            function(response) {
-                var current_round = 0;
-                var player_score = 0; 
-                var ia_score = 0;
-                for (var key in response) {
-                    if (response.hasOwnProperty(key)) {
-                        current_round = response[key]['round'];
-                        player_score = player_score + +response[key]['player'];
-                        ia_score = ia_score + +response[key]['ia'];
-                        $("#player_score_value").text(player_score);
-                        $("#player_ia_value").text(ia_score);
-                        $("#match_value").text(current_round);
-                    }
-                }
-            }
-        );
     },
 
 
