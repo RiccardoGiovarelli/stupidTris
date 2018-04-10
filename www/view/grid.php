@@ -42,25 +42,25 @@
 
 		<!-- Center -->
 		<div id='center' class='row center'>
-			<h1>
-				<table id='tris_grid' class='table'>
+			<div id='tris_grid_container' class='col-sm-12 center-text grid_container'>
+				<table id='tris_grid' class='tris_grid table'>
 					<tr>
-						<td id='td-1-1'><span id='1-1'>0</span></td>
-						<td id='td-1-2'><span id='1-2'>0</span></td>
-						<td id='td-1-3'><span id='1-3'>0</span></td>
+						<td id='td-1-1'><span id='1-1'></span></td>
+						<td id='td-1-2'><span id='1-2'></span></td>
+						<td id='td-1-3'><span id='1-3'></span></td>
 					</tr>
 					<tr>
-						<td id='td-2-1'><span id='2-1'>0</span></td>
-						<td id='td-2-2'><span id='2-2'>0</span></td>
-						<td id='td-2-3'><span id='2-3'>0</span></td>
+						<td id='td-2-1'><span id='2-1'></span></td>
+						<td id='td-2-2'><span id='2-2'></span></td>
+						<td id='td-2-3'><span id='2-3'></span></td>
 					</tr>
 					<tr>
-						<td id='td-3-1'><span id='3-1'>0</span></td>
-						<td id='td-3-2'><span id='3-2'>0</span></td>
-						<td id='td-3-3'><span id='3-3'>0</span></td>
+						<td id='td-3-1'><span id='3-1'></span></td>
+						<td id='td-3-2'><span id='3-2'></span></td>
+						<td id='td-3-3'><span id='3-3'></span></td>
 					</tr>
 				</table>
-			</h1>
+			</div>
 		</div>
 
 		<!-- Footer -->
@@ -69,7 +69,7 @@
 				<h2><button id='restart_button' type="button" class="restart_button btn btn-warning btn-lg" onclick="myTris.restartMatch()">RESTART</button></h2>
 			</div>
 			<div id='center_tools' class='center-text col-sm-4'>
-				<h2><span id='msg_box' class='label label-default msg_box'></span></h2>
+				<h2><span id='msg_box' class='label label-default msg_box'>Play!</span></h2>
 			</div>
 			<div id='right_tools' class='center-text col-sm-4'>
 				<h2><button id='reset_button' type="button" class="btn btn-danger btn-lg" onclick="myTris.resetAI()">RESET AI</button></h2>
