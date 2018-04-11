@@ -7,8 +7,8 @@ export var myTris = {
     //////////////
     stateOfScoreTable: [],
     stateOfMatch: 1,
-    faX: 'fa fa-times',
-    fa0: 'fa fa-circle-o',
+    faX: 'fas fa-times',
+    fa0: 'far fa-circle',
     field: [
         [0, 0, 0],
         [0, 0, 0],
@@ -82,12 +82,12 @@ export var myTris = {
     makeMove: function(x, y, who) {
         switch (who) {
             case 'player':
-                $("#" + x + "-" + y).addClass(myTris.faX);
+                $("#" + x + "-" + y).append( "<i class='" + myTris.faX + "'></i>" );
                 myTris.field[x - 1][y - 1] = 1;
                 return true;
                 break;
             case 'ia':
-                $("#" + (+x + 1) + "-" + (+y + 1)).addClass(myTris.fa0);
+                $("#" + (+x + 1) + "-" + (+y + 1)).append( "<i class='" + myTris.fa0 + "'></i>" );
                 myTris.field[x][y] = 2;
                 return true;
                 break;

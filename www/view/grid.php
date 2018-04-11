@@ -5,11 +5,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="../lib/font-awesome-4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 <script src="../lib/jquery/jquery-3.3.1/jquery-3.3.1.js"></script>
 <script src="../lib/jquery/carhartl-jquery-cookie-92b7715/jquery.cookie.js"></script>
+<script src="../lib/font-awesome-5.0.10/fontawesome-all.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <title>Indice</title>
 </head>
@@ -41,8 +41,8 @@
 		</div>
 
 		<!-- Center -->
-		<div id='center' class='row center'>
-			<div id='tris_grid_container' class='col-sm-12 center-text grid_container'>
+		<div id='center' class='row center-text'>
+			<div id='tris_grid_container' class='col-sm-8 col-sm-offset-2 grid_container'>
 				<table id='tris_grid' class='tris_grid table'>
 					<tr>
 						<td id='td-1-1'><span id='1-1'></span></td>
