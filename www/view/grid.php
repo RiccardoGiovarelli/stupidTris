@@ -11,10 +11,9 @@
 <script src="../lib/jquery/carhartl-jquery-cookie-92b7715/jquery.cookie.js"></script>
 <script src="../lib/font-awesome-5.0.10/fontawesome-all.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<title>Indice</title>
+<title>Stupid Tris</title>
 </head>
-<body></body>
-
+<body>
 	<div id='main_container' class='container'>
 
 		<!-- JS Import -->
@@ -41,26 +40,28 @@
 		</div>
 
 		<!-- Center -->
-		<div id='center' class='row center-text'>
-			<div id='tris_grid_container' class='col-sm-8 col-sm-offset-2 grid_container'>
-				<table id='tris_grid' class='tris_grid table'>
-					<tr>
-						<td id='td-1-1'><span id='1-1'></span></td>
-						<td id='td-1-2'><span id='1-2'></span></td>
-						<td id='td-1-3'><span id='1-3'></span></td>
-					</tr>
-					<tr>
-						<td id='td-2-1'><span id='2-1'></span></td>
-						<td id='td-2-2'><span id='2-2'></span></td>
-						<td id='td-2-3'><span id='2-3'></span></td>
-					</tr>
-					<tr>
-						<td id='td-3-1'><span id='3-1'></span></td>
-						<td id='td-3-2'><span id='3-2'></span></td>
-						<td id='td-3-3'><span id='3-3'></span></td>
-					</tr>
-				</table>
+		<div id='center' class='center-container'>
+			<div class="ghost-column"></div>
+			<div id='tris_grid_container' class='grid_container'>
+				<div id='tris_grid' class='tris_grid'>
+					<div id='tr-1' class='tris_row'>
+						<div id='td-1-1'><span id='1-1'></span></div>
+						<div id='td-1-2'><span id='1-2'></span></div>
+						<div id='td-1-3'><span id='1-3'></span></div>
+					</div>
+					<div id='tr-2' class='tris_row'>
+						<div id='td-2-1'><span id='2-1'></span></div>
+						<div id='td-2-2'><span id='2-2'></span></div>
+						<div id='td-2-3'><span id='2-3'></span></div>
+					</div>
+					<div id='tr-3' class='tris_row'>
+						<div id='td-3-1'><span id='3-1'></span></div>
+						<div id='td-3-2'><span id='3-2'></span></div>
+						<div id='td-3-3'><span id='3-3'></span></div>
+					</div>
+				</div>
 			</div>
+			<div class="ghost-column"></div>
 		</div>
 
 		<!-- Footer -->
@@ -77,7 +78,6 @@
 		</div>
 
 	</div>
-
 </body>
 
 </html>

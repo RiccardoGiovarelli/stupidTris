@@ -6,6 +6,9 @@
 .top_bar {
     margin-bottom: 10px;
 }
+.footer {
+    width: 100%;
+}
 body {
     background-color: #bdbdbd;
 }
@@ -16,37 +19,54 @@ body {
 
 /* Grid  <START> */
 
+.center-container {
+    width: 100%;
+}
+
 .grid_container {
-    height: 50vw;
-    max-height: 450px;
+    float: left;
+    display: list-item;
+    width: 60%;
+    height: 100%;
 }
 
-.tris_grid {
-	border: 0px;
-	width: 100%;
-	height: 100%;
-    border-spacing: 8px;
-    color: darkred;
-    border-collapse: separate;
-    max-width: 470px;
+.ghost-column {
+    width: 20%;
+    height: 100%;
+    float: left;
+    display: list-item;
 }
 
-.tris_grid td {
-	background-color: white;
-	border: none;
-	width: 33.3%;
-	height: 33.3%;
-    box-shadow: 10px 8px 10px grey;
+.tris_grid{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
 }
-
-.tris_grid td span {
-	background-color: white;
-	position: relative;
-	width: 100%;
-	font-size: 5vmin;
+  
+.tris_grid > div {
+    margin: 10px;
     text-align: center;
-    vertical-align: middle;
-    line-height: 12vw; 
+    line-height: 75px;
+    font-size: 30px;
+}
+
+.tris_row {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 33.3%;
+}
+
+.tris_row > div {
+    margin: 10px;
+    text-align: center;
+    line-height: 75px;
+    font-size: 30px;
+    border-style: solid;
+    border-width: 5px;
+    width: 33.3%;
+	height: 100%;
 }
 
 /* Grid  <STOP> */
