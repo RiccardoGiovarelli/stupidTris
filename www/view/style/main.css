@@ -11,6 +11,7 @@
 }
 body {
     background-color: #bdbdbd;
+    min-width: 600px;
 }
 
 /* CSS General  <STOP> */
@@ -47,8 +48,7 @@ body {
 .tris_grid > div {
     margin: 10px;
     text-align: center;
-    line-height: 75px;
-    font-size: 30px;
+    font-size: 8vw;
 }
 
 .tris_row {
@@ -58,11 +58,15 @@ body {
     height: 33.3%;
 }
 
+.tris_row span {
+    margin-top: 15%;
+    display: block;
+}
+
 .tris_row > div {
     margin: 10px;
     text-align: center;
     line-height: 75px;
-    font-size: 30px;
     border-style: solid;
     border-width: 5px;
     width: 33.3%;

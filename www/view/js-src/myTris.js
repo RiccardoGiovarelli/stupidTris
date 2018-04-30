@@ -78,6 +78,19 @@ export var myTris = {
     },
 
 
+    //Manage buttons click
+    manageFooter: function(e) {
+        switch (e.target.id) {
+            case 'restart_button':
+                myTris.restartMatch();
+                break;
+            case 'reset_button':
+                myTris.resetAI();
+                break;
+        }
+    },
+
+
     //Make move (graphic)
     makeMove: function(x, y, who) {
         switch (who) {
@@ -91,7 +104,6 @@ export var myTris = {
                 myTris.field[x][y] = 2;
                 return true;
                 break;
-                return false;
         }
     },
 
@@ -150,8 +162,9 @@ export var myTris = {
     restartMatch: function() {
         myTris.stateOfMatch = 1;
         myTris.cleanField(myTris.field);
-        $("#msg_box").css("visibility", 'hidden');
-        $("#restart_button").css("visibility", 'hidden');
+        $.cookie(scoreManager.round_cookie_name, 1);
+        $.cookie(scoreManager.ai_cookie_name, 0);
+        $.cookie(scoreManager.player_cookie_name, 0);
     },
 
 

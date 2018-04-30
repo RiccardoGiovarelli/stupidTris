@@ -8,9 +8,12 @@ $(document).ready(function() {
     //Init objects play object
     var nowWePlayTris = Object.create(myTris);
 
-    //Add click listener on table
+    //Add click listeners
     document.getElementById("tris_grid").addEventListener("click", function(e) {
         nowWePlayTris.manageMove(e);
+    });
+    document.getElementById("footer").addEventListener("click", function(e) {
+        nowWePlayTris.manageFooter(e);
     });
 
     //Check window resize

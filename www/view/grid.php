@@ -11,13 +11,11 @@
 <script src="../lib/jquery/carhartl-jquery-cookie-92b7715/jquery.cookie.js"></script>
 <script src="../lib/font-awesome-5.0.10/fontawesome-all.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="./js-dist/bundle.js"></script>
 <title>Stupid Tris</title>
 </head>
 <body>
 	<div id='main_container' class='container'>
-
-		<!-- JS Import -->
-		<script src="./js-dist/bundle.js"></script>
 
 		<!-- Title -->
 		<div class='jumbotron'>
@@ -67,13 +65,13 @@
 		<!-- Footer -->
 		<div id='footer' class='row footer'>
 			<div id='left_tools' class='center-text col-sm-4'>
-				<h2><button id='restart_button' type="button" class="restart_button btn btn-warning btn-lg" onclick="myTris.restartMatch()">RESTART</button></h2>
+				<h2><button id='restart_button' type="button" class="restart_button btn btn-warning btn-lg">RESTART</button></h2>
 			</div>
 			<div id='center_tools' class='center-text col-sm-4'>
 				<h2><span id='msg_box' class='label label-default msg_box'>Play!</span></h2>
 			</div>
 			<div id='right_tools' class='center-text col-sm-4'>
-				<h2><button id='reset_button' type="button" class="btn btn-danger btn-lg" onclick="myTris.resetAI()">RESET AI</button></h2>
+				<h2><button id='reset_button' type="button" class="btn btn-danger btn-lg">RESET AI</button></h2>
 			</div>
 		</div>
 
