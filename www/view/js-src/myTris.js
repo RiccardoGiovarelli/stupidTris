@@ -114,26 +114,17 @@ export var myTris = {
         switch (state) {
             case 3:
                 myTris.stateOfMatch = 0;
-                $("#msg_box").css("visibility", 'visible');
                 $("#msg_box").text("Even!");
-                $("#restart_button").css("visibility", 'visible');
-                $("#reset_button").css("visibility", 'visible');
                 break;
             case 4:
                 scoreManager.saveScore('player');
                 myTris.stateOfMatch = 0;
-                $("#msg_box").css("visibility", 'visible');
                 $("#msg_box").text("You won!");
-                $("#restart_button").css("visibility", 'visible');
-                $("#reset_button").css("visibility", 'visible');
                 break;
             case 5:
                 scoreManager.saveScore('ai');
                 myTris.stateOfMatch = 0;
-                $("#msg_box").css("visibility", 'visible');
                 $("#msg_box").text("Stupid IA won!");
-                $("#restart_button").css("visibility", 'visible');
-                $("#reset_button").css("visibility", 'visible');
                 break;
         }
 
@@ -151,7 +142,7 @@ export var myTris = {
         for (var x = 0; x < field.length; x++) {
             var line = field[x];
             for (var y = 0; y < line.length; y++) {
-                $("#" + (x + +1) + "-" + (y + +1)).removeClass(myTris.faX + " " + myTris.fa0);
+                $("#" + (x + +1) + "-" + (y + +1)).empty();
                 myTris.field[x][y] = 0;
             }
         }
@@ -162,9 +153,7 @@ export var myTris = {
     restartMatch: function() {
         myTris.stateOfMatch = 1;
         myTris.cleanField(myTris.field);
-        $.cookie(scoreManager.round_cookie_name, 1);
-        $.cookie(scoreManager.ai_cookie_name, 0);
-        $.cookie(scoreManager.player_cookie_name, 0);
+        $("#msg_box").text("Play!");
     },
 
 
@@ -173,9 +162,12 @@ export var myTris = {
         scoreManager.resetScore();
         myTris.stateOfMatch = 1;
         myTris.cleanField(myTris.field);
-        $("#msg_box").css("visibility", 'hidden');
-        $("#restart_button").css("visibility", 'hidden');
-        $("#reset_button").css("visibility", 'hidden');
+        $.cookie(scoreManager.ai_cookie_name, 0);
+        $.cookie(scoreManager.player_cookie_name, 0);
+        $("#player_score_value").text("0");
+        $("#player_ia_value").text("0");
+        $("#msg_box").text("Play!");
+        $("#match_value").text("1");
     },
 
 
