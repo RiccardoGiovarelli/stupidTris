@@ -1,6 +1,5 @@
 import 'babel-polyfill';
 import MyTris from './myTris';
-import ScoreManager from './scoreManager';
 import './../style/main.css';
 
 $(document).ready(() => {
@@ -19,12 +18,8 @@ $(document).ready(() => {
     $('.center-container').height($('#tris_grid_container').width());
   });
 
-  // Read current score ad set results
-  const currentSituation = ScoreManager.readScore();
-  $('#player_score_value').text(currentSituation.currentPlayerScore);
-  $('#player_ia_value').text(currentSituation.currentAiScore);
-  $('#match_value').text(currentSituation.currentRound);
-  if (currentSituation.currentRound === 0) $('#reset_button').css('visibility', 'hidden');
+  // Paint current results
+  MyTris.paintResults();
 
   // Set table height
   $('.center-container').height($('#tris_grid_container').width());
