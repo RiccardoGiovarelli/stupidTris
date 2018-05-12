@@ -1,7 +1,10 @@
 const path = require('path');
 
 module.exports = {
-  entry: './view/js-src/index.js',
+  entry: [
+    'babel-polyfill',
+    './view/js-src/index.js',
+  ],
   output: {
     filename: 'bundle.js',
     path: __dirname + "/view/js-dist",

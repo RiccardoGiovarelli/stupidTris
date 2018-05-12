@@ -1,40 +1,31 @@
-import {myTris} from './myTris.js';
-import {scoreManager} from './scoreManager.js';
+import 'babel-polyfill';
+import MyTris from './myTris';
+import ScoreManager from './scoreManager';
 import './../style/main.css';
 
-$(document).ready(function() {
+$(document).ready(() => {
+  const myTrisObj = new MyTris();
 
-  //Add event listener
-  document.getElementById("tris_grid").addEventListener("click", function(e) {
-      nowWePlayTris.manageMove(e);
+  // Add click listeners
+  document.getElementById('tris_grid').addEventListener('click', (e) => {
+    myTrisObj.manageMove(e);
+  });
+  document.getElementById('footer').addEventListener('click', (e) => {
+    myTrisObj.manageFooter(e);
   });
 
-  //Init objects play object
-  var nowWePlayTris = Object.create(myTris);
+  // Check window resize
+  $(window).resize(() => {
+    $('.center-container').height($('#tris_grid_container').width());
+  });
 
-  //Read current score ad set results
-  var read_promise = new Promise(
-      function(resolve, reject) {
-          resolve(scoreManager.readScore());
-      }
-  );
+  // Read current score ad set results
+  const currentSituation = ScoreManager.readScore();
+  $('#player_score_value').text(currentSituation.currentPlayerScore);
+  $('#player_ia_value').text(currentSituation.currentAiScore);
+  $('#match_value').text(currentSituation.currentRound);
+  if (currentSituation.currentRound === 0) $('#reset_button').css('visibility', 'hidden');
 
-  read_promise.then(
-      function(response) {
-          var current_round = 0;
-          var player_score = 0;
-          var ia_score = 0;
-          for (var key in response) {
-              if (response.hasOwnProperty(key)) {
-                  current_round = response[key]['round'];
-                  player_score = player_score + +response[key]['player'];
-                  ia_score = ia_score + +response[key]['ia'];
-                  $("#player_score_value").text(player_score);
-                  $("#player_ia_value").text(ia_score);
-                  $("#match_value").text(current_round);
-                  if (current_round == 0) $("#reset_button").css("visibility", 'hidden');
-              }
-            }
-      }
-  );
+  // Set table height
+  $('.center-container').height($('#tris_grid_container').width());
 });

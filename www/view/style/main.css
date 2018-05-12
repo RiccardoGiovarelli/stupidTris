@@ -1,23 +1,76 @@
 /* CSS General  <START> */
 
 .center-text {
-	text-align: center;
+    text-align: center;
 }
-.right-text {
-	text-align: right;
+.top_bar {
+    margin-bottom: 10px;
 }
+.footer {
+    width: 100%;
+}
+body {
+    background-color: #bdbdbd;
+    min-width: 600px;
+}
+
 /* CSS General  <STOP> */
 
 
 
-/* Message Box  <START> */
+/* Grid  <START> */
 
-.msg_box {
-    visibility: hidden;
+.center-container {
+    width: 100%;
 }
 
-.restart_button {
-    visibility: hidden;
+.grid_container {
+    float: left;
+    display: list-item;
+    width: 60%;
+    height: 100%;
 }
 
-/* Message Box  <STOP> */
+.ghost-column {
+    width: 20%;
+    height: 100%;
+    float: left;
+    display: list-item;
+}
+
+.tris_grid{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+  
+.tris_grid > div {
+    margin: 10px;
+    text-align: center;
+    font-size: 8vw;
+}
+
+.tris_row {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 33.3%;
+}
+
+.tris_row span {
+    margin-top: 15%;
+    display: block;
+}
+
+.tris_row > div {
+    margin: 10px;
+    text-align: center;
+    line-height: 75px;
+    border-style: solid;
+    border-width: 5px;
+    width: 33.3%;
+	height: 100%;
+}
+
+/* Grid  <STOP> */

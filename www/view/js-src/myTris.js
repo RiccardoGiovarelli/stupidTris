@@ -1,262 +1,229 @@
-export var myTris = {
+import ScoreManager from './scoreManager';
+import GameEngine from './gameEngine';
 
-    //////////////	
-    //Properties//
-    //////////////
-    stateOfScoreTable: [],
-    stateOfMatch: 1,
-    faX: 'fa fa-times',
-    fa0: 'fa fa-circle-o',
-    field: [
-        [0, 0, 0],
-        [0, 0, 0],
-        [0, 0, 0]
-    ],
+export default class MyTris {
+  constructor() {
+    this.stateOfScoreTable = [];
+    this.stateOfMatch = 1;
+    this.faX = 'fas fa-times';
+    this.fa0 = 'far fa-circle';
+    this.field = [
+      [0, 0, 0],
+      [0, 0, 0],
+      [0, 0, 0],
+    ];
+  }
 
+  // Manage the current move
+  manageMove(e) {
+    if (this.stateOfMatch === 0) return;
 
-    ///////////
-    //Methods//
-    ///////////
+    // Get clicked square id
+    const matched = e.target.id.match(/td-(\d)-(\d)/);
+    if (matched == null) return;
 
-    //Manage the current move
-    manageMove: function(e) {
+    // Make current move for player
+    this.makeMove(matched[1], matched[2], 'player');
 
-        if (myTris.stateOfMatch == 0) return;
+    // Check if match ended
+    let currentResult = MyTris.checkCurrentState(this.field);
 
-        //Get clicked square id
-        if ((matched = e.target.id.match(/td-(\d)-(\d)/)) == null) return;
-
-        //Make current move for player
-        myTris.makeMove(matched[1], matched[2], 'player');
-
-        //Check if match ended
-        if ((current_result = myTris.checkCurrentState(myTris.field)) !== 6) {
-            myTris.manageResults(current_result);
-            return;
-        }
-
-        var response_promise = new Promise(
-
-            function(resolve, reject) {
-
-                var nextMove = '';
-
-                //New Ajax
-                var xhttp = new XMLHttpRequest();
-
-                //State management
-                xhttp.onreadystatechange = function() {
-                    if (xhttp.readyState === 4 && xhttp.status === 200) {
-                        resolve(JSON.parse(xhttp.responseText));
-                    }
-                };
-
-                //Ajax call
-                xhttp.open("POST", "../controller/tris_controller.php", true);
-                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                xhttp.send("request=nextMoveRequest" + "&currentGrid=" + myTris.field);
-            }
-        );
-
-        response_promise.then(
-
-            function(response) {
-
-                myTris.makeMove(response[0], response[1], 'ia');
-
-                //Check if match ended
-                if ((current_result = myTris.checkCurrentState(myTris.field)) !== 6) {
-                    myTris.manageResults(current_result);
-                    return;
-                }
-            }
-        );
-    },
-
-
-    //Make move (graphic)
-    makeMove: function(x, y, who) {
-        switch (who) {
-            case 'player':
-                $("#" + x + "-" + y).addClass(myTris.faX);
-                myTris.field[x - 1][y - 1] = 1;
-                return true;
-                break;
-            case 'ia':
-                $("#" + (+x + 1) + "-" + (+y + 1)).addClass(myTris.fa0);
-                myTris.field[x][y] = 2;
-                return true;
-                break;
-                return false;
-        }
-    },
-
-
-    //Manage final results
-    manageResults: function(state) {
-
-        switch (state) {
-            case 3:
-                myTris.stateOfMatch = 0;
-                $("#msg_box").css("visibility", 'visible');
-                $("#msg_box").text("Even!");
-                $("#restart_button").css("visibility", 'visible');
-                $("#reset_button").css("visibility", 'visible');
-                break;
-            case 4:
-                scoreManager.saveScore('player');
-                myTris.stateOfMatch = 0;
-                $("#msg_box").css("visibility", 'visible');
-                $("#msg_box").text("You won!");
-                $("#restart_button").css("visibility", 'visible');
-                $("#reset_button").css("visibility", 'visible');
-                break;
-            case 5:
-                scoreManager.saveScore('ia');
-                myTris.stateOfMatch = 0;
-                $("#msg_box").css("visibility", 'visible');
-                $("#msg_box").text("Stupid IA won!");
-                $("#restart_button").css("visibility", 'visible');
-                $("#reset_button").css("visibility", 'visible');
-                break;
-        }
-
-        var read_promise = new Promise(
-            function(resolve, reject) {
-                resolve(scoreManager.readScore());
-            }
-        );
-
-        read_promise.then(
-            function(response) {
-                var current_round = 0;
-                var player_score = 0; 
-                var ia_score = 0;
-                for (var key in response) {
-                    if (response.hasOwnProperty(key)) {
-                        current_round = response[key]['round'];
-                        player_score = player_score + +response[key]['player'];
-                        ia_score = ia_score + +response[key]['ia'];
-                        $("#player_score_value").text(player_score);
-                        $("#player_ia_value").text(ia_score);
-                        $("#match_value").text(current_round);
-                    }
-                }
-            }
-        );
-    },
-
-
-    //Clean field
-    cleanField: function(field) {
-        for (var x = 0; x < field.length; x++) {
-            var line = field[x];
-            for (var y = 0; y < line.length; y++) {
-                $("#" + (x + +1) + "-" + (y + +1)).removeClass(myTris.faX + " " + myTris.fa0);
-                myTris.field[x][y] = 0;
-            }
-        }
-    },
-
-
-    //Restart match
-    restartMatch: function() {
-        myTris.stateOfMatch = 1;
-        myTris.cleanField(myTris.field);
-        $("#msg_box").css("visibility", 'hidden');
-        $("#restart_button").css("visibility", 'hidden');
-    },
-
-
-    //Reset IA and match
-    resetAI: function() {
-        scoreManager.resetScore();
-        myTris.stateOfMatch = 1;
-        myTris.cleanField(myTris.field);
-        $("#msg_box").css("visibility", 'hidden');
-        $("#restart_button").css("visibility", 'hidden');
-        $("#reset_button").css("visibility", 'hidden');
-    },
-
-
-    //Check current field state
-    checkCurrentState: function(field) {
-
-        //Check for winner in rows
-        for (var i = 0; i < field.length; i++) {
-            var player_hit = 0;
-            var stupid_ia_hit = 0;
-            var line = field[i];
-            for (var j = 0; j < line.length; j++) {
-                switch (line[j]) {
-                    case 1:
-                        player_hit++;
-                        break;
-                    case 2:
-                        stupid_ia_hit++;
-                        break;
-                }
-                if (player_hit === 3) return 4;
-                if (stupid_ia_hit === 3) return 5;
-            }
-        }
-
-        //Check for winner in column
-        for (var i = 0; i < field[0].length; i++) {
-            var player_hit = 0;
-            var stupid_ia_hit = 0;
-            for (var j = 0; j < field.length; j++) {
-                switch (field[j][i]) {
-                    case 1:
-                        player_hit++;
-                        break;
-                    case 2:
-                        stupid_ia_hit++;
-                        break;
-                }
-                if (player_hit === 3) return 4;
-                if (stupid_ia_hit === 3) return 5;
-            }
-        }
-
-        //Check for winneer in cross            
-        var player_hit_left = 0;
-        var player_hit_right = 0;
-        var stupid_ia_hit_left = 0;
-        var stupid_ia_hit_right = 0;
-        for (var i = 0; i < field.length; i++) {
-            switch (field[i][i]) {
-                case 1:
-                    player_hit_left++;
-                    break;
-                case 2:
-                    stupid_ia_hit_left++;
-                    break;
-            }
-            var reverse_i = field.length - i - 1;
-            switch (field[i][field.length - i - 1]) {
-                case 1:
-                    player_hit_right++;
-                    break;
-                case 2:
-                    stupid_ia_hit_right++;
-                    break;
-            }
-        }
-        if ((player_hit_left === 3) || (player_hit_right === 3)) return 4;
-        if ((stupid_ia_hit_left === 3) || (stupid_ia_hit_right === 3)) return 5;
-
-        //Check for even match
-        var count_box = 0;
-        for (var i = 0; i < field.length; i++) {
-            var line = field[i];
-            for (var j = 0; j < line.length; j++) {
-                if (line[j] !== 0) count_box++;
-            }
-        }
-        if (count_box === 9) return 3;
-
-        //No results
-        return 6;
+    if (currentResult !== 6) {
+      MyTris.manageResults(currentResult);
+      return;
     }
-};
+
+    // Get next move
+    const response = GameEngine.generateNextMove(this.field);
+
+    // Make move
+    this.makeMove(response[0], response[1], 'ia');
+
+    // Check if match ended
+    currentResult = MyTris.checkCurrentState(this.field);
+
+    if (currentResult !== 6) {
+      MyTris.manageResults(currentResult);
+    }
+  }
+
+  // Manage buttons click
+  static manageFooter(e) {
+    switch (e.target.id) {
+      case 'restart_button':
+        this.restartMatch();
+        return true;
+      case 'reset_button':
+        this.resetAI();
+        return true;
+      default:
+        return false;
+    }
+  }
+
+  // Make move (graphic)
+  makeMove(x, y, who) {
+    switch (who) {
+      case 'player':
+        $(`#${x}-${y}`).append(`<i class='${this.faX}'></i>`);
+        this.field[x - 1][y - 1] = 1;
+        return true;
+      case 'ia':
+        $(`#${+x + 1}-${+y + 1}`).append(`<i class='${this.fa0}'></i>`);
+        this.field[x][y] = 2;
+        return true;
+      default:
+        return false;
+    }
+  }
+
+  // Manage final results
+  static manageResults(state) {
+    switch (state) {
+      case 3:
+        this.stateOfMatch = 0;
+        $('#msg_box').text('Even!');
+        break;
+      case 4:
+        ScoreManager.saveScore('player');
+        this.stateOfMatch = 0;
+        $('#msg_box').text('You won!');
+        break;
+      case 5:
+        ScoreManager.saveScore('ai');
+        this.stateOfMatch = 0;
+        $('#msg_box').text('Stupid IA won!');
+        break;
+      default:
+        break;
+    }
+
+    // Read current score ad set results
+    const currentSituation = ScoreManager.readScore();
+    $('#player_score_value').text(currentSituation.currentPlayerScore);
+    $('#player_ia_value').text(currentSituation.currentAiScore);
+    $('#match_value').text(currentSituation.currentRound);
+  }
+
+
+  // Clean field
+  static cleanField(field) {
+    for (let x = 0; x < field.length; x += 1) {
+      const line = field[x];
+      for (let y = 0; y < line.length; y += 1) {
+        $(`#${x + +1}-${y + +1}`).empty();
+        this.field[x][y] = 0;
+      }
+    }
+  }
+
+
+  // Restart match
+  static restartMatch() {
+    this.stateOfMatch = 1;
+    this.cleanField(this.field);
+    $('#msg_box').text('Play!');
+  }
+
+
+  // Reset IA and match
+  static resetAI() {
+    ScoreManager.resetScore();
+    this.stateOfMatch = 1;
+    this.cleanField(this.field);
+    $.cookie(ScoreManager.ai_cookie_name, 0);
+    $.cookie(ScoreManager.player_cookie_name, 0);
+    $('#player_score_value').text('0');
+    $('#player_ia_value').text('0');
+    $('#msg_box').text('Play!');
+    $('#match_value').text('1');
+  }
+
+
+  // Check current field state
+  static checkCurrentState(field) {
+    // Check for winner in rows
+    for (let i = 0; i < field.length; i += 1) {
+      let playerHit = 0;
+      let stupidIaHit = 0;
+      const line = field[i];
+      for (let j = 0; j < line.length; j += 1) {
+        switch (line[j]) {
+          case 1:
+            playerHit += 1;
+            break;
+          case 2:
+            stupidIaHit += 1;
+            break;
+          default:
+            break;
+        }
+        if (playerHit === 3) return 4;
+        if (stupidIaHit === 3) return 5;
+      }
+    }
+
+    // Check for winner in column
+    for (let i = 0; i < field[0].length; i += 1) {
+      let playerHit = 0;
+      let stupidIaHit = 0;
+      for (let j = 0; j < field.length; j += 1) {
+        switch (field[j][i]) {
+          case 1:
+            playerHit += 1;
+            break;
+          case 2:
+            stupidIaHit += 1;
+            break;
+          default:
+            break;
+        }
+        if (playerHit === 3) return 4;
+        if (stupidIaHit === 3) return 5;
+      }
+    }
+
+    // Check for winneer in cross
+    let playerHitLeft = 0;
+    let playerHitRight = 0;
+    let stupidAiHitLeft = 0;
+    let stupidAiHitRight = 0;
+    for (let i = 0; i < field.length; i += 1) {
+      switch (field[i][i]) {
+        case 1:
+          playerHitLeft += 1;
+          break;
+        case 2:
+          stupidAiHitLeft += 1;
+          break;
+        default:
+          break;
+      }
+      switch (field[i][field.length - i - 1]) {
+        case 1:
+          playerHitRight += 1;
+          break;
+        case 2:
+          stupidAiHitRight += 1;
+          break;
+        default:
+          break;
+      }
+    }
+    if ((playerHitLeft === 3) || (playerHitRight === 3)) return 4;
+    if ((stupidAiHitLeft === 3) || (stupidAiHitRight === 3)) return 5;
+
+    // Check for even match
+    let countBox = 0;
+    for (let i = 0; i < field.length; i += 1) {
+      const line = field[i];
+      for (let j = 0; j < line.length; j += 1) {
+        if (line[j] !== 0) countBox += 1;
+      }
+    }
+    if (countBox === 9) return 3;
+
+    // No results
+    return 6;
+  }
+}

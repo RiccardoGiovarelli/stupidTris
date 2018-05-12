@@ -1,86 +1,44 @@
-export var scoreManager = {
+export default class ScoreManager {
+  constructor() {
+    this.roundCookieName = 'current-round';
+    this.aiCookieName = 'current-AI-score';
+    this.playerCookieName = 'current-PLAYER-score';
+  }
 
-    //Save score
-    saveScore: function(who) {
+  // Save score
+  static saveScore(who) {
+    const currentSituation = ScoreManager.readScore();
 
-        var save_promise = new Promise(
-
-            function(resolve, reject) {
-
-                //New Ajax
-                var xhttp = new XMLHttpRequest();
-
-                //State management
-                xhttp.onreadystatechange = function() {
-                    if (xhttp.readyState === 4 && xhttp.status === 200) {
-                        resolve(JSON.parse(xhttp.responseText));
-                    }
-                };
-
-                //Ajax call
-                xhttp.open("POST", "../controller/tris_controller.php", true);
-                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                xhttp.send("request=saveScore" + "&who=" + who);
-
-            }
-        );
-    },
-
-
-    //Reset score table
-    resetScore: function() {
-
-        var reset_promise = new Promise(
-
-            function(resolve, reject) {
-
-                //New Ajax
-                var xhttp = new XMLHttpRequest();
-
-                //State management
-                xhttp.onreadystatechange = function() {
-                    if (xhttp.readyState === 4 && xhttp.status === 200) {
-                        resolve(JSON.parse(xhttp.responseText));
-                    }
-                };
-
-                //Ajax call
-                xhttp.open("POST", "../controller/tris_controller.php", true);
-                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                xhttp.send("request=resetScoreTable");
-
-            }
-        );
-    },
-
-
-    //Read score table
-    readScore: function() {
-
-        var read_promise = new Promise(
-
-            function(resolve, reject) {
-
-                //New Ajax
-                var xhttp = new XMLHttpRequest();
-
-                //State management
-                xhttp.onreadystatechange = function() {
-                    if (xhttp.readyState === 4 && xhttp.status === 200) {
-                        resolve(JSON.parse(xhttp.responseText));
-                    }
-                };
-
-                //Ajax call
-                xhttp.open("POST", "../controller/tris_controller.php", true);
-                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                xhttp.send("request=readScoreTable");
-
-            }
-        );
-
-        read_promise.then();
-
-        return read_promise;
+    switch (who) {
+      case 'ai':
+        $.cookie(ScoreManager.roundCookieName, +currentSituation.currentRound + +1);
+        $.cookie(ScoreManager.aiCookieName, +currentSituation.currentAiScore + +1);
+        break;
+      case 'player':
+        $.cookie(ScoreManager.roundCookieName, +currentSituation.currentRound + +1);
+        $.cookie(ScoreManager.playerCookieName, +currentSituation.currentPlayerScore + +1);
+        break;
+      default:
+        break;
     }
+  }
+
+  // Reset score table
+  static resetScore() {
+  }
+
+  // Read score table
+  static readScore() {
+    const toReturn = [];
+
+    toReturn.round = $.cookie(ScoreManager.roundCookieName);
+    toReturn.aiScore = $.cookie(ScoreManager.aiCookieName);
+    toReturn.playerScore = $.cookie(ScoreManager.playerCookieName);
+
+    toReturn.round = (toReturn.round === undefined) ? 0 : toReturn.round;
+    toReturn.aiScore = (toReturn.aiScore === undefined) ? 0 : toReturn.aiScore;
+    toReturn.playerScore = (toReturn.playerScore === undefined) ? 0 : toReturn.playerScore;
+
+    return toReturn;
+  }
 }

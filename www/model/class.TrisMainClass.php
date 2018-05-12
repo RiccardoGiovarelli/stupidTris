@@ -8,71 +8,11 @@
 * @version 1.0 
 */
 class TrissMainClass {
-
-
+	
     protected $db_host = 'localhost';
     protected $db_user = 'root';
     protected $db_password = 'mysql';
     protected $db_name = 'StupidTris';
-
-
-	/**
-	 * Returns the score table current state 
-	 * 
-	 * @return	string	score table current state
-	 */
-	public function readScoreTable() {
-	
-		//DB connection
-		$connection = @mysqli_connect($this->db_host, $this->db_user , $this->db_password);
-		if (!$connection) {
-			$current_error = [
-				"success" => "false",
-				"error" => mysqli_connect_error()
-			];
-			echo json_encode($current_error, true);
-			return;
-		}
-		
-		//Executing query
-		$select_all_result = @mysqli_query($connection, "SELECT * FROM `StupidTris`.`st_score`");
-		if (!$select_all_result) {
-			$current_error = [
-				"success" => "false",
-				"error" => mysqli_error($connection)
-			];
-			echo json_encode($current_error, true);
-			@mysqli_close($connection);
-			return;
-		}
-		
-		//Building results
-		switch (mysqli_num_rows($select_all_result) > 0) {
-			
-			case true:
-				$i = 0;
-				while ($row = mysqli_fetch_array($select_all_result)) {
-					$select_results_array[$i]['round'] = $row['round'];
-					$select_results_array[$i]['player'] = $row['player'];
-					$select_results_array[$i]['ia'] = $row['ia'];
-					$i++;
-				}
-				echo json_encode($select_results_array, true);
-				break;
-
-			case false:
-				$select_results_array[0]['round'] = 0;
-				$select_results_array[0]['player'] = 0;
-				$select_results_array[0]['ia'] = 0;
-				echo json_encode($select_results_array, true);
-				break;
-				
-		}
-
-		@mysqli_close($connection);
-		return;
-	}
-
 
 	/**
 	 * Returns the next move for IA basing on current 
@@ -122,90 +62,4 @@ class TrissMainClass {
         if (count($result)) echo json_encode($result, true);
         return;
     }
-    
-    
-    /**
-	 * Save the score of match
-	 *
-	 * @param	who		the winner of the last match
-	 * @return	string	the result of save
-	 */
-    public function saveScore($who) {
-
-		//DB connection
-		$connection = @mysqli_connect($this->db_host, $this->db_user , $this->db_password);
-		if (!$connection) {
-			$current_error = [
-				"success" => "false",
-				"error" => mysqli_connect_error()
-			];
-			echo json_encode($current_error, true);
-			return;
-		}
-		
-		//Building query
-		switch ($who) {
-			case 'player':
-				$insert_query = "INSERT INTO `StupidTris`.`st_score` (`round`, `player`, `ia`) VALUES (NULL, '1', '0');";
-				break;
-			case 'ia':
-				$insert_query = "INSERT INTO `StupidTris`.`st_score` (`round`, `player`, `ia`) VALUES (NULL, '0', '1');";
-				break;		
-		}
-		
-		//Executing query
-		$insert_result = @mysqli_query($connection, $insert_query);
-		if (!$insert_result) {
-			$current_error = [
-				"success" => "false",
-				"error" => mysqli_error($connection)
-			];
-			echo json_encode($current_error, true);
-			@mysqli_close($connection);
-			return;
-		}
-		
-		//Results
-		echo json_encode(["success" => "true"], true);
-		@mysqli_close($connection);
-		return;
-	}
-	
-	
-	/**
-	 * Clear the table of score
-	 *
-	 * @return	string	the result of clear
-	 */
-	public function resetScoreTable() {
-		
-		//DB connection
-		$connection = @mysqli_connect($this->db_host, $this->db_user , $this->db_password);
-		if (!$connection) {
-			$current_error = [
-				"success" => "false",
-				"error" => mysqli_connect_error()
-			];
-			echo json_encode($current_error, true);
-			return;
-		}
-		
-		//Executing query
-		$truncate_result = @mysqli_query($connection, "TRUNCATE TABLE `StupidTris`.`st_score`");
-		if (!$truncate_result) {
-			$current_error = [
-				"success" => "false",
-				"error" => mysqli_error($connection)
-			];
-			echo json_encode($current_error, true);
-			@mysqli_close($connection);
-			return;
-		}
-		
-		//Results
-		echo json_encode(["success" => "true"], true);
-		@mysqli_close($connection);
-		return;
-	}
-	
 }
