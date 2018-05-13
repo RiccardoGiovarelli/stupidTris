@@ -39,7 +39,6 @@
 
 		<!-- Center -->
 		<div id='center' class='center-container'>
-			<div class="ghost-column"></div>
 			<div id='tris_grid_container' class='grid_container'>
 				<div id='tris_grid' class='tris_grid'>
 					<div id='tr-1' class='tris_row'>
@@ -59,7 +58,6 @@
 					</div>
 				</div>
 			</div>
-			<div class="ghost-column"></div>
 		</div>
 
 		<!-- Footer -->

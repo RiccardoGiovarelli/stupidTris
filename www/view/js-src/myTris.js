@@ -2,6 +2,12 @@ import ScoreManager from './scoreManager';
 import GameEngine from './gameEngine';
 
 
+/**
+* Class MyTris
+* Provides main tools for tris game management
+*
+* @author  Riccardo Giovarelli
+*/
 export default class MyTris {
   constructor() {
     this.stateOfScoreTable = [];
@@ -16,7 +22,13 @@ export default class MyTris {
   }
 
 
-  // Manage the current move
+  /**
+  * Method manageMove
+  *
+  * Manage the current move
+  *
+  * @param e Event to manage
+  */
   manageMove(e) {
     if (MyTris.stateOfMatch === 0) {
       return;
@@ -43,7 +55,13 @@ export default class MyTris {
   }
 
 
-  // Manage buttons click
+  /**
+   * Method manageFooter
+   *
+   * Manage buttons click
+   *
+   * @param e Event to manage
+   */
   manageFooter(e) {
     switch (e.target.id) {
       case 'restart_button':
@@ -58,7 +76,16 @@ export default class MyTris {
   }
 
 
-  // Make move (graphic)
+  /**
+   * Method makeMove
+   *
+   * Make move (graphic)
+   *
+   * @param x Abscissa
+   * @param y Ordinate
+   * @param who Who make the move
+   * @returns true on success, false on failure
+   */
   makeMove(x, y, who) {
     switch (who) {
       case 'player':
@@ -75,7 +102,13 @@ export default class MyTris {
   }
 
 
-  // Manage final results
+  /**
+   * Method manageResults
+   *
+   * Manage the current stat of match
+   *
+   * @param state Current stat of match
+   */
   static manageResults(state) {
     const scoreManagerObj = new ScoreManager();
     switch (state) {
@@ -101,7 +134,13 @@ export default class MyTris {
   }
 
 
-  // Clean field
+  /**
+   * Method cleanField
+   *
+   * Clean field
+   *
+   * @param field Filed for the current Tris match
+   */
   cleanField(field) {
     for (let x = 0; x < field.length; x += 1) {
       const line = field[x];
@@ -113,7 +152,11 @@ export default class MyTris {
   }
 
 
-  // Restart match
+  /**
+   * Method restartMatch
+   *
+   * Restart match
+   */
   restartMatch() {
     MyTris.stateOfMatch = 1;
     this.cleanField(this.field);
@@ -121,7 +164,11 @@ export default class MyTris {
   }
 
 
-  // Reset IA and match
+  /**
+   * Method resetAI
+   *
+   * Restart Reset IA and match
+   */
   resetAI() {
     const scoreManagerObj = new ScoreManager();
     scoreManagerObj.resetScore();
@@ -132,7 +179,11 @@ export default class MyTris {
   }
 
 
-  // Paint current results
+  /**
+   * Method paintResults
+   *
+   * Paint current results
+   */
   static paintResults() {
     const scoreManagerObj = new ScoreManager();
     const currentSituation = scoreManagerObj.readScore();
@@ -143,12 +194,20 @@ export default class MyTris {
   }
 
 
-  // Check current field state
+  /**
+   * Method checkCurrentState
+   *
+   * Check current field state
+   *
+   * @param field Filed for the current Tris match
+   * @returns 3 if the match is even, 4 if player wins,
+   * 5 if Ai win or 6 if there aren't results
+   */
   static checkCurrentState(field) {
     // Rows
     for (let i = 0; i < field.length; i += 1) {
       let playerHit = 0;
-      let stupidIaHit = 0;
+      let stupidAiHit = 0;
       const line = field[i];
       for (let j = 0; j < line.length; j += 1) {
         switch (line[j]) {
@@ -156,33 +215,33 @@ export default class MyTris {
             playerHit += 1;
             break;
           case 2:
-            stupidIaHit += 1;
+            stupidAiHit += 1;
             break;
           default:
             break;
         }
         if (playerHit === 3) return 4;
-        if (stupidIaHit === 3) return 5;
+        if (stupidAiHit === 3) return 5;
       }
     }
 
     // Column
     for (let i = 0; i < field[0].length; i += 1) {
       let playerHit = 0;
-      let stupidIaHit = 0;
+      let stupidAiHit = 0;
       for (let j = 0; j < field.length; j += 1) {
         switch (field[j][i]) {
           case 1:
             playerHit += 1;
             break;
           case 2:
-            stupidIaHit += 1;
+            stupidAiHit += 1;
             break;
           default:
             break;
         }
         if (playerHit === 3) return 4;
-        if (stupidIaHit === 3) return 5;
+        if (stupidAiHit === 3) return 5;
       }
     }
 

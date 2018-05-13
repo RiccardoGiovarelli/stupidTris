@@ -25,17 +25,9 @@ body {
 }
 
 .grid_container {
-    float: left;
-    display: list-item;
-    width: 60%;
-    height: 100%;
-}
-
-.ghost-column {
-    width: 20%;
-    height: 100%;
-    float: left;
-    display: list-item;
+    width: 50%;
+    margin: 0 auto;
+    max-width: 370px;
 }
 
 .tris_grid{
