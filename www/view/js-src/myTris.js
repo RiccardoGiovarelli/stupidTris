@@ -1,6 +1,7 @@
 import ScoreManager from './scoreManager';
 import GameEngine from './gameEngine';
 
+
 export default class MyTris {
   constructor() {
     this.stateOfScoreTable = [];
@@ -14,41 +15,36 @@ export default class MyTris {
     ];
   }
 
+
   // Manage the current move
   manageMove(e) {
-    if (this.stateOfMatch === 0) return;
+    if (MyTris.stateOfMatch === 0) {
+      return;
+    }
 
-    // Get clicked square id
     const matched = e.target.id.match(/td-(\d)-(\d)/);
     if (matched == null) return;
 
-    // Make current move for player
     this.makeMove(matched[1], matched[2], 'player');
 
-    // Check if match ended
     let currentResult = MyTris.checkCurrentState(this.field);
-
     if (currentResult !== 6) {
       MyTris.manageResults(currentResult);
       return;
     }
 
-    // Get next move
     const response = GameEngine.generateNextMove(this.field);
-
-    // Make move
     this.makeMove(response[0], response[1], 'ia');
 
-    // Check if match ended
     currentResult = MyTris.checkCurrentState(this.field);
-
     if (currentResult !== 6) {
       MyTris.manageResults(currentResult);
     }
   }
 
+
   // Manage buttons click
-  static manageFooter(e) {
+  manageFooter(e) {
     switch (e.target.id) {
       case 'restart_button':
         this.restartMatch();
@@ -60,6 +56,7 @@ export default class MyTris {
         return false;
     }
   }
+
 
   // Make move (graphic)
   makeMove(x, y, who) {
@@ -77,37 +74,35 @@ export default class MyTris {
     }
   }
 
+
   // Manage final results
   static manageResults(state) {
+    const scoreManagerObj = new ScoreManager();
     switch (state) {
       case 3:
-        this.stateOfMatch = 0;
+        MyTris.stateOfMatch = 0;
         $('#msg_box').text('Even!');
         break;
       case 4:
-        ScoreManager.saveScore('player');
-        this.stateOfMatch = 0;
+        MyTris.stateOfMatch = 0;
+        scoreManagerObj.saveScore('player');
         $('#msg_box').text('You won!');
         break;
       case 5:
-        ScoreManager.saveScore('ai');
-        this.stateOfMatch = 0;
+        MyTris.stateOfMatch = 0;
+        scoreManagerObj.saveScore('ai');
         $('#msg_box').text('Stupid IA won!');
         break;
       default:
         break;
     }
 
-    // Read current score ad set results
-    const currentSituation = ScoreManager.readScore();
-    $('#player_score_value').text(currentSituation.currentPlayerScore);
-    $('#player_ia_value').text(currentSituation.currentAiScore);
-    $('#match_value').text(currentSituation.currentRound);
+    MyTris.paintResults();
   }
 
 
   // Clean field
-  static cleanField(field) {
+  cleanField(field) {
     for (let x = 0; x < field.length; x += 1) {
       const line = field[x];
       for (let y = 0; y < line.length; y += 1) {
@@ -119,30 +114,38 @@ export default class MyTris {
 
 
   // Restart match
-  static restartMatch() {
-    this.stateOfMatch = 1;
+  restartMatch() {
+    MyTris.stateOfMatch = 1;
     this.cleanField(this.field);
     $('#msg_box').text('Play!');
   }
 
 
   // Reset IA and match
-  static resetAI() {
-    ScoreManager.resetScore();
-    this.stateOfMatch = 1;
+  resetAI() {
+    const scoreManagerObj = new ScoreManager();
+    scoreManagerObj.resetScore();
+    MyTris.stateOfMatch = 1;
     this.cleanField(this.field);
-    $.cookie(ScoreManager.ai_cookie_name, 0);
-    $.cookie(ScoreManager.player_cookie_name, 0);
-    $('#player_score_value').text('0');
-    $('#player_ia_value').text('0');
+    MyTris.paintResults();
     $('#msg_box').text('Play!');
-    $('#match_value').text('1');
+  }
+
+
+  // Paint current results
+  static paintResults() {
+    const scoreManagerObj = new ScoreManager();
+    const currentSituation = scoreManagerObj.readScore();
+    $('#player_score_value').text(currentSituation.playerScore);
+    $('#player_ia_value').text(currentSituation.aiScore);
+    $('#match_value').text(currentSituation.round);
+    if (currentSituation.round === 0) $('#reset_button').css('visibility', 'hidden');
   }
 
 
   // Check current field state
   static checkCurrentState(field) {
-    // Check for winner in rows
+    // Rows
     for (let i = 0; i < field.length; i += 1) {
       let playerHit = 0;
       let stupidIaHit = 0;
@@ -163,7 +166,7 @@ export default class MyTris {
       }
     }
 
-    // Check for winner in column
+    // Column
     for (let i = 0; i < field[0].length; i += 1) {
       let playerHit = 0;
       let stupidIaHit = 0;
@@ -183,7 +186,7 @@ export default class MyTris {
       }
     }
 
-    // Check for winneer in cross
+    // Cross
     let playerHitLeft = 0;
     let playerHitRight = 0;
     let stupidAiHitLeft = 0;
@@ -213,7 +216,7 @@ export default class MyTris {
     if ((playerHitLeft === 3) || (playerHitRight === 3)) return 4;
     if ((stupidAiHitLeft === 3) || (stupidAiHitRight === 3)) return 5;
 
-    // Check for even match
+    // Even
     let countBox = 0;
     for (let i = 0; i < field.length; i += 1) {
       const line = field[i];
