@@ -15,12 +15,12 @@ $(document).ready(() => {
 
   // Check window resize
   $(window).resize(() => {
-    $('.center-container').height($('#tris_grid_container').width());
+    $('#tris_grid').height($('#tris_grid_container').width());
   });
 
   // Paint current results
   MyTris.paintResults();
 
   // Set table height
-  $('.center-container').height($('#tris_grid_container').width());
+  $('#tris_grid').height($('#tris_grid_container').width());
 });

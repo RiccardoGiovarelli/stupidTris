@@ -1,4 +1,18 @@
+/**
+* Class GameEngine
+* Game engine class
+*
+* @author  Riccardo Giovarelli
+*/
 export default class GameEngine {
+  /**
+   * Method generateNextMove
+   *
+   * Generate next Stupid Ai move
+   *
+   * @param currentGrid The grid in the current match
+   * @returns array with coordinates of the next move
+   */
   static generateNextMove(currentGrid) {
     const result = [];
     const currentGridMono = [];

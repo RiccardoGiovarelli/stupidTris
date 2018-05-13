@@ -1,3 +1,9 @@
+/**
+* Class ScoreManager
+* Provides tools for the management of the score
+*
+* @author  Riccardo Giovarelli
+*/
 export default class ScoreManager {
   constructor() {
     this.roundCookieName = 'current-round';
@@ -6,7 +12,13 @@ export default class ScoreManager {
   }
 
 
-  // Save score
+  /**
+  * Method saveScore
+  *
+  * Update the score on cookie
+  *
+  * @param who Who gained the point
+  */
   saveScore(who) {
     const currentSituation = this.readScore();
 
@@ -25,7 +37,11 @@ export default class ScoreManager {
   }
 
 
-  // Reset score table
+  /**
+   * Method resetScore
+   *
+   * Reset score table
+   */
   resetScore() {
     $.cookie(this.roundCookieName, 0);
     $.cookie(this.playerCookieName, 0);
@@ -33,7 +49,11 @@ export default class ScoreManager {
   }
 
 
-  // Read score table
+  /**
+   * Method readScore
+   *
+   * Read score table
+   */
   readScore() {
     const toReturn = {};
 
