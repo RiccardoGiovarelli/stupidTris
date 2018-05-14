@@ -89,11 +89,11 @@ export default class MyTris {
   makeMove(x, y, who) {
     switch (who) {
       case 'player':
-        $(`#${x}-${y}`).append(`<i class='${this.faX}'></i>`);
+        document.getElementById(`${x}-${y}`).insertAdjacentHTML('afterbegin', `<i class='${this.faX}'></i>`);
         this.field[x - 1][y - 1] = 1;
         return true;
       case 'ia':
-        $(`#${+x + 1}-${+y + 1}`).append(`<i class='${this.fa0}'></i>`);
+        document.getElementById(`${+x + 1}-${+y + 1}`).insertAdjacentHTML('afterbegin', `<i class='${this.fa0}'></i>`);
         this.field[x][y] = 2;
         return true;
       default:
@@ -114,17 +114,17 @@ export default class MyTris {
     switch (state) {
       case 3:
         MyTris.stateOfMatch = 0;
-        $('#msg_box').text('Even!');
+        document.getElementById('msg_box').innerHTML = 'Even!';
         break;
       case 4:
         MyTris.stateOfMatch = 0;
         scoreManagerObj.saveScore('player');
-        $('#msg_box').text('You won!');
+        document.getElementById('msg_box').innerHTML = 'You won!';
         break;
       case 5:
         MyTris.stateOfMatch = 0;
         scoreManagerObj.saveScore('ai');
-        $('#msg_box').text('Stupid IA won!');
+        document.getElementById('msg_box').innerHTML = 'Stupid IA won!';
         break;
       default:
         break;
@@ -145,7 +145,7 @@ export default class MyTris {
     for (let x = 0; x < field.length; x += 1) {
       const line = field[x];
       for (let y = 0; y < line.length; y += 1) {
-        $(`#${x + +1}-${y + +1}`).empty();
+        document.getElementById(`${x + +1}-${y + +1}`).innerHTML = '';
         this.field[x][y] = 0;
       }
     }
@@ -160,7 +160,7 @@ export default class MyTris {
   restartMatch() {
     MyTris.stateOfMatch = 1;
     this.cleanField(this.field);
-    $('#msg_box').text('Play!');
+    document.getElementById('msg_box').innerHTML = 'Play!';
   }
 
 
@@ -175,7 +175,7 @@ export default class MyTris {
     MyTris.stateOfMatch = 1;
     this.cleanField(this.field);
     MyTris.paintResults();
-    $('#msg_box').text('Play!');
+    document.getElementById('msg_box').innerHTML = 'Play!';
   }
 
 
