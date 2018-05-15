@@ -1,4 +1,5 @@
 import 'babel-polyfill';
+import 'bootstrap';
 import MyTris from './myTris';
 import './../style/main.css';
 
@@ -15,12 +16,14 @@ $(document).ready(() => {
 
   // Check window resize
   $(window).resize(() => {
-    $('#tris_grid').height($('#tris_grid_container').width());
+    const currentHeight = `${document.getElementById('tris_grid_container').offsetWidth}px`;
+    document.getElementById('tris_grid').style.height = currentHeight;
   });
 
   // Paint current results
   MyTris.paintResults();
 
   // Set table height
-  $('#tris_grid').height($('#tris_grid_container').width());
+  const currentHeight = `${document.getElementById('tris_grid_container').offsetWidth}px`;
+  document.getElementById('tris_grid').style.height = currentHeight;
 });

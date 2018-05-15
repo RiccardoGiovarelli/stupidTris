@@ -1,3 +1,5 @@
+import * as TrisLib from './trisLib';
+
 /**
 * Class ScoreManager
 * Provides tools for the management of the score
@@ -21,15 +23,18 @@ export default class ScoreManager {
   */
   saveScore(who) {
     const currentSituation = this.readScore();
+    const currentRound = +currentSituation.round + +1;
+    const currentAiScore = +currentSituation.aiScore + +1;
+    const currentPlayScore = +currentSituation.playerScore + +1;
 
     switch (who) {
       case 'ai':
-        $.cookie(this.roundCookieName, +currentSituation.round + +1);
-        $.cookie(this.aiCookieName, +currentSituation.aiScore + +1);
+        document.cookie = `${this.roundCookieName}=${currentRound}`;
+        document.cookie = `${this.aiCookieName}=${currentAiScore}`;
         break;
       case 'player':
-        $.cookie(this.roundCookieName, +currentSituation.round + +1);
-        $.cookie(this.playerCookieName, +currentSituation.playerScore + +1);
+        document.cookie = `${this.roundCookieName}=${currentRound}`;
+        document.cookie = `${this.playerCookieName}=${currentPlayScore}`;
         break;
       default:
         break;
@@ -43,9 +48,9 @@ export default class ScoreManager {
    * Reset score table
    */
   resetScore() {
-    $.cookie(this.roundCookieName, 0);
-    $.cookie(this.playerCookieName, 0);
-    $.cookie(this.aiCookieName, 0);
+    document.cookie = `${this.roundCookieName}=0`;
+    document.cookie = `${this.playerCookieName}=0`;
+    document.cookie = `${this.aiCookieName}=0`;
   }
 
 
@@ -57,9 +62,9 @@ export default class ScoreManager {
   readScore() {
     const toReturn = {};
 
-    toReturn.round = $.cookie(this.roundCookieName);
-    toReturn.aiScore = $.cookie(this.aiCookieName);
-    toReturn.playerScore = $.cookie(this.playerCookieName);
+    toReturn.round = TrisLib.getCookie(this.roundCookieName);
+    toReturn.aiScore = TrisLib.getCookie(this.aiCookieName);
+    toReturn.playerScore = TrisLib.getCookie(this.playerCookieName);
 
     toReturn.round = ((toReturn.round === undefined) || (toReturn.round === 'NaN')) ? 0 : toReturn.round;
     toReturn.aiScore = ((toReturn.aiScore === undefined) || (toReturn.aiScore === 'NaN')) ? 0 : toReturn.aiScore;
