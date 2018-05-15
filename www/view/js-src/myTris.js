@@ -187,10 +187,10 @@ export default class MyTris {
   static paintResults() {
     const scoreManagerObj = new ScoreManager();
     const currentSituation = scoreManagerObj.readScore();
-    $('#player_score_value').text(currentSituation.playerScore);
-    $('#player_ia_value').text(currentSituation.aiScore);
-    $('#match_value').text(currentSituation.round);
-    if (currentSituation.round === 0) $('#reset_button').css('visibility', 'hidden');
+    document.getElementById('player_score_value').innerHTML = currentSituation.playerScore;
+    document.getElementById('player_ia_value').innerHTML = currentSituation.aiScore;
+    document.getElementById('match_value').innerHTML = currentSituation.round;
+    if (currentSituation.round === 0) document.getElementById('match_value').style.visibility = 'hidden';
   }
 
 

@@ -8,7 +8,6 @@
 <link rel="stylesheet" type="text/css" href="./../lib/bootstrap-3.3.7/bootstrap-theme.min.css">
 <link rel="stylesheet" type="text/css" href="./../lib/bootstrap-3.3.7/bootstrap.min.css">
 <script src="../lib/jquery/jquery-3.3.1/jquery-3.3.1.js"></script>
-<script src="../lib/jquery/carhartl-jquery-cookie-92b7715/jquery.cookie.js"></script>
 <script src="../lib/font-awesome-5.0.10/fontawesome-all.js"></script>
 <script src="./js-dist/bundle.js"></script>
 <title>Stupid Tris</title>
