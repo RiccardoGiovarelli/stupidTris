@@ -24,6 +24,25 @@ export function getCookie(cname) {
 
 
 /**
+ * Function adjustGrid
+ *
+ * Adjust grafic set of grid
+ *
+ * @returns no return
+ */
+export function adjustGrid() {
+  // Adjust grid height
+  const currentHeight = `${document.getElementById('tris_grid_container').offsetWidth}px`;
+  document.getElementById('tris_grid').style.height = currentHeight;
+
+  // Adjust grid font
+  const currentGridBoxwidth = document.getElementById('tris_grid').offsetWidth;
+  const newFontSize = (currentGridBoxwidth / 10);
+  document.getElementById('tris_grid').style.fontSize = `${newFontSize}px`;
+}
+
+
+/**
  * Function myLog
  *
  * Print a formatted log
