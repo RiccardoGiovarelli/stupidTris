@@ -1,4 +1,5 @@
 import * as TrisLib from './trisLib';
+import StupidTris from './stupidTris';
 
 /**
 * Class ScoreManager
@@ -6,14 +7,7 @@ import * as TrisLib from './trisLib';
 *
 * @author  Riccardo Giovarelli
 */
-export default class ScoreManager {
-  constructor() {
-    this.roundCookieName = 'current-round';
-    this.aiCookieName = 'current-AI-score';
-    this.playerCookieName = 'current-PLAYER-score';
-  }
-
-
+export default class ScoreManager extends StupidTris {
   /**
   * Method saveScore
   *
