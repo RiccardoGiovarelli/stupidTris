@@ -2,6 +2,7 @@ import 'babel-polyfill';
 import 'bootstrap';
 import MyTris from './myTris';
 import './../style/main.css';
+import * as TrisLib from './trisLib';
 
 $(document).ready(() => {
   const myTrisObj = new MyTris();
@@ -16,14 +17,12 @@ $(document).ready(() => {
 
   // Check window resize
   $(window).resize(() => {
-    const currentHeight = `${document.getElementById('tris_grid_container').offsetWidth}px`;
-    document.getElementById('tris_grid').style.height = currentHeight;
+    TrisLib.adjustGrid();
   });
 
   // Paint current results
   MyTris.paintResults();
 
-  // Set table height
-  const currentHeight = `${document.getElementById('tris_grid_container').offsetWidth}px`;
-  document.getElementById('tris_grid').style.height = currentHeight;
+  // Initial grid setting
+  TrisLib.adjustGrid();
 });

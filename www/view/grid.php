@@ -40,19 +40,19 @@
 			<div id='tris_grid_container' class='grid_container'>
 				<div id='tris_grid' class='tris_grid'>
 					<div id='tr-1' class='tris_row'>
-						<div id='td-1-1'><span id='1-1'></span></div>
-						<div id='td-1-2'><span id='1-2'></span></div>
-						<div id='td-1-3'><span id='1-3'></span></div>
+						<div id='td-1-1' class='grid-box'><span id='1-1'></span></div>
+						<div id='td-1-2' class='grid-box'><span id='1-2'></span></div>
+						<div id='td-1-3' class='grid-box'><span id='1-3'></span></div>
 					</div>
 					<div id='tr-2' class='tris_row'>
-						<div id='td-2-1'><span id='2-1'></span></div>
-						<div id='td-2-2'><span id='2-2'></span></div>
-						<div id='td-2-3'><span id='2-3'></span></div>
+						<div id='td-2-1' class='grid-box'><span id='2-1'></span></div>
+						<div id='td-2-2' class='grid-box'><span id='2-2'></span></div>
+						<div id='td-2-3' class='grid-box'><span id='2-3'></span></div>
 					</div>
 					<div id='tr-3' class='tris_row'>
-						<div id='td-3-1'><span id='3-1'></span></div>
-						<div id='td-3-2'><span id='3-2'></span></div>
-						<div id='td-3-3'><span id='3-3'></span></div>
+						<div id='td-3-1' class='grid-box'><span id='3-1'></span></div>
+						<div id='td-3-2' class='grid-box'><span id='3-2'></span></div>
+						<div id='td-3-3' class='grid-box'><span id='3-3'></span></div>
 					</div>
 				</div>
 			</div>
