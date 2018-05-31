@@ -1,5 +1,6 @@
 import ScoreManager from './scoreManager';
 import GameEngine from './gameEngine';
+import StupidTris from './stupidTris';
 
 
 /**
@@ -8,20 +9,7 @@ import GameEngine from './gameEngine';
 *
 * @author  Riccardo Giovarelli
 */
-export default class MyTris {
-  constructor() {
-    this.stateOfScoreTable = [];
-    this.stateOfMatch = 1;
-    this.faX = 'fas fa-times';
-    this.fa0 = 'far fa-circle';
-    this.field = [
-      [0, 0, 0],
-      [0, 0, 0],
-      [0, 0, 0],
-    ];
-  }
-
-
+export default class MyTris extends StupidTris {
   /**
   * Method manageMove
   *
