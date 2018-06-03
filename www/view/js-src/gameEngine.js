@@ -1,10 +1,13 @@
+import MyTris from './myTris';
+import StupidTris from './stupidTris';
+
 /**
 * Class GameEngine
 * Game engine class
 *
 * @author  Riccardo Giovarelli
 */
-export default class GameEngine {
+export default class GameEngine extends StupidTris {
   /**
    * Method generateNextMove
    *
@@ -53,5 +56,61 @@ export default class GameEngine {
 
     if (result.length > 0) return result;
     return false;
+  }
+
+
+  /**
+  * Implementation of minimax function. It considers
+  * all the possible ways for the match and returns
+  * the value of the board
+  */
+  static minimax(currentGrid, depth, isMax) {
+    const currentResult = MyTris.checkCurrentState(currentGrid);
+    const tmpCurrentGrid = currentGrid;
+
+    if (currentResult !== 6) return currentResult;
+
+    switch (currentResult) {
+      case 10:
+      case -10:
+        return currentResult;
+      case 3:
+        return 0;
+      default:
+        break;
+    }
+
+    let best = 0;
+
+    switch (isMax) {
+      case true:
+        best = -1000;
+        for (let i = 0; i < tmpCurrentGrid.length; i += 1) {
+          const line = tmpCurrentGrid[i];
+          for (let j = 0; j < line.length; j += 1) {
+            if (tmpCurrentGrid[i][j] === 0) {
+              tmpCurrentGrid[i][j] = 1;
+              best = Math.max(best, this.minimax(tmpCurrentGrid, depth + 1, !isMax));
+              tmpCurrentGrid[i][j] = 0;
+            }
+          }
+        }
+        return best;
+      case false:
+        best = 1000;
+        for (let i = 0; i < tmpCurrentGrid.length; i += 1) {
+          const line = tmpCurrentGrid[i];
+          for (let j = 0; j < line.length; j += 1) {
+            if (tmpCurrentGrid[i][j] === 0) {
+              tmpCurrentGrid[i][j] = 2;
+              best = Math.min(best, this.minimax(tmpCurrentGrid, depth + 1, !isMax));
+              tmpCurrentGrid[i][j] = 0;
+            }
+          }
+        }
+        return best;
+      default:
+        return null;
+    }
   }
 }
