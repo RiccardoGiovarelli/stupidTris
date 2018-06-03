@@ -6,6 +6,7 @@
 */
 export default class StupidTris {
   constructor() {
+    this.playerTurn = true;
     this.stateOfScoreTable = [];
     this.stateOfMatch = 1;
     this.faX = 'fas fa-times';

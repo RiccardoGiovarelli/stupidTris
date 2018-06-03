@@ -104,12 +104,12 @@ export default class MyTris extends StupidTris {
         MyTris.stateOfMatch = 0;
         document.getElementById('msg_box').innerHTML = 'Even!';
         break;
-      case 4:
+      case -10:
         MyTris.stateOfMatch = 0;
         scoreManagerObj.saveScore('player');
         document.getElementById('msg_box').innerHTML = 'You won!';
         break;
-      case 5:
+      case 10:
         MyTris.stateOfMatch = 0;
         scoreManagerObj.saveScore('ai');
         document.getElementById('msg_box').innerHTML = 'Stupid IA won!';
@@ -188,8 +188,8 @@ export default class MyTris extends StupidTris {
    * Check current field state
    *
    * @param field Filed for the current Tris match
-   * @returns 3 if the match is even, 4 if player wins,
-   * 5 if Ai win or 6 if there aren't results
+   * @returns 3 if the match is even, -10 if player wins,
+   * 10 if Ai win or 6 if there aren't results
    */
   static checkCurrentState(field) {
     // Rows
@@ -208,8 +208,8 @@ export default class MyTris extends StupidTris {
           default:
             break;
         }
-        if (playerHit === 3) return 4;
-        if (stupidAiHit === 3) return 5;
+        if (playerHit === 3) return -10;
+        if (stupidAiHit === 3) return 10;
       }
     }
 
@@ -228,8 +228,8 @@ export default class MyTris extends StupidTris {
           default:
             break;
         }
-        if (playerHit === 3) return 4;
-        if (stupidAiHit === 3) return 5;
+        if (playerHit === 3) return -10;
+        if (stupidAiHit === 3) return 10;
       }
     }
 
@@ -260,8 +260,8 @@ export default class MyTris extends StupidTris {
           break;
       }
     }
-    if ((playerHitLeft === 3) || (playerHitRight === 3)) return 4;
-    if ((stupidAiHitLeft === 3) || (stupidAiHitRight === 3)) return 5;
+    if ((playerHitLeft === 3) || (playerHitRight === 3)) return -10;
+    if ((stupidAiHitLeft === 3) || (stupidAiHitRight === 3)) return 10;
 
     // Even
     let countBox = 0;
