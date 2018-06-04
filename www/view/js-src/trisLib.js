@@ -40,19 +40,3 @@ export function adjustGrid() {
   const newFontSize = (currentGridBoxwidth / 10);
   document.getElementById('tris_grid').style.fontSize = `${newFontSize}px`;
 }
-
-
-/**
- * Function myLog
- *
- * Print a formatted log
- *
- * @param log The log content to print
- */
-export function myLog(log) {
-  const currentDate = new Date();
-  console.log('________________________________________');
-  console.log(`LOG TIME: ${currentDate}`);
-  console.log(`LOG CONTENT: ${log}`);
-  console.log('________________________________________');
-}
