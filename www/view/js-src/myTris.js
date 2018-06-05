@@ -32,8 +32,8 @@ export default class MyTris extends StupidTris {
       MyTris.manageResults(currentResult);
       return;
     }
-
-    const response = GameEngine.findBestMove(this.field);
+    const gameEngineObject = new GameEngine();
+    const response = gameEngineObject.findBestMove(this.field);
     this.makeMove(response.row, response.col, 'ia');
 
     currentResult = MyTris.checkCurrentState(this.field);
