@@ -33,7 +33,7 @@ export default class MyTris extends StupidTris {
       return;
     }
     const gameEngineObject = new GameEngine();
-    const response = gameEngineObject.findBestMove(this.field);
+    const response = gameEngineObject.findBestMove();
     this.makeMove(response.row, response.col, 'ia');
 
     currentResult = MyTris.checkCurrentState(this.field);
