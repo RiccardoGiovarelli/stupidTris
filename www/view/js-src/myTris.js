@@ -34,7 +34,7 @@ export default class MyTris extends StupidTris {
     }
     const gameEngineObject = new GameEngine();
     const response = gameEngineObject.findBestMove();
-    this.makeMove(response.row, response.col, 'ia');
+    this.makeMove(response.row, response.col, 'ai');
 
     currentResult = MyTris.checkCurrentState(this.field);
     if (currentResult !== 6) {
@@ -80,7 +80,7 @@ export default class MyTris extends StupidTris {
         document.getElementById(`${x}-${y}`).insertAdjacentHTML('afterbegin', `<i class='${this.faX}'></i>`);
         this.field[x - 1][y - 1] = 1;
         return true;
-      case 'ia':
+      case 'ai':
         document.getElementById(`${+x + 1}-${+y + 1}`).insertAdjacentHTML('afterbegin', `<i class='${this.fa0}'></i>`);
         this.field[x][y] = 2;
         return true;
@@ -104,7 +104,7 @@ export default class MyTris extends StupidTris {
         MyTris.stateOfMatch = 0;
         document.getElementById('msg_box').innerHTML = 'Even!';
         break;
-      case -10:
+      case 5:
         MyTris.stateOfMatch = 0;
         scoreManagerObj.saveScore('player');
         document.getElementById('msg_box').innerHTML = 'You won!';
@@ -112,7 +112,7 @@ export default class MyTris extends StupidTris {
       case 10:
         MyTris.stateOfMatch = 0;
         scoreManagerObj.saveScore('ai');
-        document.getElementById('msg_box').innerHTML = 'Stupid IA won!';
+        document.getElementById('msg_box').innerHTML = 'Stupid AI won!';
         break;
       default:
         break;
@@ -155,7 +155,7 @@ export default class MyTris extends StupidTris {
   /**
    * Method resetAI
    *
-   * Restart Reset IA and match
+   * Restart Reset AI and match
    */
   resetAI() {
     const scoreManagerObj = new ScoreManager();
@@ -188,7 +188,7 @@ export default class MyTris extends StupidTris {
    * Check current field state
    *
    * @param field Filed for the current Tris match
-   * @returns 3 if the match is even, -10 if player wins,
+   * @returns 3 if the match is even, 5 if player wins,
    * 10 if Ai win or 6 if there aren't results
    */
   static checkCurrentState(field) {
@@ -208,7 +208,7 @@ export default class MyTris extends StupidTris {
           default:
             break;
         }
-        if (playerHit === 3) return -10;
+        if (playerHit === 3) return 5;
         if (stupidAiHit === 3) return 10;
       }
     }
@@ -228,7 +228,7 @@ export default class MyTris extends StupidTris {
           default:
             break;
         }
-        if (playerHit === 3) return -10;
+        if (playerHit === 3) return 5;
         if (stupidAiHit === 3) return 10;
       }
     }
@@ -260,7 +260,7 @@ export default class MyTris extends StupidTris {
           break;
       }
     }
-    if ((playerHitLeft === 3) || (playerHitRight === 3)) return -10;
+    if ((playerHitLeft === 3) || (playerHitRight === 3)) return 5;
     if ((stupidAiHitLeft === 3) || (stupidAiHitRight === 3)) return 10;
 
     // Even
