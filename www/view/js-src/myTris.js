@@ -27,19 +27,14 @@ export default class MyTris extends StupidTris {
 
     this.makeMove(matched[1], matched[2], 'player');
 
-    let currentResult = MyTris.checkCurrentState(this.field);
+    const currentResult = this.checkCurrentState();
     if (currentResult !== 6) {
       MyTris.manageResults(currentResult);
       return;
     }
-    const gameEngineObject = new GameEngine();
-    const response = gameEngineObject.findBestMove();
-    this.makeMove(response.row, response.col, 'ai');
 
-    currentResult = MyTris.checkCurrentState(this.field);
-    if (currentResult !== 6) {
-      MyTris.manageResults(currentResult);
-    }
+    const gameEngineObj = new GameEngine();
+    GameEngine.callAiResponse(this.field);
   }
 
 
@@ -191,12 +186,12 @@ export default class MyTris extends StupidTris {
    * @returns 3 if the match is even, 5 if player wins,
    * 10 if Ai win or 6 if there aren't results
    */
-  static checkCurrentState(field) {
+  checkCurrentState() {
     // Rows
-    for (let i = 0; i < field.length; i += 1) {
+    for (let i = 0; i < this.field.length; i += 1) {
       let playerHit = 0;
       let stupidAiHit = 0;
-      const line = field[i];
+      const line = this.field[i];
       for (let j = 0; j < line.length; j += 1) {
         switch (line[j]) {
           case 1:
@@ -214,11 +209,11 @@ export default class MyTris extends StupidTris {
     }
 
     // Column
-    for (let i = 0; i < field[0].length; i += 1) {
+    for (let i = 0; i < this.field[0].length; i += 1) {
       let playerHit = 0;
       let stupidAiHit = 0;
-      for (let j = 0; j < field.length; j += 1) {
-        switch (field[j][i]) {
+      for (let j = 0; j < this.field.length; j += 1) {
+        switch (this.field[j][i]) {
           case 1:
             playerHit += 1;
             break;
@@ -238,8 +233,8 @@ export default class MyTris extends StupidTris {
     let playerHitRight = 0;
     let stupidAiHitLeft = 0;
     let stupidAiHitRight = 0;
-    for (let i = 0; i < field.length; i += 1) {
-      switch (field[i][i]) {
+    for (let i = 0; i < this.field.length; i += 1) {
+      switch (this.field[i][i]) {
         case 1:
           playerHitLeft += 1;
           break;
@@ -249,7 +244,7 @@ export default class MyTris extends StupidTris {
         default:
           break;
       }
-      switch (field[i][field.length - i - 1]) {
+      switch (this.field[i][this.field.length - i - 1]) {
         case 1:
           playerHitRight += 1;
           break;
@@ -265,8 +260,8 @@ export default class MyTris extends StupidTris {
 
     // Even
     let countBox = 0;
-    for (let i = 0; i < field.length; i += 1) {
-      const line = field[i];
+    for (let i = 0; i < this.field.length; i += 1) {
+      const line = this.field[i];
       for (let j = 0; j < line.length; j += 1) {
         if (line[j] !== 0) countBox += 1;
       }

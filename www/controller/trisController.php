@@ -2,14 +2,16 @@
 require_once ('../model/class.TrisMainClass.php');
 
 $requestFiltered = filter_input(INPUT_POST, 'request');
+$paramFiltered = filter_input(INPUT_POST, 'currentGrid');
 
-switch (requestFiltered) {
+switch ($requestFiltered) {
 	
-	case 'nextMoveRequest' :
-		$trisMainObject = new TrissMainClass();
-		$nextMove = $trisMainObject->getNextMove(filter_input(INPUT_POST, 'currentGrid'));
+	case 'nextMoveRequest':
+
+		$trisMainObject = new TrissMainClass($paramFiltered);
+		$nextMove = $trisMainObject->findBestMove();
 		unset($trisMainObject);
-		if ($nextMove) echo $nextMove;
+		if ($nextMove) echo json_encode($nextMove);
 		break;
         
    default:

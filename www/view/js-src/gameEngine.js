@@ -8,10 +8,8 @@ import StupidTris from './stupidTris';
 * @author  Riccardo Giovarelli
 */
 export default class GameEngine extends StupidTris {
-  /**
-   * Return the next AI move
-   */
-  static findBestMove() {
+
+  static callAiResponse(currentField) {
     const responsePromise = new Promise((resolve) => {
       const xhttp = new XMLHttpRequest();
 
@@ -23,14 +21,15 @@ export default class GameEngine extends StupidTris {
 
       xhttp.open('POST', '../controller/trisController.php', true);
       xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-      xhttp.send(`request=nextMoveRequest&currentGrid=${this.field}`);
+      xhttp.send(`request=nextMoveRequest&currentGrid=${currentField}`);
     });
 
     responsePromise.then((response) => {
-      MyTris.makeMove(response[0], response[1], 'ai');
-      const currentResult = MyTris.checkCurrentState(MyTris.field);
+      const myTrisObj = new MyTris();
+      myTrisObj.makeMove(response.row, response.col, 'ai');
+      const currentResult = myTrisObj.checkCurrentState();
       if (currentResult !== 6) {
-        MyTris.manageResults(currentResult);
+        myTrisObj.manageResults(currentResult);
       }
     });
   }
