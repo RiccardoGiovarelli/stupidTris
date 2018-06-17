@@ -9,7 +9,7 @@ class TrissMainClass {
     public function __construct($currentGrid) {
 
         $this->myGridVector = explode(',', $currentGrid);
-        
+
         $numberOfMove = 0;
         foreach ($this->myGridVector as $currentBox) {
             if ($currentBox != 0) $numberOfMove++;
@@ -18,7 +18,7 @@ class TrissMainClass {
         $cursor = 0;
         for ($i = 0; $i < 3; $i++) {
             for ($j = 0; $j < 3; $j++) {
-                $myGridMatrix[$i][$j] = $currentGrid[$cursor];
+                $myGridMatrix[$i][$j] = $this->myGridVector[$cursor];
                 $cursor++;
             }
         }
@@ -168,9 +168,9 @@ class TrissMainClass {
             for ($i = 0; $i < 3; $i++) {
                 for ($j = 0; $j < 3; $j++) {
                 if ($field[$i][$j] == 0 ) {
-                        $field[i][j] = 2;
+                        $field[$i][$j] = 2;
                         $rank = min($rank, $this->minimax($field, $depth+1, !$isMax));
-                        $field[i][j] = 0;
+                        $field[$i][$j] = 0;
                     }
                 }
             }

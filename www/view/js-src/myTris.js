@@ -18,7 +18,7 @@ export default class MyTris extends StupidTris {
   * @param e Event to manage
   */
   manageMove(e) {
-    if (MyTris.stateOfMatch === 0) {
+    if (this.stateOfMatch === 0) {
       return;
     }
 
@@ -33,8 +33,35 @@ export default class MyTris extends StupidTris {
       return;
     }
 
-    const gameEngineObj = new GameEngine();
-    GameEngine.callAiResponse(this.field);
+    this.callAiResponse(this.field);
+  }
+
+
+  callAiResponse(currentField) {
+    const responsePromise = new Promise((resolve) => {
+      const xhttp = new XMLHttpRequest();
+      let trisRequestId = new Date().getTime();
+      trisRequestId += currentField;
+      trisRequestId = window.btoa(currentField);
+
+      xhttp.onreadystatechange = () => {
+        if (xhttp.readyState === 4 && xhttp.status === 200) {
+          resolve(JSON.parse(xhttp.responseText));
+        }
+      };
+
+      xhttp.open('POST', `../controller/trisController.php?trisRequestId=${trisRequestId}`, true);
+      xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+      xhttp.send(`request=nextMoveRequest&currentGrid=${currentField}`);
+    });
+
+    responsePromise.then((response) => {
+      this.makeMove(response.row, response.col, 'ai');
+      const currentResult = this.checkCurrentState();
+      if (currentResult !== 6) {
+        this.manageResults(currentResult);
+      }
+    });
   }
 
 
