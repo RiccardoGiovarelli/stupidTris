@@ -1,5 +1,4 @@
 import ScoreManager from './scoreManager';
-import GameEngine from './gameEngine';
 import StupidTris from './stupidTris';
 
 
@@ -18,7 +17,7 @@ export default class MyTris extends StupidTris {
   * @param e Event to manage
   */
   manageMove(e) {
-    if (this.stateOfMatch === 0) {
+    if (MyTris.stateOfMatch === 0) {
       return;
     }
 
@@ -37,6 +36,13 @@ export default class MyTris extends StupidTris {
   }
 
 
+  /**
+   * Method callAiResponse
+   *
+   * Perform ajax call to AI algorithm
+   *
+   * @param currentField Field for the current Tris match
+   */
   callAiResponse(currentField) {
     const responsePromise = new Promise((resolve) => {
       const xhttp = new XMLHttpRequest();
@@ -59,7 +65,7 @@ export default class MyTris extends StupidTris {
       this.makeMove(response.row, response.col, 'ai');
       const currentResult = this.checkCurrentState();
       if (currentResult !== 6) {
-        this.manageResults(currentResult);
+        MyTris.manageResults(currentResult);
       }
     });
   }
@@ -149,7 +155,7 @@ export default class MyTris extends StupidTris {
    *
    * Clean field
    *
-   * @param field Filed for the current Tris match
+   * @param field Field for the current Tris match
    */
   cleanField(field) {
     for (let x = 0; x < field.length; x += 1) {

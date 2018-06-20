@@ -7,29 +7,21 @@
 class TrissMainClass {
 
     public function __construct($currentGrid) {
-
-        $this->myGridVector = explode(',', $currentGrid);
-
-        $numberOfMove = 0;
-        foreach ($this->myGridVector as $currentBox) {
-            if ($currentBox != 0) $numberOfMove++;
-        }
-
+        
         $cursor = 0;
+        $myGridVector = explode(',', $currentGrid);
         for ($i = 0; $i < 3; $i++) {
             for ($j = 0; $j < 3; $j++) {
-                $myGridMatrix[$i][$j] = $this->myGridVector[$cursor];
+                $myGridMatrix[$i][$j] = intval($myGridVector[$cursor]);
                 $cursor++;
             }
         }
 
-        $this->numberOfMovesLeft = 9 - $numberOfMove;
-        $this->numberOfMove = $numberOfMove;
         $this->aiMarker = 2;
         $this->playerMarker = 1;
         $this->myGridMatrix = $myGridMatrix;
 
-        unset($numberOfMove, $currentGrid, $cursor, $myGridMatrix);
+        unset($cursor, $myGridMatrix, $myGridVector);
     }
 
 
@@ -43,22 +35,22 @@ class TrissMainClass {
     * 10 if Ai win or 6 if there aren't results
     */
     public function checkCurrentState($field) {
-        
+
         // Rows
         for ($i = 0; $i < 3; $i++) {
             $playerHit = 0;
             $stupidAiHit = 0;
             for ($j = 0; $j < 3; $j++) {
                 switch ($field[$i][$j]) {
-                    case 1:
+                    case $this->playerMarker:
                         $playerHit++;
                         break;
-                    case 2:
+                    case $this->aiMarker:
                         $stupidAiHit++;
                         break;
                 }
-                if ($playerHit === 3) return 5;
-                if ($stupidAiHit === 3) return 10;
+                if ($playerHit == 3) return 5;
+                if ($stupidAiHit == 3) return 10;
             }
         }
    
@@ -68,15 +60,15 @@ class TrissMainClass {
             $stupidAiHit = 0;
             for ($j = 0; $j < 3; $j++) {
                 switch ($field[$j][$i]) {
-                    case 1:
+                    case $this->playerMarker:
                         $playerHit++;
                         break;
-                    case 2:
+                    case $this->aiMarker:
                         $stupidAiHit++;
                         break;
                 }
-                if ($playerHit === 3) return 5;
-                if ($stupidAiHit === 3) return 10;
+                if ($playerHit == 3) return 5;
+                if ($stupidAiHit == 3) return 10;
             }
         }
    
@@ -87,33 +79,33 @@ class TrissMainClass {
         $stupidAiHitRight = 0;
         for ($i = 0; $i < 3; $i++) {
             switch ($field[$i][$i]) {
-                case 1:
+                case $this->playerMarker:
                     $playerHitLeft++;
                     break;
-                case 2:
+                case $this->aiMarker:
                     $stupidAiHitLeft++;
                     break;
             }
             switch ($field[$i][2 - $i]) {
-                case 1:
+                case $this->playerMarker:
                     $playerHitRight++;
                     break;
-                case 2:
+                case $this->aiMarker:
                     $stupidAiHitRight++;
                     break;
             }
         }
-        if (($playerHitLeft === 3) || ($playerHitRight === 3)) return 5;
-        if (($stupidAiHitLeft === 3) || ($stupidAiHitRight === 3)) return 10;
+        if (($playerHitLeft == 3) || ($playerHitRight == 3)) return 5;
+        if (($stupidAiHitLeft == 3) || ($stupidAiHitRight == 3)) return 10;
    
         // Even
         $countBox = 0;
         for ($i = 0; $i < 3; $i++) {
             for ($j = 0; $j < 3; $j++) {
-                if ($field[$i][$j] !== 0) $countBox++;
+                if ($field[$i][$j] != 0) $countBox++;
             }
         }
-        if ($countBox === 9) return 3;
+        if ($countBox == 9) return 3;
     
         // No results
         return 6;
@@ -131,8 +123,8 @@ class TrissMainClass {
     * @return The best rank for all the possible ways 
     * the game can go
     */
-    public function  minimax($field, $depth, $isMax) {
-    
+    public function  minimax($field, $isMax) {
+
         $state = $this->checkCurrentState($field);
    
         switch ($state) {
@@ -154,8 +146,8 @@ class TrissMainClass {
             for ($i = 0; $i < 3; $i++) {
                 for ($j = 0; $j < 3; $j++) {
                     if ($field[$i][$j] == 0 ) {
-                    $field[$i][$j] = 1;
-                        $rank = max($rank, $this->minimax($field, $depth+1, !$isMax));
+                    $field[$i][$j] = $this->aiMarker;
+                        $rank = max($rank, $this->minimax($field, !$isMax));
                         $field[$i][$j] = 0;
                     }
                 }
@@ -168,8 +160,8 @@ class TrissMainClass {
             for ($i = 0; $i < 3; $i++) {
                 for ($j = 0; $j < 3; $j++) {
                 if ($field[$i][$j] == 0 ) {
-                        $field[$i][$j] = 2;
-                        $rank = min($rank, $this->minimax($field, $depth+1, !$isMax));
+                        $field[$i][$j] = $this->playerMarker;
+                        $rank = min($rank, $this->minimax($field, !$isMax));
                         $field[$i][$j] = 0;
                     }
                 }
@@ -201,8 +193,8 @@ class TrissMainClass {
         for ($i = 0; $i < 3; $i++) {
             for ($j = 0; $j < 3; $j++) {
                 if ($this->myGridMatrix[$i][$j] == 0) {
-                    $this->myGridMatrix[$i][$j] = 1;
-                    $moveVal = $this->minimax($this->myGridMatrix, 0, false);
+                    $this->myGridMatrix[$i][$j] = $this->aiMarker;
+                    $moveVal = $this->minimax($this->myGridMatrix, false);
                     $this->myGridMatrix[$i][$j] = 0;
                     if ($moveVal > $bestVal) {
                         $bestMove['row'] = $i;
