@@ -130,6 +130,7 @@ export default class MyTris extends StupidTris {
     switch (state) {
       case 3:
         MyTris.stateOfMatch = 0;
+        scoreManagerObj.saveScore('nobody');
         document.getElementById('msg_box').innerHTML = 'Even!';
         break;
       case 5:

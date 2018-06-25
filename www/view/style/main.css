@@ -1,25 +1,25 @@
-/* CSS General  <START> */
-
+/* General  <START> */
 .center-text {
     text-align: center;
 }
+
 .top_bar {
     margin-bottom: 10px;
 }
+
 .footer {
     width: 100%;
 }
+
 body {
     background-color: #bdbdbd;
     min-width: 450px;
 }
-
-/* CSS General  <STOP> */
+/* General  <STOP> */
 
 
 
 /* Grid  <START> */
-
 .center-container {
     width: 100%;
 }
@@ -62,5 +62,4 @@ body {
     width: 33.3%;
 	height: 100%;
 }
-
 /* Grid  <STOP> */

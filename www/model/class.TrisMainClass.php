@@ -128,7 +128,7 @@ class TrissMainClass {
         $state = $this->checkCurrentState($field);
    
         switch ($state) {
-    
+            
         case '10':
             return 10;
     
