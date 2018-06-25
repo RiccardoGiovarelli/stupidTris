@@ -4,7 +4,7 @@
 Implementation of the Tris game with AI based play engine based on Minimax Algorithm.
 
 ## Main goals
-This project is a work in progress and the main goal is learn and deepen some interesting technologies like Docker, Webpack, Babel, ESLint...
+The main goal of this project is learn and deepen some interesting technologies like Docker, Webpack, Babel, ESLint...
 
 It is based mostly on the languages PHP and JavaScript. 
 
