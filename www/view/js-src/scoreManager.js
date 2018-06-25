@@ -30,6 +30,9 @@ export default class ScoreManager extends StupidTris {
         document.cookie = `${this.roundCookieName}=${currentRound}`;
         document.cookie = `${this.playerCookieName}=${currentPlayScore}`;
         break;
+      case 'nobody':
+        document.cookie = `${this.roundCookieName}=${currentRound}`;
+        break;
       default:
         break;
     }
