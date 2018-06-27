@@ -177,10 +177,10 @@ class TrissMainClass {
     /**
     * Method findBestMove
     *
-    * Return the best move for the player
+    * Return the best move for AI
     *
     * @param $field Field for the current Tris match
-    * @return The best move for the player
+    * @return The best move for AI
     */
     public function findBestMove() {
 
