@@ -1,2 +1,2 @@
-www/.vscode
-*.DS_Store
+# dependencies
+www/node_modules
