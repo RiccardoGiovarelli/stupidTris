@@ -12,7 +12,7 @@ It is based mostly on the languages PHP and JavaScript.
 
 ## Main requirements
 
-Node.js and Doker
+Node.js and Docker
 
 ## Installation
 
@@ -20,13 +20,13 @@ Clone or download this repository and run `npm install`.
 
 ## Development server
 
-Run `make born` for a dev server. Navigate to `http://localhost/`. The app will automatically reload if you change any of the source files.
+Run `make born` for a dev server. Navigate to `http://localhost/`.
 
 Run `make halt` to stop the dev server and remove the container.
 
 Run `make stop` to stop the dev server.
 
-Run `make start` to stop the dev server when stoped.
+Run `make start` to start the dev server when stoped.
 
 ## Authors
 
