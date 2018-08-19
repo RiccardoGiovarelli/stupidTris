@@ -3,11 +3,11 @@ const path = require('path');
 module.exports = {
   entry: [
     'babel-polyfill',
-    './view/js-src/index.js',
+    './www/view/js-src/index.js',
   ],
   output: {
     filename: 'bundle.js',
-    path: __dirname + "/view/js-dist",
+    path: __dirname + "/www/view/js-dist",
   },
   watch: true,
   module: {

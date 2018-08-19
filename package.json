@@ -37,7 +37,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/riccardo-giovarelli/stupidTris.git"
+    "url": "git+https://github.com/riccardo-giovarelli/stupid-tris.git"
   },
   "keywords": [
     "tris",
@@ -46,7 +46,7 @@
   "author": "Riccardo Giovarelli",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/riccardo-giovarelli/stupidTris/issues"
+    "url": "https://github.com/riccardo-giovarelli/stupid-tris/issues"
   },
-  "homepage": "https://github.com/riccardo-giovarelli/stupidTris#readme"
+  "homepage": "https://github.com/riccardo-giovarelli/stupid-tris#readme"
 }
