@@ -20,13 +20,13 @@ Clone or download this repository and run `npm install`.
 
 ## Development server
 
-Run `make born` for a dev server. Navigate to `http://localhost/`.
+Run `npm start` for a dev server. Navigate to `http://localhost/`.
 
-Run `make halt` to stop the dev server and remove the container.
+Run `npm halt` to stop the dev server and remove the container.
 
-Run `make stop` to stop the dev server.
+Run `npm stop` to stop the dev server.
 
-Run `make start` to start the dev server when stoped.
+Run `npm restart` to start the dev server when stoped.
 
 ## Authors
 

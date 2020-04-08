@@ -12,6 +12,7 @@
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",
+    "gulp-cli": "^2.2.0",
     "jquery": "^3.4.1",
     "jquery.cookie": "^1.4.1",
     "popper.js": "^1.14.3"
@@ -26,14 +27,15 @@
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-jquery": "^1.3.1",
+    "gulp": "^4.0.2",
     "style-loader": "^0.20.3",
     "webpack": "^4.42.1",
     "webpack-cli": "^2.0.13"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm run webpack",
-    "webpack": "webpack -d --optimize-minimize --watch"
+    "build": "docker build -t stupid-tris .",
+    "start": "docker run -d -p 127.0.0.1:80:80 --name running-stupid-tris stupid-tris && npm run webpack",
+    "clean": "docker stop running-stupid-tris && docker rm running-stupid-tris"
   },
   "repository": {
     "type": "git",
