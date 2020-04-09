@@ -34,8 +34,10 @@
   },
   "scripts": {
     "build": "docker build -t stupid-tris .",
-    "start": "docker run -d -p 127.0.0.1:80:80 --name running-stupid-tris stupid-tris && npm run webpack",
-    "clean": "docker stop running-stupid-tris && docker rm running-stupid-tris"
+    "start-cmd": "docker run -d -v %cd%/www:/var/www/html -p 127.0.0.1:80:80 --name running-stupid-tris stupid-tris && npm run webpack",
+    "start-bash": "docker run -d -v ./www:/var/www/html -p 127.0.0.1:80:80 --name running-stupid-tris stupid-tris && npm run webpack",
+    "clean": "docker stop running-stupid-tris && docker rm running-stupid-tris",
+    "webpack": "webpack -d --optimize-minimize --watch"
   },
   "repository": {
     "type": "git",

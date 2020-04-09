@@ -20,13 +20,14 @@ Clone or download this repository and run `npm install`.
 
 ## Development server
 
-Run `npm start` for a dev server. Navigate to `http://localhost/`.
+Run `npm build` build the app container.
 
-Run `npm halt` to stop the dev server and remove the container.
+Run `npm start-cmd` start a dev server on Windows. Navigate to `http://localhost/`.
 
-Run `npm stop` to stop the dev server.
+Run `npm start-bash` start a dev server on Linux. Navigate to `http://localhost/`.
 
-Run `npm restart` to start the dev server when stoped.
+Run `npm clean` to stop the dev server and remove the container.
+
 
 ## Authors
 
