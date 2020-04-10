@@ -20,12 +20,14 @@
 /**
 * Triss Main Class
 *
-* @author  Riccardo Giovarelli
+* @author Riccardo Giovarelli
+* @copyright 2020 Riccardo Giovarelli <riccardo.giovarelli@gmail.com>
 */
 class TrissMainClass {
 
     public function __construct($currentGrid) {
         
+        // Init grid
         $cursor = 0;
         $myGridVector = explode(',', $currentGrid);
         for ($i = 0; $i < 3; $i++) {
@@ -35,6 +37,7 @@ class TrissMainClass {
             }
         }
 
+        // Init property
         $this->aiMarker = 2;
         $this->playerMarker = 1;
         $this->myGridMatrix = $myGridMatrix;
@@ -44,102 +47,13 @@ class TrissMainClass {
 
 
     /**
-    * Method checkCurrentState
-    *
-    * Check current field state
-    *
-    * @param $field Field for the current Tris match
-    * @return 3 if the match is even, 5 if player wins,
-    * 10 if Ai win or 6 if there aren't results
-    */
-    public function checkCurrentState($field) {
-
-        // Rows
-        for ($i = 0; $i < 3; $i++) {
-            $playerHit = 0;
-            $stupidAiHit = 0;
-            for ($j = 0; $j < 3; $j++) {
-                switch ($field[$i][$j]) {
-                    case $this->playerMarker:
-                        $playerHit++;
-                        break;
-                    case $this->aiMarker:
-                        $stupidAiHit++;
-                        break;
-                }
-                if ($playerHit == 3) return 5;
-                if ($stupidAiHit == 3) return 10;
-            }
-        }
-   
-        // Column
-        for ($i = 0; $i < 3; $i++) {
-            $playerHit = 0;
-            $stupidAiHit = 0;
-            for ($j = 0; $j < 3; $j++) {
-                switch ($field[$j][$i]) {
-                    case $this->playerMarker:
-                        $playerHit++;
-                        break;
-                    case $this->aiMarker:
-                        $stupidAiHit++;
-                        break;
-                }
-                if ($playerHit == 3) return 5;
-                if ($stupidAiHit == 3) return 10;
-            }
-        }
-   
-        // Cross
-        $playerHitLeft = 0;
-        $playerHitRight = 0;
-        $stupidAiHitLeft = 0;
-        $stupidAiHitRight = 0;
-        for ($i = 0; $i < 3; $i++) {
-            switch ($field[$i][$i]) {
-                case $this->playerMarker:
-                    $playerHitLeft++;
-                    break;
-                case $this->aiMarker:
-                    $stupidAiHitLeft++;
-                    break;
-            }
-            switch ($field[$i][2 - $i]) {
-                case $this->playerMarker:
-                    $playerHitRight++;
-                    break;
-                case $this->aiMarker:
-                    $stupidAiHitRight++;
-                    break;
-            }
-        }
-        if (($playerHitLeft == 3) || ($playerHitRight == 3)) return 5;
-        if (($stupidAiHitLeft == 3) || ($stupidAiHitRight == 3)) return 10;
-   
-        // Even
-        $countBox = 0;
-        for ($i = 0; $i < 3; $i++) {
-            for ($j = 0; $j < 3; $j++) {
-                if ($field[$i][$j] != 0) $countBox++;
-            }
-        }
-        if ($countBox == 9) return 3;
-    
-        // No results
-        return 6;
-   }
-   
-
-    /**
     * Method minimax
     *
     * Implement the Minimax algorithm
     *
-    * @param $field Field for the current Tris match
-    * @param $depth The depth of the recursion
-    * @param $isMax Current turn: maximizer or minimizer
-    * @return The best rank for all the possible ways 
-    * the game can go
+    * @param    Array   $field  Field for the current Tris match
+    * @param    Boolean $isMax  Current turn: maximizer or minimizer
+    * @return   Integer The best rank for the current situation
     */
     public function  minimax($field, $isMax) {
 
@@ -197,8 +111,7 @@ class TrissMainClass {
     *
     * Return the best move for AI
     *
-    * @param $field Field for the current Tris match
-    * @return The best move for AI
+    * @return   Array   The best move for AI
     */
     public function findBestMove() {
 
@@ -222,7 +135,107 @@ class TrissMainClass {
                 }
             }
         }
-        
+
         return $bestMove;
+   }
+
+   
+    /**
+    * Method checkCurrentState
+    *
+    * Check current field state
+    *
+    * @param    Array   $field  Field for the current Tris match
+    * @return   Integer 3 if the match is even, 5 if player wins, 
+    *                   10 if Ai win or 6 if there aren't results
+    */
+    public function checkCurrentState($field) {
+
+        $hitMatrix = [
+            'palyer' => [
+                'row' => 0,
+                'column' => 0,
+                'cross' => [
+                    'right' => 0,
+                    'left' => 0
+                ]
+            ],
+            'stupidAi' => [
+                'row' => 0,
+                'column' => 0,
+                'cross' => [
+                    'right' => 0,
+                    'left' => 0
+                ]
+            ],
+            'boxes' => 0
+        ];
+
+        for ($i = 0; $i < 3; $i++) {
+
+            // Rows count reset
+            $hitMatrix['palyer']['row'] = 0;
+            $hitMatrix['stupidAi']['row'] = 0;
+
+            // Column count reset
+            $hitMatrix['palyer']['column'] = 0;
+            $hitMatrix['stupidAi']['column'] = 0;
+
+            //Cross check
+            switch ($field[$i][$i]) {
+                case $this->playerMarker:
+                    $hitMatrix['palyer']['cross']['left']++;
+                    break;
+                case $this->aiMarker:
+                    $hitMatrix['stupidAi']['cross']['left']++;
+                    break;
+            }
+            switch ($field[$i][2 - $i]) {
+                case $this->playerMarker:
+                    $hitMatrix['palyer']['cross']['right']++;
+                    break;
+                case $this->aiMarker:
+                    $hitMatrix['stupidAi']['cross']['right']++;
+                    break;
+            }
+            if (($hitMatrix['palyer']['cross']['left'] == 3) || ($hitMatrix['palyer']['cross']['right'] == 3)) return 5;
+            if (($hitMatrix['stupidAi']['cross']['left'] == 3) || ($hitMatrix['stupidAi']['cross']['right'] == 3)) return 10;
+
+            for ($j = 0; $j < 3; $j++) {
+
+                // Rows check
+                switch ($field[$i][$j]) {
+                    case $this->playerMarker:
+                        $hitMatrix['palyer']['row']++;
+                        break;
+                    case $this->aiMarker:
+                        $hitMatrix['stupidAi']['row']++;
+                        break;
+                }
+                if ($hitMatrix['palyer']['row'] == 3) return 5;
+                if ($hitMatrix['stupidAi']['row'] == 3) return 10;
+
+                // Column check
+                switch ($field[$j][$i]) {
+                    case $this->playerMarker:
+                        $hitMatrix['palyer']['column']++;
+                        break;
+                    case $this->aiMarker:
+                        $hitMatrix['stupidAi']['column']++;
+                        break;
+                }
+                if ($hitMatrix['palyer']['column'] == 3) return 5;
+                if ($hitMatrix['stupidAi']['column'] == 3) return 10;
+
+                // Count boxes
+                if ($field[$i][$j] != 0) $hitMatrix['boxes']++;
+            }
+        }
+
+        // Even result check
+        if ($hitMatrix['boxes'] == 9) return 3;
+    
+        // No results
+        return 6;
    }
 }
