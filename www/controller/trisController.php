@@ -26,7 +26,7 @@ switch ($requestFiltered) {
 	
 	case 'nextMoveRequest':
 
-		$trisMainObject = new TrissMainClass($paramFiltered);
+		$trisMainObject = new TictactoeMainClass($paramFiltered);
 		$nextMove = $trisMainObject->findBestMove();
 		unset($trisMainObject);
 		if ($nextMove) echo json_encode($nextMove);

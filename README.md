@@ -1,7 +1,4 @@
 # Stupid Tris
-
-## What is it?
-
 Implementation of the Tris game with AI based play engine based on Minimax Algorithm.
 
 ## Main goals
