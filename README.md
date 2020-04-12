@@ -1,11 +1,11 @@
-# Stupid Tris
-Implementation of the Tris game with AI based play engine based on Minimax Algorithm.
+# Sloth's Tic-tac-toe
+Implementation of the Tic-tac-toe game with AI based on Minimax Algorithm.
 
 ## Main goals
 
-The main goal of this project is learn and deepen some interesting technologies like Docker, Webpack, Babel, ESLint...
+The main goal of this project is learn and deepen some interesting technologies like React, Docker, Webpack and other.
 
-It is based mostly on the languages PHP and JavaScript.
+It is based mostly on the languages PHP and TypeScript.
 
 ## Main requirements
 

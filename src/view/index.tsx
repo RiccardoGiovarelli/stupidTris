@@ -1,5 +1,3 @@
-<?php
-
 // This file is part of Stupid Tris.
 
 // Stupid Tris is free software: you can redistribute it and/or modify
@@ -17,6 +15,11 @@
 
 // Copyright 2020 Riccardo Giovarelli <riccardo.giovarelli@gmail.com>
 
-header ( 'Location: view/grid.php' );
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
 
-?>
+ReactDOM.render(
+    <App />,
+    document.getElementById('root')
+);

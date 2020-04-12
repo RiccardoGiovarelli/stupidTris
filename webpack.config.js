@@ -2,29 +2,27 @@ const path = require('path');
 
 module.exports = {
   entry: [
-    'babel-polyfill',
-    './www/view/js-src/index.js',
+    './src/view/index.tsx',
   ],
-  output: {
-    filename: 'bundle.js',
-    path: path.join(__dirname, '/www/view/js-dist'),
-  },
+  devtool: 'inline-source-map',
   watch: true,
   module: {
     rules: [
       {
-        test: /\.css$/,
-        use: ['style-loader','css-loader']
+        test: /\.scss$/,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       }, {
-        test: /\.js$/,
+        test: /\.tsx$/,
         exclude: /(node_modules|bower_components)/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['env'],
-          },
-        },
+        use: 'ts-loader',
       },
     ],
+  },
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js'],
+  },
+  output: {
+    filename: 'bundle.js',
+    path: path.join(__dirname, '/dist'),
   },
 };

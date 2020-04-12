@@ -15,9 +15,13 @@
     "gulp-cli": "^2.2.0",
     "jquery": "^3.4.1",
     "jquery.cookie": "^1.4.1",
-    "popper.js": "^1.14.3"
+    "popper.js": "^1.14.3",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
   },
   "devDependencies": {
+    "@types/react": "^16.9.34",
+    "@types/react-dom": "^16.9.6",
     "babel-cli": "^6.0.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
@@ -28,14 +32,18 @@
     "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-jquery": "^1.3.1",
     "gulp": "^4.0.2",
+    "node-sass": "^4.13.1",
+    "sass-loader": "^8.0.2",
     "style-loader": "^0.20.3",
+    "ts-loader": "^6.2.2",
+    "typescript": "^3.8.3",
     "webpack": "^4.42.1",
     "webpack-cli": "^2.0.13"
   },
   "scripts": {
     "build": "docker build -t stupid-tris .",
-    "start-cmd": "docker run -d -v %cd%/www:/var/www/html -p 127.0.0.1:80:80 --name running-stupid-tris stupid-tris && npm run webpack",
-    "start-bash": "docker run -d -v ./www:/var/www/html -p 127.0.0.1:80:80 --name running-stupid-tris stupid-tris && npm run webpack",
+    "start-cmd": "docker run -d -v %cd%/:/var/www/html -p 127.0.0.1:80:80 --name running-stupid-tris stupid-tris && npm run webpack",
+    "start-bash": "docker run -d -v ./:/var/www/html -p 127.0.0.1:80:80 --name running-stupid-tris stupid-tris && npm run webpack",
     "clean": "docker stop running-stupid-tris && docker rm running-stupid-tris",
     "webpack": "webpack -d --optimize-minimize --watch"
   },

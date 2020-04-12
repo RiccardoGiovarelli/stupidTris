@@ -1,3 +1,5 @@
+<?php
+
 // This file is part of Stupid Tris.
 
 // Stupid Tris is free software: you can redistribute it and/or modify
@@ -15,24 +17,24 @@
 
 // Copyright 2020 Riccardo Giovarelli <riccardo.giovarelli@gmail.com>
 
-/**
-* Class StupidTris
-* Main application class
-*
-* @author  Riccardo Giovarelli
-*/
-export default class StupidTris {
-  constructor() {
-    this.stateOfMatch = 1;
-    this.faX = 'fas fa-times';
-    this.fa0 = 'far fa-circle';
-    this.roundCookieName = 'current-round';
-    this.aiCookieName = 'current-AI-score';
-    this.playerCookieName = 'current-PLAYER-score';
-    this.field = [
-      [0, 0, 0],
-      [0, 0, 0],
-      [0, 0, 0],
-    ];
-  }
-}
+?>
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" ><![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tic-tac-toe</title>
+</head>
+
+<body>
+    <div id='root'></div>
+    <script src="./dist/bundle.js"></script>
+</body>
+
+</html>
