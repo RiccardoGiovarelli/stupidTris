@@ -15,7 +15,7 @@
 
 // Copyright 2020 Riccardo Giovarelli <riccardo.giovarelli@gmail.com>
 
-import React from 'react';
+import * as React from 'react'
 import Field from './components/field/Field';
 import Header from './components/header/Header';
 import './App.scss';

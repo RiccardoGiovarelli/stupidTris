@@ -15,7 +15,7 @@
 
 // Copyright 2020 Riccardo Giovarelli <riccardo.giovarelli@gmail.com>
 
-import React from 'react';
+import * as React from 'react'
 import './Square.scss';
 
 interface SquareState {
@@ -24,6 +24,8 @@ interface SquareState {
 interface SquareProps {
     moveHandler: any;
     squareStatus: Number;
+    x: Number;
+    y: Number;
 }
 
 export default class Square extends React.Component<SquareProps, SquareState> {
@@ -35,7 +37,11 @@ export default class Square extends React.Component<SquareProps, SquareState> {
     // React render
     public render() {
         return <>
-            <div className={"square square__container square__container" + this.getContentClass()}>
+            <div
+                id={this.props.x + "-" + this.props.y}
+                className={"square square__container square__container" + this.getContentClass()}
+                onClick={this.props.moveHandler}
+            >
                 <div className={"square square__content square__content" + this.getContentClass()}>
                 </div>
             </div>

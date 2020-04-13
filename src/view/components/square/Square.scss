@@ -2,13 +2,14 @@
 $circleColor: blue;
 $crossColor: red;
 $itemWidth: 10px;
-$itemWidthGap: $itemWidth * 2 + 5;
+$itemWidthGap: $itemWidth * 2 + 5px;
 
 
 .square__container {
     
     position: relative;
     height: 15vw;
+    max-height: 150px;
 
     &--cross {
         margin-top: 50%;

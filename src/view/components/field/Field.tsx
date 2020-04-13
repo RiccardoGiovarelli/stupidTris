@@ -15,8 +15,9 @@
 
 // Copyright 2020 Riccardo Giovarelli <riccardo.giovarelli@gmail.com>
 
-import React from 'react';
+import * as React from 'react'
 import Square from './../square/Square';
+import { getNextMove } from './../../lib/api';
 import './Field.scss';
 
 interface FieldState {
@@ -40,12 +41,12 @@ export default class Field extends React.Component<FieldProps, FieldState> {
                 },
                 row1: {
                     square0: 0,
-                    square1: 1,
+                    square1: 0,
                     square2: 0
                 },
                 row2: {
                     square0: 0,
-                    square1: 2,
+                    square1: 0,
                     square2: 0
                 }
             }
@@ -60,72 +61,46 @@ export default class Field extends React.Component<FieldProps, FieldState> {
         return <>
             <div className="field field__container">
                 <div className='field field__perimeter'>
-                    <div className='field field__row field__row-1'>
-                        <div className='field__column field__column-1'>
-                            <Square
-                                moveHandler={this.handleMove}
-                                squareStatus={this.state.field.row0.square0}
-                            />
+                    {[0, 1, 2].map((rowNumber: number, rowIndex: number) => (
+                        <div className={"field field__row field__row-" + rowNumber} key={rowIndex}>
+                            {[0, 1, 2].map((columnNumber: number, columnIndex: number) => (
+                                <div className={"field__column field__column-" + columnNumber} key={columnIndex}>
+                                    <Square
+                                        moveHandler={this.handleMove}
+                                        squareStatus={this.state.field["row" + rowNumber]["square" + columnNumber]}
+                                        x={rowNumber}
+                                        y={columnNumber}
+                                    />
+                                </div>
+                            ))}
                         </div>
-                        <div className='field__column field__column-2'>
-                            <Square
-                                moveHandler={this.handleMove}
-                                squareStatus={this.state.field.row0.square1}
-                            />
-                        </div>
-                        <div className='field__column field__column-3'>
-                            <Square
-                                moveHandler={this.handleMove}
-                                squareStatus={this.state.field.row0.square2}
-                            />
-                        </div>
-                    </div>
-                    <div className='field field__row field__row-2'>
-                        <div className='field__column field__column-1'>
-                            <Square
-                                moveHandler={this.handleMove}
-                                squareStatus={this.state.field.row1.square0}
-                            />
-                        </div>
-                        <div className='field__column field__column-2'>
-                            <Square
-                                moveHandler={this.handleMove}
-                                squareStatus={this.state.field.row1.square1}
-                            />
-                        </div>
-                        <div className='field__column field__column-3'>
-                            <Square
-                                moveHandler={this.handleMove}
-                                squareStatus={this.state.field.row1.square2}
-                            />
-                        </div>
-                    </div>
-                    <div className='field field__row field__row-3'>
-                        <div className='field__column field__column-1'>
-                            <Square
-                                moveHandler={this.handleMove}
-                                squareStatus={this.state.field.row2.square0}
-                            />
-                        </div>
-                        <div className='field__column field__column-2'>
-                            <Square
-                                moveHandler={this.handleMove}
-                                squareStatus={this.state.field.row2.square1}
-                            />
-                        </div>
-                        <div className='field__column field__column-3'>
-                            <Square
-                                moveHandler={this.handleMove}
-                                squareStatus={this.state.field.row2.square2}
-                            />
-                        </div>
-                    </div>
+                    ))}
                 </div>
             </div>
         </>
     }
 
-    handleMove(event: any, data: any): void {
+    // Handle the current move
+    handleMove(event: any): void {
+        const moveCoordinates = event.currentTarget.id.split("-");
+        this.setState(prevState => {
+            const fieldeCopy = { ...prevState.field };
+            fieldeCopy["row" + moveCoordinates[0]]["square" + moveCoordinates[1]] = 1;
+            return {
+                ...prevState,
+                fieldeCopy
+            }
+        }, () => {
+            this.callAiResponse();
+        });
+    }
 
+    // Call AI service to get AI response
+    callAiResponse() {
+        getNextMove(this.state.field).then(response =>
+            response.json()
+        ).then(data =>
+            console.log("RESPONSE", data)
+        );
     }
 }

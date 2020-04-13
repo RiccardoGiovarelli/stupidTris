@@ -15,7 +15,7 @@
 
 // Copyright 2020 Riccardo Giovarelli <riccardo.giovarelli@gmail.com>
 
-import React from 'react';
+import * as React from 'react'
 import './Header.scss';
 
 interface HeaderState {

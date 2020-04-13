@@ -15,8 +15,8 @@
 
 // Copyright 2020 Riccardo Giovarelli <riccardo.giovarelli@gmail.com>
 
-import React from 'react';
-import ReactDOM from 'react-dom';
+import * as React from 'react'
+import * as ReactDOM from 'react-dom';
 import App from './App';
 
 ReactDOM.render(
