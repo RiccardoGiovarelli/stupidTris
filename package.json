@@ -41,15 +41,15 @@
     "webpack-cli": "^2.0.13"
   },
   "scripts": {
-    "build": "docker build -t stupid-tris .",
-    "start-cmd": "docker run -d -v %cd%/:/var/www/html -p 127.0.0.1:80:80 --name running-stupid-tris stupid-tris && npm run webpack",
-    "start-bash": "docker run -d -v ./:/var/www/html -p 127.0.0.1:80:80 --name running-stupid-tris stupid-tris && npm run webpack",
+    "build": "docker build -t sloths-tictactoe .",
+    "start-cmd": "docker run -d -v %cd%/:/var/www/html -p 127.0.0.1:80:80 --name running-sloths-tictactoe sloths-tictactoe && npm run webpack",
+    "start-bash": "docker run -d -v ./:/var/www/html -p 127.0.0.1:80:80 --name running-sloths-tictactoe sloths-tictactoe && npm run webpack",
     "clean": "docker stop running-stupid-tris && docker rm running-stupid-tris",
     "webpack": "webpack -d --optimize-minimize --watch"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/riccardo-giovarelli/stupid-tris.git"
+    "url": "git+https://github.com/riccardo-giovarelli/tictactoe-web-app.git"
   },
   "keywords": [
     "tris",
@@ -58,7 +58,7 @@
   "author": "Riccardo Giovarelli",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/riccardo-giovarelli/stupid-tris/issues"
+    "url": "https://github.com/riccardo-giovarelli/tictactoe-web-app/issues"
   },
-  "homepage": "https://github.com/riccardo-giovarelli/stupid-tris#readme"
+  "homepage": "https://github.com/riccardo-giovarelli/tictactoe-web-app#readme"
 }

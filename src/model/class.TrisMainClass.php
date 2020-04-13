@@ -1,39 +1,41 @@
 <?php
 
-// This file is part of Stupid Tris.
+// This file is part of Sloth's Tic-tac-toe.
 
-// Stupid Tris is free software: you can redistribute it and/or modify
+// Sloth's Tic-tac-toe is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 
-// Stupid Tris is distributed in the hope that it will be useful,
+// Sloth's Tic-tac-toe is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 
 // You should have received a copy of the GNU General Public License
-// along with Stupid Tris.  If not, see <http://www.gnu.org/licenses/>.
+// along with Sloth's Tic-tac-toe.  If not, see <http://www.gnu.org/licenses/>.
 
 // Copyright 2020 Riccardo Giovarelli <riccardo.giovarelli@gmail.com>
 
 
 /**
-* Tic-tac-toe Main Class
-*
-* @author Riccardo Giovarelli
-* @copyright 2020 Riccardo Giovarelli <riccardo.giovarelli@gmail.com>
-*/
-class TictactoeMainClass {
+ * Tic-tac-toe Main Class
+ *
+ * @author Riccardo Giovarelli
+ * @copyright 2020 Riccardo Giovarelli <riccardo.giovarelli@gmail.com>
+ */
+class TictactoeMainClass
+{
 
 
     /**
-    * Class constructor
-    *
-    * @param    Array   $currentField  Current Tic-tac-toe field
-    */
-    public function __construct($currentField) {
-        
+     * Class constructor
+     *
+     * @param    Array   $currentField  Current Tic-tac-toe field
+     */
+    public function __construct($currentField)
+    {
+
         // Init grid
         $cursor = 0;
         $myGridVector = explode(',', $currentField);
@@ -55,15 +57,16 @@ class TictactoeMainClass {
 
 
     /**
-    * Method minimax
-    *
-    * Implement the Minimax algorithm
-    *
-    * @param    Array   $field  Field for the current Tic-tac-toe match
-    * @param    Boolean $isMax  Current turn: maximizer or minimizer
-    * @return   Integer The best rank for the current situation
-    */
-    public function  minimax($field, $isMax) {
+     * Method minimax
+     *
+     * Implement the Minimax algorithm
+     *
+     * @param    Array   $field  Field for the current Tic-tac-toe match
+     * @param    Boolean $isMax  Current turn: maximizer or minimizer
+     * @return   Integer The best rank for the current situation
+     */
+    public function  minimax($field, $isMax)
+    {
 
         $state = $this->checkCurrentState($field);
 
@@ -75,15 +78,15 @@ class TictactoeMainClass {
             case '3':
                 return 0;
         }
-   
+
 
         switch ($isMax) {
             case true:
                 $rank = -1000;
                 for ($i = 0; $i < 3; $i++) {
                     for ($j = 0; $j < 3; $j++) {
-                        if ($field[$i][$j] == 0 ) {
-                        $field[$i][$j] = $this->aiMarker;
+                        if ($field[$i][$j] == 0) {
+                            $field[$i][$j] = $this->aiMarker;
                             $rank = max($rank, $this->minimax($field, !$isMax));
                             $field[$i][$j] = 0;
                         }
@@ -95,7 +98,7 @@ class TictactoeMainClass {
                 $rank = 1000;
                 for ($i = 0; $i < 3; $i++) {
                     for ($j = 0; $j < 3; $j++) {
-                    if ($field[$i][$j] == 0 ) {
+                        if ($field[$i][$j] == 0) {
                             $field[$i][$j] = $this->playerMarker;
                             $rank = min($rank, $this->minimax($field, !$isMax));
                             $field[$i][$j] = 0;
@@ -106,19 +109,20 @@ class TictactoeMainClass {
                 break;
             default:
                 return false;
-            }
-   }
+        }
+    }
 
 
 
     /**
-    * Method findBestMove
-    *
-    * Return the best move for AI
-    *
-    * @return   Array   The best move for AI
-    */
-    public function findBestMove() {
+     * Method findBestMove
+     *
+     * Return the best move for AI
+     *
+     * @return   Array   The best move for AI
+     */
+    public function findBestMove()
+    {
 
 
         $bestVal = -1000;
@@ -126,7 +130,7 @@ class TictactoeMainClass {
             "row" => -1,
             "col" => -1
         ];
-    
+
 
         for ($i = 0; $i < 3; $i++) {
             for ($j = 0; $j < 3; $j++) {
@@ -145,20 +149,21 @@ class TictactoeMainClass {
 
 
         return $bestMove;
-   }
+    }
 
 
 
     /**
-    * Method checkCurrentState
-    *
-    * Check current field state
-    *
-    * @param    Array   $field  Field for the current Tic-tac-toe match
-    * @return   Integer 3 if the match is even, 5 if player wins, 
-    *                   10 if Ai win or 6 if there aren't results
-    */
-    public function checkCurrentState($field) {
+     * Method checkCurrentState
+     *
+     * Check current field state
+     *
+     * @param    Array   $field  Field for the current Tic-tac-toe match
+     * @return   Integer 3 if the match is even, 5 if player wins, 
+     *                   10 if Ai win or 6 if there aren't results
+     */
+    public function checkCurrentState($field)
+    {
 
 
         $hitMatrix = [
@@ -254,9 +259,9 @@ class TictactoeMainClass {
 
         // Even result check
         if ($hitMatrix['boxes'] == 9) return 3;
-    
+
 
         // No results
         return 6;
-   }
+    }
 }

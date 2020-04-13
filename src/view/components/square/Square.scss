@@ -1,0 +1,48 @@
+// Variables
+$circleColor: blue;
+$crossColor: red;
+$itemWidth: 10px;
+$itemWidthGap: $itemWidth * 2 + 5;
+
+
+.square__container {
+    
+    position: relative;
+    height: 15vw;
+
+    &--cross {
+        margin-top: 50%;
+    }
+
+    .square__content {
+
+        &--circle {
+            position: relative;
+            height: calc(100% - #{$itemWidthGap});
+            border-color: $circleColor;
+            border-width: $itemWidth;
+            border-style: solid;
+            border-radius: 50%;
+        }
+
+        &--cross {
+            background: $crossColor;
+            position: relative;
+            margin-top: -1500px;
+            margin-left: 50%;
+            height: 3000px;
+            width: $itemWidth;
+            transform: rotate(45deg);
+        }
+
+        &--cross:after {
+            background: $crossColor;
+            position: absolute;
+            content: "";
+            height: $itemWidth;
+            width: 3000px;
+            left: -1500px;
+            top: 50%;
+        }
+    }
+}

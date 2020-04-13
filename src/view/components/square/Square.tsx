@@ -16,14 +16,17 @@
 // Copyright 2020 Riccardo Giovarelli <riccardo.giovarelli@gmail.com>
 
 import React from 'react';
-import Field from './components/field/Field';
-import Header from './components/header/Header';
-import './App.scss';
+import './Square.scss';
 
-interface AppState {
+interface SquareState {
 }
 
-export default class App extends React.Component<{}, AppState> {
+interface SquareProps {
+    moveHandler: any;
+    squareStatus: Number;
+}
+
+export default class Square extends React.Component<SquareProps, SquareState> {
 
     constructor(props: any) {
         super(props);
@@ -32,10 +35,21 @@ export default class App extends React.Component<{}, AppState> {
     // React render
     public render() {
         return <>
-            <div className="app__container">
-                <Header />
-                <Field />
+            <div className={"square square__container square__container" + this.getContentClass()}>
+                <div className={"square square__content square__content" + this.getContentClass()}>
+                </div>
             </div>
         </>
+    }
+
+    getContentClass(): string {
+        switch (this.props.squareStatus) {
+            case 0:
+                return "--empty";
+            case 1:
+                return "--circle";
+            case 2:
+                return "--cross";
+        }
     }
 }
