@@ -30,10 +30,6 @@ interface SquareProps {
 
 export default class Square extends React.Component<SquareProps, SquareState> {
 
-    constructor(props: any) {
-        super(props);
-    }
-
     // React render
     public render() {
         return <>
@@ -56,6 +52,8 @@ export default class Square extends React.Component<SquareProps, SquareState> {
                 return "--circle";
             case 2:
                 return "--cross";
+            default:
+                return "--error";
         }
     }
 }

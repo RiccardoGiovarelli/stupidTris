@@ -15,26 +15,9 @@
 
 // Copyright 2020 Riccardo Giovarelli <riccardo.giovarelli@gmail.com>
 
-import * as React from 'react'
-import './Header.scss';
+import Tictactoe from './minimax';
 
-interface HeaderState {
-}
-
-interface HeaderProps {
-}
-
-export default class Header extends React.Component<HeaderProps, HeaderState> {
-
-    constructor(props: any) {
-        super(props);
-    }
-
-    // React render
-    public render() {
-        return <>
-            <div className="header header__container">
-            </div>
-        </>
-    }
+export function getNextMove(field: any): Promise<any> {
+    let tictactoe = new Tictactoe(field);
+    return tictactoe.findBestMove();
 }

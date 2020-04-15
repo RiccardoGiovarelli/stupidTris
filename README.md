@@ -1,35 +1,51 @@
-# Sloth's Tic-tac-toe
+
+
+## Sloth's Tic-Tac-Toe
 Implementation of the Tic-tac-toe game with AI based on Minimax Algorithm.
 
-## Main goals
+### Authors
 
-The main goal of this project is learn and deepen some interesting technologies like React, Docker, Webpack and other.
+Riccardo Giovarelli - riccardo.giovarelli@gmail.com
 
-It is based mostly on the languages PHP and TypeScript.
+### License
 
-## Main requirements
+This project is licensed under the GNU General Public License v3.0 - see the LICENSE.md file for details
 
-Node.js and Docker
+### Main requirements
 
-## Installation
+Node.js
+
+### Installation
 
 Clone or download this repository and run `npm install`.
 
-## Development server
+### Available scripts
 
-Run `npm build` build the app container.
+#### `npm start`
 
-Run `npm start-cmd` start a dev server on Windows. Navigate to `http://localhost/`.
+Runs the app in the development mode.<br />
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-Run `npm start-bash` start a dev server on Linux. Navigate to `http://localhost/`.
+The page will reload if you make edits.<br />
+You will also see any lint errors in the console.
 
-Run `npm clean` to stop the dev server and remove the container.
+#### `npm test`
 
+Launches the test runner in the interactive watch mode.<br />
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-## Authors
+#### `npm run build`
 
-Riccardo Giovarelli
+Builds the app for production to the `build` folder.<br />
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-## License
+The build is minified and the filenames include the hashes.<br />
+Your app is ready to be deployed!
 
-This project is licensed under the GNU General Public License v3.0 - see the LICENSE.md file for details
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+## Learn More
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).

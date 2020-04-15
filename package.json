@@ -1,57 +1,46 @@
 {
-  "name": "sloths-tictactoe",
-  "version": "0.0.1",
-  "description": "Another implementation of the Tris game",
+  "name": "tictactoe-web-app",
+  "description": "Another implementation of the Tic-Tac-Toe game",
+  "version": "0.1.0",
   "private": true,
-  "directories": {
-    "lib": "lib"
-  },
-  "dependencies": {
-    "babel-polyfill": "^6.26.0",
-    "bootstrap": "^3.4.1",
-    "gulp-cli": "^2.2.0",
-    "popper.js": "^1.14.3",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
-  },
-  "devDependencies": {
-    "@babel/preset-react": "^7.9.4",
-    "@types/react": "^16.9.34",
-    "@types/react-dom": "^16.9.6",
-    "babel-cli": "^6.0.0",
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.4",
-    "babel-preset-env": "^1.6.1",
-    "css-loader": "^0.28.11",
-    "gulp": "^4.0.2",
-    "node-sass": "^4.13.1",
-    "remove": "^0.1.5",
-    "sass-loader": "^8.0.2",
-    "style-loader": "^0.20.3",
-    "ts-loader": "^6.2.2",
-    "typescript": "^3.8.3",
-    "webpack": "^4.42.1",
-    "webpack-cli": "^2.0.13"
-  },
-  "scripts": {
-    "build": "docker build -t sloths-tictactoe .",
-    "start-cmd": "docker run -d -v %cd%/:/var/www/html -p 127.0.0.1:80:80 --name running-sloths-tictactoe sloths-tictactoe && npm run webpack",
-    "start-bash": "docker run -d -v ./:/var/www/html -p 127.0.0.1:80:80 --name running-sloths-tictactoe sloths-tictactoe && npm run webpack",
-    "clean": "docker stop running-sloths-tictactoe && docker rm running-sloths-tictactoe",
-    "webpack": "webpack -d --optimize-minimize --watch"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/riccardo-giovarelli/tictactoe-web-app.git"
-  },
   "keywords": [
     "tris",
     "ai"
   ],
   "author": "Riccardo Giovarelli",
   "license": "GPL-3.0",
-  "bugs": {
-    "url": "https://github.com/riccardo-giovarelli/tictactoe-web-app/issues"
+  "dependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "@types/jest": "^24.9.1",
+    "@types/node": "^12.12.35",
+    "@types/react": "^16.9.34",
+    "@types/react-dom": "^16.9.6",
+    "node-sass": "^4.13.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-scripts": "3.4.1",
+    "typescript": "^3.7.5"
   },
-  "homepage": "https://github.com/riccardo-giovarelli/tictactoe-web-app#readme"
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }

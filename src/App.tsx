@@ -16,10 +16,17 @@
 // Copyright 2020 Riccardo Giovarelli <riccardo.giovarelli@gmail.com>
 
 import * as React from 'react'
-import * as ReactDOM from 'react-dom';
-import App from './App';
+import Field from './components/field/Field';
+import Header from './components/header/Header';
+import './App.scss';
 
-ReactDOM.render(
-    <App />,
-    document.getElementById('root')
-);
+function App() {
+  return (
+    <div className="app__container">
+      <Header />
+      <Field />
+    </div>
+  );
+}
+
+export default App;

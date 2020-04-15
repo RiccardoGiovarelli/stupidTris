@@ -1,5 +1,3 @@
-<?php
-
 // This file is part of Sloth's Tic-tac-toe.
 
 // Sloth's Tic-tac-toe is free software: you can redistribute it and/or modify
@@ -17,21 +15,22 @@
 
 // Copyright 2020 Riccardo Giovarelli <riccardo.giovarelli@gmail.com>
 
-require_once('../model/class.TrisMainClass.php');
+import * as React from 'react'
+import './Header.scss';
 
-$requestFiltered = filter_input(INPUT_POST, 'request');
-$paramFiltered = filter_input(INPUT_POST, 'currentGrid');
+interface HeaderState {
+}
 
-switch ($requestFiltered) {
+interface HeaderProps {
+}
 
-	case 'nextMoveRequest':
+export default class Header extends React.Component<HeaderProps, HeaderState> {
 
-		$trisMainObject = new TictactoeMainClass($paramFiltered);
-		$nextMove = $trisMainObject->findBestMove();
-		unset($trisMainObject);
-		if ($nextMove) echo json_encode($nextMove);
-		break;
-
-	default:
-		return false;
+    // React render
+    public render() {
+        return <>
+            <div className="header header__container">
+            </div>
+        </>
+    }
 }

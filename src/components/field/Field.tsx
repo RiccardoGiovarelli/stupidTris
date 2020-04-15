@@ -34,20 +34,20 @@ export default class Field extends React.Component<FieldProps, FieldState> {
 
         this.state = {
             field: {
-                row0: {
-                    square0: 0,
-                    square1: 0,
-                    square2: 0
+                0: {
+                    0: 0,
+                    1: 0,
+                    2: 0
                 },
-                row1: {
-                    square0: 0,
-                    square1: 0,
-                    square2: 0
+                1: {
+                    0: 0,
+                    1: 0,
+                    2: 0
                 },
-                row2: {
-                    square0: 0,
-                    square1: 0,
-                    square2: 0
+                2: {
+                    0: 0,
+                    1: 0,
+                    2: 0
                 }
             }
         }
@@ -67,7 +67,7 @@ export default class Field extends React.Component<FieldProps, FieldState> {
                                 <div className={"field__column field__column-" + columnNumber} key={columnIndex}>
                                     <Square
                                         moveHandler={this.handleMove}
-                                        squareStatus={this.state.field["row" + rowNumber]["square" + columnNumber]}
+                                        squareStatus={this.state.field[rowNumber][columnNumber]}
                                         x={rowNumber}
                                         y={columnNumber}
                                     />
@@ -85,7 +85,7 @@ export default class Field extends React.Component<FieldProps, FieldState> {
         const moveCoordinates = event.currentTarget.id.split("-");
         this.setState(prevState => {
             const fieldeCopy = { ...prevState.field };
-            fieldeCopy["row" + moveCoordinates[0]]["square" + moveCoordinates[1]] = 1;
+            fieldeCopy[moveCoordinates[0]][moveCoordinates[1]] = 1;
             return {
                 ...prevState,
                 fieldeCopy
@@ -96,11 +96,8 @@ export default class Field extends React.Component<FieldProps, FieldState> {
     }
 
     // Call AI service to get AI response
-    callAiResponse() {
-        getNextMove(this.state.field).then(response =>
-            response.json()
-        ).then(data =>
-            console.log("RESPONSE", data)
-        );
+    async callAiResponse() {
+        const data = await getNextMove(this.state.field);
+        console.log("RESPONSE", data)
     }
 }
