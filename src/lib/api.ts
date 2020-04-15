@@ -16,8 +16,17 @@
 // Copyright 2020 Riccardo Giovarelli <riccardo.giovarelli@gmail.com>
 
 import Tictactoe from './minimax';
+import { checkCurrentState } from './../lib/gameLib';
 
+/**
+ * getNextMove
+ *
+ * Return the next move for AI
+ *
+ * @param    Object     field  Field for the current Tic-tac-toe match
+ * @return   Object     The best move for AI by coordinates
+ */
 export function getNextMove(field: any): Promise<any> {
-    let tictactoe = new Tictactoe(field);
+    let tictactoe = new Tictactoe(field, checkCurrentState);
     return tictactoe.findBestMove();
 }

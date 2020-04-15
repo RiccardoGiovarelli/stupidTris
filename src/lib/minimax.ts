@@ -28,6 +28,7 @@ export default class Tictactoe {
     aiMarker: number;
     playerMarker: number;
     currentField: any;
+    checkCurrentState: any;
 
 
     /**
@@ -35,12 +36,13 @@ export default class Tictactoe {
      *
      * @param   Object  currentField    Current Tic-tac-toe field
      */
-    constructor(currentField: any) {
+    constructor(currentField: any, checkCurrentState: any) {
 
         // Init properties
         this.aiMarker = 2;
         this.playerMarker = 1;
         this.currentField = currentField;
+        this.checkCurrentState = checkCurrentState;
     }
 
 
@@ -55,7 +57,7 @@ export default class Tictactoe {
      */
     minimax(field: any, isMax: boolean): number {
 
-        const state = this.checkCurrentState(field);
+        const state = this.checkCurrentState(field, this.playerMarker, this.aiMarker);
 
         switch (state) {
             case 10:
@@ -129,116 +131,5 @@ export default class Tictactoe {
                 }
             }
         });
-    }
-
-
-    /**
-     * Method checkCurrentState
-     *
-     * Check current field state
-     *
-     * @param   Object  field  Field for the current Tic-tac-toe match
-     * @return  Number  3 if the match is even, 5 if player wins, 
-     *                   10 if Ai win or 6 if there aren't results
-     */
-    checkCurrentState(field: any): number {
-
-        const hitMatrix = {
-            player: {
-                row: 0,
-                column: 0,
-                cross: {
-                    right: 0,
-                    left: 0
-                }
-            },
-            stupidAi: {
-                row: 0,
-                column: 0,
-                cross: {
-                    right: 0,
-                    left: 0
-                }
-            },
-            boxes: 0
-        };
-
-
-        // LOOP LEVEL 1
-        for (let i = 0; i < 3; i++) {
-
-
-            // Rows count reset
-            hitMatrix.player.row = 0;
-            hitMatrix.stupidAi.row = 0;
-
-            // Column count reset
-            hitMatrix.player.column = 0;
-            hitMatrix.stupidAi.column = 0;
-
-
-            //Cross win check
-            switch (field[i][i]) {
-                case this.playerMarker:
-                    hitMatrix.player.cross.left++;
-                    break;
-                case this.aiMarker:
-                    hitMatrix.stupidAi.cross.left++;
-                    break;
-            }
-            switch (field[i][2 - i]) {
-                case this.playerMarker:
-                    hitMatrix.player.cross.right++;
-                    break;
-                case this.aiMarker:
-                    hitMatrix.stupidAi.cross.right++;
-                    break;
-            }
-            if ((hitMatrix.player.cross.left === 3) || (hitMatrix.player.cross.right === 3)) return 5;
-            if ((hitMatrix.stupidAi.cross.left === 3) || (hitMatrix.stupidAi.cross.right === 3)) return 10;
-
-
-            // LOOP LEVEL 2
-            for (let j = 0; j < 3; j++) {
-
-
-                // Rows win check
-                switch (field[i][j]) {
-                    case this.playerMarker:
-                        hitMatrix.player.row++;
-                        break;
-                    case this.aiMarker:
-                        hitMatrix.stupidAi.row++;
-                        break;
-                }
-                if (hitMatrix.player.row === 3) return 5;
-                if (hitMatrix.stupidAi.row === 3) return 10;
-
-
-                // Columns win check
-                switch (field[j][i]) {
-                    case this.playerMarker:
-                        hitMatrix.player.column++;
-                        break;
-                    case this.aiMarker:
-                        hitMatrix.stupidAi.column++;
-                        break;
-                }
-                if (hitMatrix.player.column === 3) return 5;
-                if (hitMatrix.stupidAi.column === 3) return 10;
-
-
-                // Count boxes
-                if (field[i][j] !== 0) hitMatrix.boxes++;
-            }
-        }
-
-
-        // Even result check
-        if (hitMatrix.boxes === 9) return 3;
-
-
-        // No results
-        return 6;
     }
 }

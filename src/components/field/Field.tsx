@@ -18,14 +18,15 @@
 import * as React from 'react'
 import Square from './../square/Square';
 import { getNextMove } from './../../lib/api';
+import { checkCurrentState } from './../../lib/gameLib';
 import './Field.scss';
 
 interface FieldState {
     field: any;
+    matchStatus: number;
 }
 
-interface FieldProps {
-}
+interface FieldProps { }
 
 export default class Field extends React.Component<FieldProps, FieldState> {
 
@@ -34,26 +35,22 @@ export default class Field extends React.Component<FieldProps, FieldState> {
 
         this.state = {
             field: {
-                0: {
-                    0: 0,
-                    1: 0,
-                    2: 0
-                },
-                1: {
-                    0: 0,
-                    1: 0,
-                    2: 0
-                },
-                2: {
-                    0: 0,
-                    1: 0,
-                    2: 0
-                }
-            }
+                0: { 0: 0, 1: 0, 2: 0 },
+                1: { 0: 0, 1: 0, 2: 0 },
+                2: { 0: 0, 1: 0, 2: 0 }
+            },
+            matchStatus: 6
         }
 
         // Methods bind
         this.handleMove = this.handleMove.bind(this);
+    }
+
+    // React componentDidUpdate
+    componentDidUpdate(prevProps: any, prevState: any) {
+        if (prevState.matchStatus !== this.state.matchStatus) {
+            this.emptyField();
+        }
     }
 
     // React render
@@ -83,21 +80,41 @@ export default class Field extends React.Component<FieldProps, FieldState> {
     // Handle the current move
     handleMove(event: any): void {
         const moveCoordinates = event.currentTarget.id.split("-");
-        this.setState(prevState => {
-            const fieldeCopy = { ...prevState.field };
-            fieldeCopy[moveCoordinates[0]][moveCoordinates[1]] = 1;
-            return {
-                ...prevState,
-                fieldeCopy
-            }
-        }, () => {
-            this.callAiResponse();
-        });
+        this.makeMove(moveCoordinates[0], moveCoordinates[1], 'player');
     }
 
     // Call AI service to get AI response
     async callAiResponse() {
-        const data = await getNextMove(this.state.field);
-        console.log("RESPONSE", data)
+        const move = await getNextMove(this.state.field);
+        this.makeMove(move.row, move.col, 'ai');
+    }
+
+    // Make player ora AI move
+    makeMove(x: number, y: number, who: string): void {
+        this.setState(prevState => {
+            const field = Object.assign({}, prevState.field);
+            field[x][y] = who === 'player' ? 1 : 2;
+            return { field };
+        }, () => {
+            const currentMatchStatus = checkCurrentState(this.state.field, 1, 2);
+            if (currentMatchStatus !== 6) {
+                this.setState({ matchStatus: currentMatchStatus });
+            } else if (who === 'player') {
+                this.callAiResponse();
+            }
+        });
+    }
+
+    // Empty the Tic-Tac-Toe field
+    emptyField() {
+        this.setState(prevState => {
+            const field = Object.assign({}, prevState.field);
+            [0, 1, 2].forEach((rowNumber: number) => {
+                [0, 1, 2].forEach((columnNumber: number) => {
+                    field[rowNumber][columnNumber] = 0;
+                });
+            });
+            return { field };
+        })
     }
 }
