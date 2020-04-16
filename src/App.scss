@@ -1,3 +1,26 @@
+@import './main.scss';
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    background-color: $main__background-color;
+  }
+
 .app__container {
     width: 100%;
+    display: block;
+    padding-top: 15vh;
+
+
+    .app__game-area {
+        display: inline-block;
+        width: 80%;
+    }
+
+    .app__tool-area {
+        display: inline-block;
+        width: 20%;
+    }
 }

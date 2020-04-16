@@ -1,9 +1,23 @@
-// Variables
-$circleColor: blue;
-$crossColor: red;
-$itemWidth: 10px;
-$itemWidthGap: $itemWidth * 2 + 5px;
+@import './../../main.scss';
 
+$square__circle-color: #F3B363;
+$square__cross-color: #F6E39B;
+$square__item-width: 10px;
+$square__item-width-gap: $square__item-width * 2 + 5px;
+$square__item-width-dev: $square__item-width / 2;
+$square__animation-duration: 0.5s;
+$square__animation-timing-function: ease-in;
+$square__animation-name:openItem;
+
+
+@keyframes openItem {
+    0% {
+        transform: scale(0,0);
+    }
+    100% {
+        transform: scale(1, 1);
+    }
+}
 
 .square__container {
     
@@ -11,39 +25,52 @@ $itemWidthGap: $itemWidth * 2 + 5px;
     height: 15vw;
     max-height: 150px;
 
-    &--cross {
-        margin-top: 50%;
-    }
-
     .square__content {
 
         &--circle {
             position: relative;
-            height: calc(100% - #{$itemWidthGap});
-            border-color: $circleColor;
-            border-width: $itemWidth;
+            height: calc(80% - #{$square__item-width-gap});
+            width: calc(80% - #{$square__item-width-gap});
+            margin-top: 10%;
+            margin-left: 10%;
+            border-color: $square__circle-color;
+            border-width: $square__item-width;
             border-style: solid;
             border-radius: 50%;
+            animation-name: $square__animation-name;
+            animation-duration: $square__animation-duration;
+            animation-timing-function: $square__animation-timing-function;
         }
 
         &--cross {
-            background: $crossColor;
+            margin-top: 10%;
+            margin-left: 10%;
+            height: 80%;
+            width: 80%;
             position: relative;
-            margin-top: -1500px;
-            margin-left: 50%;
-            height: 3000px;
-            width: $itemWidth;
-            transform: rotate(45deg);
+            transform:rotate(45deg);
         }
 
-        &--cross:after {
-            background: $crossColor;
-            position: absolute;
+        &--cross:before, &--cross:after {
             content: "";
-            height: $itemWidth;
-            width: 3000px;
-            left: -1500px;
-            top: 50%;
-        }
+            position: absolute;
+            z-index: -1;
+            background: $square__cross-color;
+            animation-name: $square__animation-name;
+            animation-duration: $square__animation-duration;
+            animation-timing-function: $square__animation-timing-function;
+          }
+          
+          &--cross:before {
+            left: calc(50% - #{$square__item-width-dev});
+            width: $square__item-width;
+            height: 100%;
+          }
+          
+          &--cross:after {
+            top: calc(50% - #{$square__item-width-dev});
+            height: $square__item-width;
+            width: 100%;
+          }
     }
 }

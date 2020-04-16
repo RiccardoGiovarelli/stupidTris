@@ -17,14 +17,17 @@
 
 import * as React from 'react'
 import Field from './components/field/Field';
-import Header from './components/header/Header';
 import './App.scss';
 
 function App() {
   return (
     <div className="app__container">
-      <Header />
-      <Field />
+      <div className="app__game-area">
+        <Field />
+      </div>
+      <div className="app__tool-area">
+
+      </div>
     </div>
   );
 }

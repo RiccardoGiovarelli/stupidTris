@@ -24,6 +24,7 @@ import './Field.scss';
 interface FieldState {
     field: any;
     matchStatus: number;
+    playerTurn: boolean;
 }
 
 interface FieldProps { }
@@ -39,7 +40,8 @@ export default class Field extends React.Component<FieldProps, FieldState> {
                 1: { 0: 0, 1: 0, 2: 0 },
                 2: { 0: 0, 1: 0, 2: 0 }
             },
-            matchStatus: 6
+            matchStatus: 6,
+            playerTurn: true
         }
 
         // Methods bind
@@ -49,7 +51,7 @@ export default class Field extends React.Component<FieldProps, FieldState> {
     // React componentDidUpdate
     componentDidUpdate(prevProps: any, prevState: any) {
         if (prevState.matchStatus !== this.state.matchStatus) {
-            this.emptyField();
+            this.switchTurn();
         }
     }
 
@@ -107,14 +109,30 @@ export default class Field extends React.Component<FieldProps, FieldState> {
 
     // Empty the Tic-Tac-Toe field
     emptyField() {
-        this.setState(prevState => {
-            const field = Object.assign({}, prevState.field);
-            [0, 1, 2].forEach((rowNumber: number) => {
-                [0, 1, 2].forEach((columnNumber: number) => {
-                    field[rowNumber][columnNumber] = 0;
+        return new Promise((resolve: any) => {
+            this.setState(prevState => {
+                const field = Object.assign({}, prevState.field);
+                [0, 1, 2].forEach((rowNumber: number) => {
+                    [0, 1, 2].forEach((columnNumber: number) => {
+                        field[rowNumber][columnNumber] = 0;
+                    });
                 });
+                return { field };
+            }, () => {
+                resolve(true);
             });
-            return { field };
-        })
+        });
+    }
+
+
+    // Switch turn and perform related operations
+    switchTurn() {
+        this.setState(prevState => ({
+            playerTurn: !prevState.playerTurn,
+            matchStatus: 6
+        }), async () => {
+            await this.emptyField();
+            if (this.state.playerTurn) { this.callAiResponse() }
+        });
     }
 }

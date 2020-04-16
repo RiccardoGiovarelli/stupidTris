@@ -38,7 +38,7 @@ export default class Square extends React.Component<SquareProps, SquareState> {
                 className={"square square__container square__container" + this.getContentClass()}
                 onClick={this.props.moveHandler}
             >
-                <div className={"square square__content square__content" + this.getContentClass()}>
+                <div className={"square square__content square__content-animation square__content" + this.getContentClass()}>
                 </div>
             </div>
         </>

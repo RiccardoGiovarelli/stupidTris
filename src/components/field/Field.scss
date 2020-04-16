@@ -1,24 +1,23 @@
-$fieldBorderWidth: 5px;
-$fieldBorderColor: black;
+@import './../../main.scss';
 
 .field__container {
-    width: 45vw;
-    max-width: 450px;
+    width: $field__lenght-relative;
+    max-width: $field__lenght;
     margin: auto;
 
     .field__perimeter {
         width: 100%;
-        height: 45vw;
-        max-height: 450px;
+        height: $field__lenght-relative;
+        max-height: $field__lenght;
 
         .field__row{
-            height: calc(33.33% - #{$fieldBorderWidth});
+            height: calc(33.33% - #{$field__border-width});
             border-style: solid;
             border-width: 0px;
         }
 
         .field__column {
-            width: calc(33.33% - #{$fieldBorderWidth});
+            width: calc(33.33% - #{$field__border-width});
             height: 100%;
             display: inline-block;
             border-style: solid;
@@ -27,30 +26,30 @@ $fieldBorderColor: black;
         }
 
         .field__column-0 {
-            border-right-width: $fieldBorderWidth;
-            border-right-color: $fieldBorderColor;
+            border-right-width: $field__border-width;
+            border-right-color: $field__border-color;
         }
         .field__column-1 {
-            border-right-width: $fieldBorderWidth;
-            border-right-color: $fieldBorderColor;
+            border-right-width: $field__border-width;
+            border-right-color: $field__border-color;
         }
         .field__column-2 {
-            border-right-width: $fieldBorderWidth;
+            border-right-width: $field__border-width;
             border-right-color: transparent;
         }
 
         .field__row-0 {
-            border-bottom-width: $fieldBorderWidth;
-            border-bottom-color: $fieldBorderColor;
+            border-bottom-width: $field__border-width;
+            border-bottom-color: $field__border-color;
         }
 
         .field__row-1 {
-            border-bottom-width: $fieldBorderWidth;
-            border-bottom-color: $fieldBorderColor;
+            border-bottom-width: $field__border-width;
+            border-bottom-color: $field__border-color;
         }
 
         .field__row-2 {
-            border-bottom-width: $fieldBorderWidth;
+            border-bottom-width: $field__border-width;
             border-bottom-color: transparent;
         }
     }
