@@ -1,20 +1,3 @@
-// This file is part of Sloth's Tic-tac-toe.
-
-// Sloth's Tic-tac-toe is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-
-// Sloth's Tic-tac-toe is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-
-// You should have received a copy of the GNU General Public License
-// along with Sloth's Tic-tac-toe.  If not, see <http://www.gnu.org/licenses/>.
-
-// Copyright 2020 Riccardo Giovarelli <riccardo.giovarelli@gmail.com>
-
 import * as React from 'react'
 import Square from './../square/Square';
 import { getNextMove } from './../../lib/api';
@@ -27,7 +10,9 @@ interface FieldState {
     playerTurn: boolean;
 }
 
-interface FieldProps { }
+interface FieldProps {
+    setScore: any;
+}
 
 export default class Field extends React.Component<FieldProps, FieldState> {
 
@@ -52,6 +37,7 @@ export default class Field extends React.Component<FieldProps, FieldState> {
     componentDidUpdate(prevProps: any, prevState: any) {
         if (prevState.matchStatus !== this.state.matchStatus) {
             this.switchTurn();
+            this.props.setScore(this.state.matchStatus);
         }
     }
 
@@ -102,7 +88,7 @@ export default class Field extends React.Component<FieldProps, FieldState> {
             if (currentMatchStatus !== 6) {
                 this.setState({ matchStatus: currentMatchStatus });
             } else if (who === 'player') {
-                this.callAiResponse();
+                setTimeout(() => { this.callAiResponse(); }, 500);
             }
         });
     }
@@ -123,7 +109,6 @@ export default class Field extends React.Component<FieldProps, FieldState> {
             });
         });
     }
-
 
     // Switch turn and perform related operations
     switchTurn() {

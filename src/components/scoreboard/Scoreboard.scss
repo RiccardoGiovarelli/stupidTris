@@ -1,0 +1,36 @@
+.scoreboard__container {
+    padding-top: 2vh;
+
+    .scoreboard__title {
+        font-size: 2.4em;
+    }
+
+    .scoreboard__cross-score, .scoreboard__circle-score {
+        font-size: 2.4em;
+        width: 100%;
+
+        .scoreboard__symbol {
+            display: inline-block;
+            width: 25%;
+            text-align: center;
+        }
+
+        .scoreboard__colon {
+            display: inline-block;
+            width: 10%;
+            text-align: center;   
+        }
+
+        .scoreboard__score {
+            display: inline-block;
+            width: 25%;
+            text-align: center; 
+        }
+
+        .scoreboard__icon {
+            display: inline-block;
+            width: 40%;
+            text-align: right;
+        }
+    }
+}

@@ -17,19 +17,54 @@
 
 import * as React from 'react'
 import Field from './components/field/Field';
+import Scoreboard from './components/scoreboard/Scoreboard';
 import './App.scss';
 
-function App() {
-  return (
-    <div className="app__container">
-      <div className="app__game-area">
-        <Field />
-      </div>
-      <div className="app__tool-area">
-
-      </div>
-    </div>
-  );
+interface AppState {
+  score: any;
 }
 
-export default App;
+interface AppProps { }
+
+export default class App extends React.Component<AppProps, AppState> {
+
+  constructor(props: any) {
+    super(props);
+
+    this.state = {
+      score: {
+        cross: 0,
+        circle: 0
+      }
+    }
+
+    this.setScore = this.setScore.bind(this);
+  }
+
+  // React render
+  public render() {
+    return (
+      <div className="app__container">
+        <div className="app__game-area">
+          <Field setScore={this.setScore} />
+        </div>
+        <div className="app__tool-area">
+          <Scoreboard score={this.state.score} />
+        </div>
+      </div>
+    )
+  }
+
+  // Update the score
+  setScore(matchStatus: number) {
+    this.setState(prevState => {
+      const score = Object.assign({}, prevState.score);
+      if (matchStatus === 10) {
+        score.cross = score.cross + 1;
+      } else if (matchStatus === 5) {
+        score.circle = score.circle + 1;
+      }
+      return { score };
+    })
+  }
+}

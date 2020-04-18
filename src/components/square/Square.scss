@@ -3,7 +3,6 @@
 $square__circle-color: #F3B363;
 $square__cross-color: #F6E39B;
 $square__item-width: 10px;
-$square__item-width-gap: $square__item-width * 2 + 5px;
 $square__item-width-dev: $square__item-width / 2;
 $square__animation-duration: 0.5s;
 $square__animation-timing-function: ease-in;
@@ -20,17 +19,16 @@ $square__animation-name:openItem;
 }
 
 .square__container {
-    
     position: relative;
-    height: 15vw;
-    max-height: 150px;
+    height: $square__height-relative;
+    max-height: $square__max-height;
 
     .square__content {
-
         &--circle {
             position: relative;
-            height: calc(80% - #{$square__item-width-gap});
-            width: calc(80% - #{$square__item-width-gap});
+            height: 80%;
+            width: 80%;
+            box-sizing: border-box;
             margin-top: 10%;
             margin-left: 10%;
             border-color: $square__circle-color;

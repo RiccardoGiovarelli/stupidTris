@@ -11,18 +11,20 @@
         max-height: $field__lenght;
 
         .field__row{
-            height: calc(33.33% - #{$field__border-width});
+            height: 33.33%;
             border-style: solid;
             border-width: 0px;
+            box-sizing: border-box;
         }
 
         .field__column {
-            width: calc(33.33% - #{$field__border-width});
+            width: 33.33%;
             height: 100%;
             display: inline-block;
             border-style: solid;
             border-width: 0px;
             overflow: hidden;
+            box-sizing: border-box;
         }
 
         .field__column-0 {
@@ -37,17 +39,14 @@
             border-right-width: $field__border-width;
             border-right-color: transparent;
         }
-
         .field__row-0 {
             border-bottom-width: $field__border-width;
             border-bottom-color: $field__border-color;
         }
-
         .field__row-1 {
             border-bottom-width: $field__border-width;
             border-bottom-color: $field__border-color;
         }
-
         .field__row-2 {
             border-bottom-width: $field__border-width;
             border-bottom-color: transparent;

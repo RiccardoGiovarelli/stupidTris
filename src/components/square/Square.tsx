@@ -18,8 +18,7 @@
 import * as React from 'react'
 import './Square.scss';
 
-interface SquareState {
-}
+interface SquareState { }
 
 interface SquareProps {
     moveHandler: any;
