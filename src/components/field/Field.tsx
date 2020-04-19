@@ -12,6 +12,8 @@ interface FieldState {
 
 interface FieldProps {
     setScore: any;
+    player: number;
+    ai: number;
 }
 
 export default class Field extends React.Component<FieldProps, FieldState> {
@@ -35,9 +37,11 @@ export default class Field extends React.Component<FieldProps, FieldState> {
 
     // React componentDidUpdate
     componentDidUpdate(prevProps: any, prevState: any) {
-        if (prevState.matchStatus !== this.state.matchStatus) {
-            this.switchTurn();
+        if (prevState.matchStatus !== this.state.matchStatus && (this.state.matchStatus === 5 || this.state.matchStatus === 10)) {
+            this.decorateField();
             this.props.setScore(this.state.matchStatus);
+        } else if (prevState.matchStatus !== this.state.matchStatus && this.state.matchStatus !== 6) {
+            //this.switchTurn();
         }
     }
 
@@ -73,7 +77,7 @@ export default class Field extends React.Component<FieldProps, FieldState> {
 
     // Call AI service to get AI response
     async callAiResponse() {
-        const move = await getNextMove(this.state.field);
+        const move = await getNextMove(this.state.field, this.props.ai, this.props.player);
         this.makeMove(move.row, move.col, 'ai');
     }
 
@@ -81,10 +85,10 @@ export default class Field extends React.Component<FieldProps, FieldState> {
     makeMove(x: number, y: number, who: string): void {
         this.setState(prevState => {
             const field = Object.assign({}, prevState.field);
-            field[x][y] = who === 'player' ? 1 : 2;
+            field[x][y] = who === 'player' ? this.props.player : this.props.ai;
             return { field };
         }, () => {
-            const currentMatchStatus = checkCurrentState(this.state.field, 1, 2);
+            const currentMatchStatus = checkCurrentState(this.state.field, this.props.player, this.props.ai, 'status');
             if (currentMatchStatus !== 6) {
                 this.setState({ matchStatus: currentMatchStatus });
             } else if (who === 'player') {
@@ -117,7 +121,44 @@ export default class Field extends React.Component<FieldProps, FieldState> {
             matchStatus: 6
         }), async () => {
             await this.emptyField();
-            if (this.state.playerTurn) { this.callAiResponse() }
+            if (!this.state.playerTurn) { this.callAiResponse() }
         });
+    }
+
+    decorateField() {
+        const winningCode = checkCurrentState(this.state.field, this.props.player, this.props.ai, 'where');
+        if (winningCode === 11) {
+            this.setState(prevState => {
+                const field = Object.assign({}, prevState.field);
+                [0, 1, 2].forEach((cursor: number) => {
+                    field[cursor][cursor] = this.state.matchStatus + 100;
+                });
+                return { field };
+            });
+        } else if (winningCode === 12) {
+            this.setState(prevState => {
+                const field = Object.assign({}, prevState.field);
+                [0, 1, 2].forEach((cursor: number) => {
+                    field[cursor][2 - cursor] = this.state.matchStatus + 100;
+                });
+                return { field };
+            });
+        } else if (winningCode >= 20 && winningCode < 30) {
+            this.setState(prevState => {
+                const field = Object.assign({}, prevState.field);
+                [0, 1, 2].forEach((columnNumber: number) => {
+                    field[winningCode - 20][columnNumber] = this.state.matchStatus + 100;
+                });
+                return { field };
+            });
+        } else if (winningCode >= 30 && winningCode < 40) {
+            this.setState(prevState => {
+                const field = Object.assign({}, prevState.field);
+                [0, 1, 2].forEach((rowNumber: number) => {
+                    field[rowNumber][winningCode - 30] = this.state.matchStatus + 100;
+                });
+                return { field };
+            });
+        }
     }
 }

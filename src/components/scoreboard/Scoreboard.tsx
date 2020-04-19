@@ -38,7 +38,7 @@ export default class Scoreboard extends React.Component<ScoreboardProps, Scorebo
                 </div>
                 <div className="scoreboard__cross-score">
                     <div className="scoreboard__symbol">
-                        <FontAwesomeIcon icon={faTimes} size="xs" />
+                        <FontAwesomeIcon icon={faTimes} size="sm" />
                     </div>
                     <div className="scoreboard__colon">
                         :
@@ -47,12 +47,12 @@ export default class Scoreboard extends React.Component<ScoreboardProps, Scorebo
                         {this.props.score.cross}
                     </div>
                     <div className="scoreboard__icon">
-                        <FontAwesomeIcon icon={faLaptop} size="xs" />
+                        <FontAwesomeIcon icon={faLaptop} size="sm" />
                     </div>
                 </div>
                 <div className="scoreboard__circle-score">
                     <div className="scoreboard__symbol">
-                        <FontAwesomeIcon icon={faCircle} size="xs" />
+                        <FontAwesomeIcon icon={faCircle} size="sm" />
                     </div>
                     <div className="scoreboard__colon">
                         :
@@ -61,7 +61,7 @@ export default class Scoreboard extends React.Component<ScoreboardProps, Scorebo
                         {this.props.score.circle}
                     </div>
                     <div className="scoreboard__icon">
-                        <FontAwesomeIcon icon={faUser} size="xs" />
+                        <FontAwesomeIcon icon={faUser} size="sm" />
                     </div>
                 </div>
             </div>

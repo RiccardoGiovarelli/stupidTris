@@ -41,15 +41,25 @@ export default class App extends React.Component<AppProps, AppState> {
     this.setScore = this.setScore.bind(this);
   }
 
+  // Identifiers
+  player: number = 5;
+  ai: number = 10;
+
   // React render
   public render() {
     return (
       <div className="app__container">
         <div className="app__game-area">
-          <Field setScore={this.setScore} />
+          <Field
+            setScore={this.setScore}
+            player={this.player}
+            ai={this.ai}
+          />
         </div>
         <div className="app__tool-area">
-          <Scoreboard score={this.state.score} />
+          <Scoreboard
+            score={this.state.score}
+          />
         </div>
       </div>
     )

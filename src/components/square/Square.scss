@@ -7,6 +7,7 @@ $square__item-width-dev: $square__item-width / 2;
 $square__animation-duration: 0.5s;
 $square__animation-timing-function: ease-in;
 $square__animation-name:openItem;
+$square__winner-color: #d63447;
 
 
 @keyframes openItem {
@@ -16,6 +17,14 @@ $square__animation-name:openItem;
     100% {
         transform: scale(1, 1);
     }
+}
+
+.square__clickable {
+    cursor: pointer;
+}
+
+.square__full {
+    cursor: not-allowed;
 }
 
 .square__container {
@@ -38,6 +47,10 @@ $square__animation-name:openItem;
             animation-name: $square__animation-name;
             animation-duration: $square__animation-duration;
             animation-timing-function: $square__animation-timing-function;
+
+            &.square__decorate {
+                border-color: $square__winner-color;
+            }
         }
 
         &--cross {
@@ -47,6 +60,10 @@ $square__animation-name:openItem;
             width: 80%;
             position: relative;
             transform:rotate(45deg);
+
+            &.square__decorate:before, &.square__decorate:after {
+                background: $square__winner-color;
+            }
         }
 
         &--cross:before, &--cross:after {

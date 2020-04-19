@@ -15,19 +15,24 @@
 
 // Copyright 2020 Riccardo Giovarelli <riccardo.giovarelli@gmail.com>
 
+
 /**
  * checkCurrentState
  *
  * Check current field state
  *
  * @param   Object  field           Field for the current Tic-tac-toe match
- * @param   Number  playerMarker    Identifier number for palyer
- * @param   Number  aiMarker        Identifier number for AI
- * @return  Number  3 if the match is even, 5 if player wins, 
- *                   10 if Ai win or 6 if there aren't results
+ * @param   number  playerMarker    Identifier number for palyer
+ * @param   number  aiMarker        Identifier number for AI
+ * @param   string  output          Type of output
+ * @return  Number  Field current state
+ * 
+ * RETURN DETAILS:
+ * output = "status" => 1 for EVEN, 5 for PLAYER WIN, 10 for AI WIN and 6 for no results
+ * output = "where"  => three digit number: First = Player/IA, Second = Kind of win, Third = diagonal/row/column
  */
 
-export function checkCurrentState(field: any, playerMarker: number, aiMarker: number): number {
+export function checkCurrentState(field: any, playerMarker: number, aiMarker: number, output: "status" | "where"): number {
 
     const hitMatrix = {
         player: {
@@ -42,6 +47,10 @@ export function checkCurrentState(field: any, playerMarker: number, aiMarker: nu
         },
         boxes: 0
     };
+    const playerWin = 5;
+    const AIWin = 10;
+    const even = 3;
+    const noResults = 6;
 
 
     // LOOP LEVEL 1
@@ -74,8 +83,22 @@ export function checkCurrentState(field: any, playerMarker: number, aiMarker: nu
                 hitMatrix.stupidAi.cross.right++;
                 break;
         }
-        if ((hitMatrix.player.cross.left === 3) || (hitMatrix.player.cross.right === 3)) return 5;
-        if ((hitMatrix.stupidAi.cross.left === 3) || (hitMatrix.stupidAi.cross.right === 3)) return 10;
+        if (hitMatrix.player.cross.right === 3) {
+            if (output === 'status') return playerWin;
+            if (output === 'where') return 11;
+        }
+        if (hitMatrix.player.cross.left === 3) {
+            if (output === 'status') return playerWin;
+            if (output === 'where') return 12;
+        }
+        if (hitMatrix.stupidAi.cross.left === 3) {
+            if (output === 'status') return AIWin;
+            if (output === 'where') return 11;
+        }
+        if (hitMatrix.stupidAi.cross.right === 3) {
+            if (output === 'status') return AIWin;
+            if (output === 'where') return 12;
+        }
 
 
         // LOOP LEVEL 2
@@ -91,8 +114,14 @@ export function checkCurrentState(field: any, playerMarker: number, aiMarker: nu
                     hitMatrix.stupidAi.row++;
                     break;
             }
-            if (hitMatrix.player.row === 3) return 5;
-            if (hitMatrix.stupidAi.row === 3) return 10;
+            if (hitMatrix.player.row === 3) {
+                if (output === 'status') return playerWin;
+                if (output === 'where') return 20 + i;
+            }
+            if (hitMatrix.stupidAi.row === 3) {
+                if (output === 'status') return AIWin;
+                if (output === 'where') return 20 + i;
+            }
 
 
             // Columns win check
@@ -104,9 +133,14 @@ export function checkCurrentState(field: any, playerMarker: number, aiMarker: nu
                     hitMatrix.stupidAi.column++;
                     break;
             }
-            if (hitMatrix.player.column === 3) return 5;
-            if (hitMatrix.stupidAi.column === 3) return 10;
-
+            if (hitMatrix.player.column === 3) {
+                if (output === 'status') return playerWin;
+                if (output === 'where') return 30 + j;
+            }
+            if (hitMatrix.stupidAi.column === 3) {
+                if (output === 'status') return AIWin;
+                if (output === 'where') return 30 + j;
+            }
 
             // Count boxes
             if (field[i][j] !== 0) hitMatrix.boxes++;
@@ -115,9 +149,9 @@ export function checkCurrentState(field: any, playerMarker: number, aiMarker: nu
 
 
     // Even result check
-    if (hitMatrix.boxes === 9) return 3;
+    if (hitMatrix.boxes === 9) return even;
 
 
     // No results
-    return 6;
+    return noResults;
 }

@@ -26,7 +26,7 @@ import { checkCurrentState } from './../lib/gameLib';
  * @param    Object     field  Field for the current Tic-tac-toe match
  * @return   Object     The best move for AI by coordinates
  */
-export function getNextMove(field: any): Promise<any> {
-    let tictactoe = new Tictactoe(field, checkCurrentState);
+export function getNextMove(field: any, aiMarker: number, playerMarker: number): Promise<any> {
+    let tictactoe = new Tictactoe(field, checkCurrentState, aiMarker, playerMarker);
     return tictactoe.findBestMove();
 }

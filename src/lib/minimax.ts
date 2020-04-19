@@ -36,11 +36,11 @@ export default class Tictactoe {
      *
      * @param   Object  currentField    Current Tic-tac-toe field
      */
-    constructor(currentField: any, checkCurrentState: any) {
+    constructor(currentField: any, checkCurrentState: any, aiMarker: number, playerMarker: number) {
 
         // Init properties
-        this.aiMarker = 2;
-        this.playerMarker = 1;
+        this.aiMarker = aiMarker;
+        this.playerMarker = playerMarker;
         this.currentField = currentField;
         this.checkCurrentState = checkCurrentState;
     }
@@ -57,7 +57,7 @@ export default class Tictactoe {
      */
     minimax(field: any, isMax: boolean): number {
 
-        const state = this.checkCurrentState(field, this.playerMarker, this.aiMarker);
+        const state = this.checkCurrentState(field, this.playerMarker, this.aiMarker, 'status');
 
         switch (state) {
             case 10:

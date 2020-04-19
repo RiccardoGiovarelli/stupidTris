@@ -22,9 +22,9 @@ interface SquareState { }
 
 interface SquareProps {
     moveHandler: any;
-    squareStatus: Number;
-    x: Number;
-    y: Number;
+    squareStatus: number;
+    x: number;
+    y: number;
 }
 
 export default class Square extends React.Component<SquareProps, SquareState> {
@@ -35,7 +35,7 @@ export default class Square extends React.Component<SquareProps, SquareState> {
             <div
                 id={this.props.x + "-" + this.props.y}
                 className={"square square__container square__container" + this.getContentClass()}
-                onClick={this.props.moveHandler}
+                onClick={this.props.squareStatus === 0 ? this.props.moveHandler : undefined}
             >
                 <div className={"square square__content square__content-animation square__content" + this.getContentClass()}>
                 </div>
@@ -43,16 +43,28 @@ export default class Square extends React.Component<SquareProps, SquareState> {
         </>
     }
 
+    // Return classes for this square
     getContentClass(): string {
-        switch (this.props.squareStatus) {
+
+        let test = 0;
+        let decorate = false;
+
+        if (this.props.squareStatus >= 100) {
+            test = this.props.squareStatus - 100;
+            decorate = true;
+        } else {
+            test = this.props.squareStatus;
+        }
+
+        switch (test) {
             case 0:
-                return "--empty";
-            case 1:
-                return "--circle";
-            case 2:
-                return "--cross";
+                return "--empty square__clickable";
+            case 5:
+                return "--circle square__full" + (decorate ? " square__decorate" : "");
+            case 10:
+                return "--cross square__full" + (decorate ? " square__decorate" : "");
             default:
-                return "--error";
+                return "--error square__full";
         }
     }
 }
