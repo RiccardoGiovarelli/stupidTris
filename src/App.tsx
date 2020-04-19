@@ -47,7 +47,7 @@ export default class App extends React.Component<AppProps, AppState> {
 
   // React render
   public render() {
-    return (
+    return <>
       <div className="app__container">
         <div className="app__game-area">
           <Field
@@ -62,7 +62,7 @@ export default class App extends React.Component<AppProps, AppState> {
           />
         </div>
       </div>
-    )
+    </>
   }
 
   // Update the score

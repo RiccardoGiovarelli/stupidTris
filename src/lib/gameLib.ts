@@ -135,11 +135,11 @@ export function checkCurrentState(field: any, playerMarker: number, aiMarker: nu
             }
             if (hitMatrix.player.column === 3) {
                 if (output === 'status') return playerWin;
-                if (output === 'where') return 30 + j;
+                if (output === 'where') return 30 + i;
             }
             if (hitMatrix.stupidAi.column === 3) {
                 if (output === 'status') return AIWin;
-                if (output === 'where') return 30 + j;
+                if (output === 'where') return 30 + i;
             }
 
             // Count boxes

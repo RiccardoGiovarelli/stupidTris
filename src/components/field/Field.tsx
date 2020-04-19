@@ -8,6 +8,7 @@ interface FieldState {
     field: any;
     matchStatus: number;
     playerTurn: boolean;
+    enabled: boolean;
 }
 
 interface FieldProps {
@@ -28,7 +29,8 @@ export default class Field extends React.Component<FieldProps, FieldState> {
                 2: { 0: 0, 1: 0, 2: 0 }
             },
             matchStatus: 6,
-            playerTurn: true
+            playerTurn: true,
+            enabled: true
         }
 
         // Methods bind
@@ -38,8 +40,10 @@ export default class Field extends React.Component<FieldProps, FieldState> {
     // React componentDidUpdate
     componentDidUpdate(prevProps: any, prevState: any) {
         if (prevState.matchStatus !== this.state.matchStatus && (this.state.matchStatus === 5 || this.state.matchStatus === 10)) {
-            this.decorateField();
-            this.props.setScore(this.state.matchStatus);
+            this.setState({ enabled: false }, () => {
+                this.decorateField(1000);
+                this.props.setScore(this.state.matchStatus);
+            });
         } else if (prevState.matchStatus !== this.state.matchStatus && this.state.matchStatus !== 6) {
             //this.switchTurn();
         }
@@ -48,10 +52,10 @@ export default class Field extends React.Component<FieldProps, FieldState> {
     // React render
     public render() {
         return <>
-            <div className="field field__container">
-                <div className='field field__perimeter'>
+            <div className="field__container">
+                <div className='field__perimeter'>
                     {[0, 1, 2].map((rowNumber: number, rowIndex: number) => (
-                        <div className={"field field__row field__row-" + rowNumber} key={rowIndex}>
+                        <div className={"field__row field__row-" + rowNumber} key={rowIndex}>
                             {[0, 1, 2].map((columnNumber: number, columnIndex: number) => (
                                 <div className={"field__column field__column-" + columnNumber} key={columnIndex}>
                                     <Square
@@ -59,6 +63,7 @@ export default class Field extends React.Component<FieldProps, FieldState> {
                                         squareStatus={this.state.field[rowNumber][columnNumber]}
                                         x={rowNumber}
                                         y={columnNumber}
+                                        enabled={this.state.enabled}
                                     />
                                 </div>
                             ))}
@@ -125,40 +130,53 @@ export default class Field extends React.Component<FieldProps, FieldState> {
         });
     }
 
-    decorateField() {
+    // Highlight the winner line
+    decorateField(delay: number) {
         const winningCode = checkCurrentState(this.state.field, this.props.player, this.props.ai, 'where');
+        // Diagonal 1
         if (winningCode === 11) {
-            this.setState(prevState => {
-                const field = Object.assign({}, prevState.field);
-                [0, 1, 2].forEach((cursor: number) => {
-                    field[cursor][cursor] = this.state.matchStatus + 100;
+            setTimeout(() => {
+                this.setState(prevState => {
+                    const field = Object.assign({}, prevState.field);
+                    [0, 1, 2].forEach((cursor: number) => {
+                        field[cursor][cursor] = this.state.matchStatus + 100;
+                    });
+                    return { field };
                 });
-                return { field };
-            });
+            }, delay);
+            // Diagonal 2
         } else if (winningCode === 12) {
-            this.setState(prevState => {
-                const field = Object.assign({}, prevState.field);
-                [0, 1, 2].forEach((cursor: number) => {
-                    field[cursor][2 - cursor] = this.state.matchStatus + 100;
+            setTimeout(() => {
+                this.setState(prevState => {
+                    const field = Object.assign({}, prevState.field);
+                    [0, 1, 2].forEach((cursor: number) => {
+                        field[cursor][2 - cursor] = this.state.matchStatus + 100;
+                    });
+                    return { field };
                 });
-                return { field };
-            });
+            }, delay);
+            // Row
         } else if (winningCode >= 20 && winningCode < 30) {
-            this.setState(prevState => {
-                const field = Object.assign({}, prevState.field);
-                [0, 1, 2].forEach((columnNumber: number) => {
-                    field[winningCode - 20][columnNumber] = this.state.matchStatus + 100;
+            setTimeout(() => {
+                this.setState(prevState => {
+                    const field = Object.assign({}, prevState.field);
+                    [0, 1, 2].forEach((columnNumber: number) => {
+                        field[winningCode - 20][columnNumber] = this.state.matchStatus + 100;
+                    });
+                    return { field };
                 });
-                return { field };
-            });
+            }, delay);
+            // Column
         } else if (winningCode >= 30 && winningCode < 40) {
-            this.setState(prevState => {
-                const field = Object.assign({}, prevState.field);
-                [0, 1, 2].forEach((rowNumber: number) => {
-                    field[rowNumber][winningCode - 30] = this.state.matchStatus + 100;
+            setTimeout(() => {
+                this.setState(prevState => {
+                    const field = Object.assign({}, prevState.field);
+                    [0, 1, 2].forEach((rowNumber: number) => {
+                        field[rowNumber][winningCode - 30] = this.state.matchStatus + 100;
+                    });
+                    return { field };
                 });
-                return { field };
-            });
+            }, delay);
         }
     }
 }
