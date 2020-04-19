@@ -32,7 +32,7 @@
  * output = "where"  => three digit number: First = Player/IA, Second = Kind of win, Third = diagonal/row/column
  */
 
-export function checkCurrentState(field: any, playerMarker: number, aiMarker: number, output: "status" | "where"): number {
+export function checkCurrentState(field: any, playerMarker: number, aiMarker: number, evenMaker: number, noresultsMaker: number, output: "status" | "where"): number {
 
     const hitMatrix = {
         player: {
@@ -47,10 +47,6 @@ export function checkCurrentState(field: any, playerMarker: number, aiMarker: nu
         },
         boxes: 0
     };
-    const playerWin = 5;
-    const AIWin = 10;
-    const even = 3;
-    const noResults = 6;
 
 
     // LOOP LEVEL 1
@@ -84,19 +80,19 @@ export function checkCurrentState(field: any, playerMarker: number, aiMarker: nu
                 break;
         }
         if (hitMatrix.player.cross.right === 3) {
-            if (output === 'status') return playerWin;
+            if (output === 'status') return playerMarker;
             if (output === 'where') return 11;
         }
         if (hitMatrix.player.cross.left === 3) {
-            if (output === 'status') return playerWin;
+            if (output === 'status') return playerMarker;
             if (output === 'where') return 12;
         }
         if (hitMatrix.stupidAi.cross.left === 3) {
-            if (output === 'status') return AIWin;
+            if (output === 'status') return aiMarker;
             if (output === 'where') return 11;
         }
         if (hitMatrix.stupidAi.cross.right === 3) {
-            if (output === 'status') return AIWin;
+            if (output === 'status') return aiMarker;
             if (output === 'where') return 12;
         }
 
@@ -115,11 +111,11 @@ export function checkCurrentState(field: any, playerMarker: number, aiMarker: nu
                     break;
             }
             if (hitMatrix.player.row === 3) {
-                if (output === 'status') return playerWin;
+                if (output === 'status') return playerMarker;
                 if (output === 'where') return 20 + i;
             }
             if (hitMatrix.stupidAi.row === 3) {
-                if (output === 'status') return AIWin;
+                if (output === 'status') return aiMarker;
                 if (output === 'where') return 20 + i;
             }
 
@@ -134,11 +130,11 @@ export function checkCurrentState(field: any, playerMarker: number, aiMarker: nu
                     break;
             }
             if (hitMatrix.player.column === 3) {
-                if (output === 'status') return playerWin;
+                if (output === 'status') return playerMarker;
                 if (output === 'where') return 30 + i;
             }
             if (hitMatrix.stupidAi.column === 3) {
-                if (output === 'status') return AIWin;
+                if (output === 'status') return aiMarker;
                 if (output === 'where') return 30 + i;
             }
 
@@ -149,9 +145,9 @@ export function checkCurrentState(field: any, playerMarker: number, aiMarker: nu
 
 
     // Even result check
-    if (hitMatrix.boxes === 9) return even;
+    if (hitMatrix.boxes === 9) return evenMaker;
 
 
     // No results
-    return noResults;
+    return noresultsMaker;
 }

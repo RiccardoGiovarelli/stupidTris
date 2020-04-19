@@ -44,6 +44,8 @@ export default class App extends React.Component<AppProps, AppState> {
   // Identifiers
   player: number = 5;
   ai: number = 10;
+  even: number = 3;
+  noresults: number = 6;
 
   // React render
   public render() {
@@ -54,6 +56,8 @@ export default class App extends React.Component<AppProps, AppState> {
             setScore={this.setScore}
             player={this.player}
             ai={this.ai}
+            even={this.even}
+            noresults={this.noresults}
           />
         </div>
         <div className="app__tool-area">

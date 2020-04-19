@@ -26,6 +26,8 @@ interface SquareProps {
     x: number;
     y: number;
     enabled: boolean;
+    player: number;
+    ai: number;
 }
 
 export default class Square extends React.Component<SquareProps, SquareState> {
@@ -35,10 +37,10 @@ export default class Square extends React.Component<SquareProps, SquareState> {
         return <>
             <div
                 id={this.props.x + "-" + this.props.y}
-                className={"square square__container square__container" + this.getContentClass()}
+                className="square__container"
                 onClick={this.props.squareStatus === 0 && this.props.enabled ? this.props.moveHandler : undefined}
             >
-                <div className={"square square__content square__content-animation square__content" + this.getContentClass()}>
+                <div className={"square__content square__content" + this.getContentClass()}>
                 </div>
             </div>
         </>
@@ -60,9 +62,9 @@ export default class Square extends React.Component<SquareProps, SquareState> {
         switch (test) {
             case 0:
                 return "--empty" + (this.props.enabled ? " square__clickable" : " square__full");
-            case 5:
+            case this.props.ai:
                 return "--circle square__full" + (decorate ? " square__decorate" : "");
-            case 10:
+            case this.props.player:
                 return "--cross square__full" + (decorate ? " square__decorate" : "");
             default:
                 return "--error square__full";

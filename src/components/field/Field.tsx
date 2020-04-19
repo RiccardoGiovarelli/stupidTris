@@ -15,6 +15,8 @@ interface FieldProps {
     setScore: any;
     player: number;
     ai: number;
+    even: number;
+    noresults: number;
 }
 
 export default class Field extends React.Component<FieldProps, FieldState> {
@@ -28,7 +30,7 @@ export default class Field extends React.Component<FieldProps, FieldState> {
                 1: { 0: 0, 1: 0, 2: 0 },
                 2: { 0: 0, 1: 0, 2: 0 }
             },
-            matchStatus: 6,
+            matchStatus: props.noresults,
             playerTurn: true,
             enabled: true
         }
@@ -39,12 +41,12 @@ export default class Field extends React.Component<FieldProps, FieldState> {
 
     // React componentDidUpdate
     componentDidUpdate(prevProps: any, prevState: any) {
-        if (prevState.matchStatus !== this.state.matchStatus && (this.state.matchStatus === 5 || this.state.matchStatus === 10)) {
+        if (prevState.matchStatus !== this.state.matchStatus && (this.state.matchStatus === this.props.player || this.state.matchStatus === this.props.ai)) {
             this.setState({ enabled: false }, () => {
                 this.decorateField(1000);
                 this.props.setScore(this.state.matchStatus);
             });
-        } else if (prevState.matchStatus !== this.state.matchStatus && this.state.matchStatus !== 6) {
+        } else if (prevState.matchStatus !== this.state.matchStatus && this.state.matchStatus !== this.props.noresults) {
             //this.switchTurn();
         }
     }
@@ -64,6 +66,8 @@ export default class Field extends React.Component<FieldProps, FieldState> {
                                         x={rowNumber}
                                         y={columnNumber}
                                         enabled={this.state.enabled}
+                                        player={this.props.player}
+                                        ai={this.props.ai}
                                     />
                                 </div>
                             ))}
@@ -82,7 +86,7 @@ export default class Field extends React.Component<FieldProps, FieldState> {
 
     // Call AI service to get AI response
     async callAiResponse() {
-        const move = await getNextMove(this.state.field, this.props.ai, this.props.player);
+        const move = await getNextMove(this.state.field, this.props.ai, this.props.player, this.props.even, this.props.noresults);
         this.makeMove(move.row, move.col, 'ai');
     }
 
@@ -93,8 +97,8 @@ export default class Field extends React.Component<FieldProps, FieldState> {
             field[x][y] = who === 'player' ? this.props.player : this.props.ai;
             return { field };
         }, () => {
-            const currentMatchStatus = checkCurrentState(this.state.field, this.props.player, this.props.ai, 'status');
-            if (currentMatchStatus !== 6) {
+            const currentMatchStatus = checkCurrentState(this.state.field, this.props.ai, this.props.player, this.props.even, this.props.noresults, 'status');
+            if (currentMatchStatus !== this.props.noresults) {
                 this.setState({ matchStatus: currentMatchStatus });
             } else if (who === 'player') {
                 setTimeout(() => { this.callAiResponse(); }, 500);
@@ -123,7 +127,7 @@ export default class Field extends React.Component<FieldProps, FieldState> {
     switchTurn() {
         this.setState(prevState => ({
             playerTurn: !prevState.playerTurn,
-            matchStatus: 6
+            matchStatus: this.props.noresults
         }), async () => {
             await this.emptyField();
             if (!this.state.playerTurn) { this.callAiResponse() }
@@ -132,7 +136,7 @@ export default class Field extends React.Component<FieldProps, FieldState> {
 
     // Highlight the winner line
     decorateField(delay: number) {
-        const winningCode = checkCurrentState(this.state.field, this.props.player, this.props.ai, 'where');
+        const winningCode = checkCurrentState(this.state.field, this.props.player, this.props.ai, this.props.even, this.props.noresults, 'where');
         // Diagonal 1
         if (winningCode === 11) {
             setTimeout(() => {

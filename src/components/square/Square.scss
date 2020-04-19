@@ -4,9 +4,13 @@ $square__circle-color: #F3B363;
 $square__cross-color: #F6E39B;
 $square__item-width: 10px;
 $square__item-width-dev: $square__item-width / 2;
-$square__animation-duration: 0.5s;
-$square__animation-timing-function: ease-in;
-$square__animation-name:openItem;
+$square__openitem-duration: 0.5s;
+$square__openitem-timing-function: ease-in;
+$square__openitem-name:openItem;
+$square__blinking-duration: 1s;
+$square__blinking-timing-function: ease-in-out;
+$square__blinking-iteration-count:infinite;
+$square__blinking-name:blinking;
 $square__winner-color: #d63447;
 
 
@@ -17,6 +21,18 @@ $square__winner-color: #d63447;
     100% {
         transform: scale(1, 1);
     }
+}
+
+@keyframes blinking{
+    0% {
+        opacity: 0.1;
+    }
+    50% {
+        opacity: 1;
+    }  
+    100% {
+        opacity: 0.1;
+    }   
 }
 
 .square__clickable {
@@ -44,12 +60,16 @@ $square__winner-color: #d63447;
             border-width: $square__item-width;
             border-style: solid;
             border-radius: 50%;
-            animation-name: $square__animation-name;
-            animation-duration: $square__animation-duration;
-            animation-timing-function: $square__animation-timing-function;
+            animation-name: $square__openitem-name;
+            animation-duration: $square__openitem-duration;
+            animation-timing-function: $square__openitem-timing-function;
 
             &.square__decorate {
                 border-color: $square__winner-color;
+                animation-name: $square__blinking-name;
+                animation-duration: $square__blinking-duration;
+                animation-timing-function: $square__blinking-timing-function;
+                animation-iteration-count: $square__blinking-iteration-count;
             }
         }
 
@@ -63,6 +83,10 @@ $square__winner-color: #d63447;
 
             &.square__decorate:before, &.square__decorate:after {
                 background: $square__winner-color;
+                animation-name: $square__blinking-name;
+                animation-duration: $square__blinking-duration;
+                animation-timing-function: $square__blinking-timing-function;
+                animation-iteration-count: $square__blinking-iteration-count;
             }
         }
 
@@ -71,9 +95,9 @@ $square__winner-color: #d63447;
             position: absolute;
             z-index: -1;
             background: $square__cross-color;
-            animation-name: $square__animation-name;
-            animation-duration: $square__animation-duration;
-            animation-timing-function: $square__animation-timing-function;
+            animation-name: $square__openitem-name;
+            animation-duration: $square__openitem-duration;
+            animation-timing-function: $square__openitem-timing-function;
           }
           
           &--cross:before {
