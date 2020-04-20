@@ -44,6 +44,7 @@ export default class App extends React.Component<AppProps, AppState> {
     }
 
     this.setScore = this.setScore.bind(this);
+    this.resetScore = this.resetScore.bind(this);
     this.setAction = this.setAction.bind(this);
     this.setMatchStatus = this.setMatchStatus.bind(this);
   }
@@ -61,6 +62,7 @@ export default class App extends React.Component<AppProps, AppState> {
         <div className="app__game-area">
           <Field
             setScore={this.setScore}
+            resetScore={this.resetScore}
             player={this.player}
             ai={this.ai}
             even={this.even}
@@ -87,6 +89,7 @@ export default class App extends React.Component<AppProps, AppState> {
     </>
   }
 
+
   // Update the score
   setScore(matchStatus: number) {
     this.setState(prevState => {
@@ -100,10 +103,18 @@ export default class App extends React.Component<AppProps, AppState> {
     })
   }
 
+
+  // Reset the score
+  resetScore() {
+    this.setState({ score: { cross: 0, circle: 0 } })
+  }
+
+
   // Set the current action
   setAction(currentAction: number) {
     this.setState({ currentAction });
   }
+
 
   // Set the match status on parent component
   setMatchStatus(currentStatus: number) {

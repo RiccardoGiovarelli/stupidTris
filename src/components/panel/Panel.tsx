@@ -53,7 +53,7 @@ export default class Panel extends React.Component<PanelProps, PanelState> {
                             id="1"
                             icon={faPlay}
                             size="2x"
-                            onClick={this.handleClick}
+                            onClick={this.props.matchStatus !== this.props.noresults ? this.handleClick : undefined}
                             className={"panel__icon panel__icon" + this.getIconClass(1)}
                         />
                     </div>
@@ -71,10 +71,12 @@ export default class Panel extends React.Component<PanelProps, PanelState> {
         </>
     }
 
+
     // Handle click to perform user action
     handleClick(event: any) {
         this.props.panelAction(parseInt(event.currentTarget.id));
     }
+
 
     // Return the icon class suffix
     getIconClass(itemId: number): string {

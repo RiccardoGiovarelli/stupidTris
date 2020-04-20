@@ -13,6 +13,7 @@ interface FieldState {
 
 interface FieldProps {
     setScore: any;
+    resetScore: any;
     player: number;
     ai: number;
     even: number;
@@ -42,10 +43,12 @@ export default class Field extends React.Component<FieldProps, FieldState> {
         this.handleMove = this.handleMove.bind(this);
     }
 
+
     // React componentDidMount
     componentDidMount() {
         this.props.setMatchStatus(this.props.noresults);
     }
+
 
     // React componentDidUpdate
     componentDidUpdate(prevProps: any, prevState: any) {
@@ -59,6 +62,7 @@ export default class Field extends React.Component<FieldProps, FieldState> {
             this.manageAction(this.props.currentAction);
         }
     }
+
 
     // React render
     public render() {
@@ -87,11 +91,13 @@ export default class Field extends React.Component<FieldProps, FieldState> {
         </>
     }
 
+
     // Handle the current move
     handleMove(event: any): void {
         const moveCoordinates = event.currentTarget.id.split("-");
         this.makeMove(moveCoordinates[0], moveCoordinates[1], 'player');
     }
+
 
     // Call AI service to get AI response
     async callAiResponse() {
@@ -116,6 +122,7 @@ export default class Field extends React.Component<FieldProps, FieldState> {
         });
     }
 
+
     // Empty the Tic-Tac-Toe field
     emptyField() {
         return new Promise((resolve: any) => {
@@ -126,12 +133,11 @@ export default class Field extends React.Component<FieldProps, FieldState> {
                         field[rowNumber][columnNumber] = 0;
                     });
                 });
-                return { field };
-            }, () => {
-                resolve(true);
-            });
+                return { field, enabled: true };
+            }, () => { resolve(true); });
         });
     }
+
 
     // Switch turn and perform related operations
     switchTurn() {
@@ -145,9 +151,12 @@ export default class Field extends React.Component<FieldProps, FieldState> {
         });
     }
 
+
     // Highlight the winner line
     decorateField(delay: number) {
+
         const winningCode = checkCurrentState(this.state.field, this.props.player, this.props.ai, this.props.even, this.props.noresults, 'where');
+
         // Diagonal 1
         if (winningCode === 11) {
             setTimeout(() => {
@@ -159,8 +168,9 @@ export default class Field extends React.Component<FieldProps, FieldState> {
                     return { field };
                 });
             }, delay);
-            // Diagonal 2
-        } else if (winningCode === 12) {
+        }
+        // Diagonal 2
+        else if (winningCode === 12) {
             setTimeout(() => {
                 this.setState(prevState => {
                     const field = Object.assign({}, prevState.field);
@@ -170,8 +180,9 @@ export default class Field extends React.Component<FieldProps, FieldState> {
                     return { field };
                 });
             }, delay);
-            // Row
-        } else if (winningCode >= 20 && winningCode < 30) {
+        }
+        // Row
+        else if (winningCode >= 20 && winningCode < 30) {
             setTimeout(() => {
                 this.setState(prevState => {
                     const field = Object.assign({}, prevState.field);
@@ -181,8 +192,9 @@ export default class Field extends React.Component<FieldProps, FieldState> {
                     return { field };
                 });
             }, delay);
-            // Column
-        } else if (winningCode >= 30 && winningCode < 40) {
+        }
+        // Column
+        else if (winningCode >= 30 && winningCode < 40) {
             setTimeout(() => {
                 this.setState(prevState => {
                     const field = Object.assign({}, prevState.field);
@@ -195,11 +207,18 @@ export default class Field extends React.Component<FieldProps, FieldState> {
         }
     }
 
+
+    // Perform action required from panel
     manageAction(currentAction: number) {
         switch (currentAction) {
             case 1:
                 this.props.panelAction(0);
-                this.switchTurn()
+                this.switchTurn();
+                break;
+            case 2:
+                this.props.panelAction(0);
+                this.switchTurn();
+                this.props.resetScore();
                 break;
         }
     }

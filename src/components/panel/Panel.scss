@@ -5,11 +5,14 @@
     .panel__title {
         font-size: 2em;
         padding: 5px 0px;
+        border-bottom-style: solid;
+        border-bottom-width: 2px;
     }
 
     .panel__items {
         width: 100%;
         display: flex;
+        padding-top: 4px;
 
         .panel__item {
             flex-grow: 1;
