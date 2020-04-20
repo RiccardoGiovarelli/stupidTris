@@ -17,6 +17,9 @@ interface FieldProps {
     ai: number;
     even: number;
     noresults: number;
+    currentAction: number;
+    panelAction: any;
+    setMatchStatus: any;
 }
 
 export default class Field extends React.Component<FieldProps, FieldState> {
@@ -39,6 +42,11 @@ export default class Field extends React.Component<FieldProps, FieldState> {
         this.handleMove = this.handleMove.bind(this);
     }
 
+    // React componentDidMount
+    componentDidMount() {
+        this.props.setMatchStatus(this.props.noresults);
+    }
+
     // React componentDidUpdate
     componentDidUpdate(prevProps: any, prevState: any) {
         if (prevState.matchStatus !== this.state.matchStatus && (this.state.matchStatus === this.props.player || this.state.matchStatus === this.props.ai)) {
@@ -46,8 +54,9 @@ export default class Field extends React.Component<FieldProps, FieldState> {
                 this.decorateField(1000);
                 this.props.setScore(this.state.matchStatus);
             });
-        } else if (prevState.matchStatus !== this.state.matchStatus && this.state.matchStatus !== this.props.noresults) {
-            //this.switchTurn();
+        }
+        if (prevProps.currentAction !== this.props.currentAction) {
+            this.manageAction(this.props.currentAction);
         }
     }
 
@@ -100,6 +109,7 @@ export default class Field extends React.Component<FieldProps, FieldState> {
             const currentMatchStatus = checkCurrentState(this.state.field, this.props.ai, this.props.player, this.props.even, this.props.noresults, 'status');
             if (currentMatchStatus !== this.props.noresults) {
                 this.setState({ matchStatus: currentMatchStatus });
+                this.props.setMatchStatus(currentMatchStatus);
             } else if (who === 'player') {
                 setTimeout(() => { this.callAiResponse(); }, 500);
             }
@@ -129,6 +139,7 @@ export default class Field extends React.Component<FieldProps, FieldState> {
             playerTurn: !prevState.playerTurn,
             matchStatus: this.props.noresults
         }), async () => {
+            this.props.setMatchStatus(this.props.noresults);
             await this.emptyField();
             if (!this.state.playerTurn) { this.callAiResponse() }
         });
@@ -181,6 +192,15 @@ export default class Field extends React.Component<FieldProps, FieldState> {
                     return { field };
                 });
             }, delay);
+        }
+    }
+
+    manageAction(currentAction: number) {
+        switch (currentAction) {
+            case 1:
+                this.props.panelAction(0);
+                this.switchTurn()
+                break;
         }
     }
 }

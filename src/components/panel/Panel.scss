@@ -1,0 +1,28 @@
+.panel__container {
+    width: 100%;
+    padding-top: 2vh;
+
+    .panel__title {
+        font-size: 2em;
+        padding: 5px 0px;
+    }
+
+    .panel__items {
+        width: 100%;
+        display: flex;
+
+        .panel__item {
+            flex-grow: 1;
+            text-align: center;
+
+            .panel__icon--disabled {
+                opacity: 0.1;
+                cursor: not-allowed;
+            }
+
+            .panel__icon--enabled {
+                cursor: pointer;
+            }
+        }
+    }
+}

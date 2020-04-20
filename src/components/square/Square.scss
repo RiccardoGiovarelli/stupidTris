@@ -11,7 +11,6 @@ $square__blinking-duration: 1s;
 $square__blinking-timing-function: ease-in-out;
 $square__blinking-iteration-count:infinite;
 $square__blinking-name:blinking;
-$square__winner-color: #d63447;
 
 
 @keyframes openItem {
@@ -49,6 +48,10 @@ $square__winner-color: #d63447;
     max-height: $square__max-height;
 
     .square__content {
+        &--empty {
+            height: 100%;
+            width: 100%; 
+        }
         &--circle {
             position: relative;
             height: 80%;
@@ -65,7 +68,6 @@ $square__winner-color: #d63447;
             animation-timing-function: $square__openitem-timing-function;
 
             &.square__decorate {
-                border-color: $square__winner-color;
                 animation-name: $square__blinking-name;
                 animation-duration: $square__blinking-duration;
                 animation-timing-function: $square__blinking-timing-function;
@@ -82,7 +84,6 @@ $square__winner-color: #d63447;
             transform:rotate(45deg);
 
             &.square__decorate:before, &.square__decorate:after {
-                background: $square__winner-color;
                 animation-name: $square__blinking-name;
                 animation-duration: $square__blinking-duration;
                 animation-timing-function: $square__blinking-timing-function;

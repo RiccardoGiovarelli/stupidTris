@@ -18,10 +18,13 @@
 import * as React from 'react'
 import Field from './components/field/Field';
 import Scoreboard from './components/scoreboard/Scoreboard';
+import Panel from './components/panel/Panel';
 import './App.scss';
 
 interface AppState {
   score: any;
+  currentAction: number;
+  currentStatus: number;
 }
 
 interface AppProps { }
@@ -35,10 +38,14 @@ export default class App extends React.Component<AppProps, AppState> {
       score: {
         cross: 0,
         circle: 0
-      }
+      },
+      currentAction: 0,
+      currentStatus: 0
     }
 
     this.setScore = this.setScore.bind(this);
+    this.setAction = this.setAction.bind(this);
+    this.setMatchStatus = this.setMatchStatus.bind(this);
   }
 
   // Identifiers
@@ -58,11 +65,22 @@ export default class App extends React.Component<AppProps, AppState> {
             ai={this.ai}
             even={this.even}
             noresults={this.noresults}
+            currentAction={this.state.currentAction}
+            panelAction={this.setAction}
+            setMatchStatus={this.setMatchStatus}
           />
         </div>
         <div className="app__tool-area">
           <Scoreboard
             score={this.state.score}
+          />
+          <Panel
+            panelAction={this.setAction}
+            matchStatus={this.state.currentStatus}
+            player={this.player}
+            ai={this.ai}
+            even={this.even}
+            noresults={this.noresults}
           />
         </div>
       </div>
@@ -80,5 +98,15 @@ export default class App extends React.Component<AppProps, AppState> {
       }
       return { score };
     })
+  }
+
+  // Set the current action
+  setAction(currentAction: number) {
+    this.setState({ currentAction });
+  }
+
+  // Set the match status on parent component
+  setMatchStatus(currentStatus: number) {
+    this.setState({ currentStatus });
   }
 }
