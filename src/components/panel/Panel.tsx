@@ -18,6 +18,7 @@
 import * as React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faStop } from '@fortawesome/free-solid-svg-icons';
+import Title from './../title/Title';
 import './Panel.scss';
 
 interface PanelState { }
@@ -25,8 +26,6 @@ interface PanelState { }
 interface PanelProps {
     panelAction: any;
     matchStatus: number;
-    player: number;
-    ai: number;
     even: number;
     noresults: number;
 }
@@ -44,9 +43,7 @@ export default class Panel extends React.Component<PanelProps, PanelState> {
     public render() {
         return <>
             <div className="panel__container">
-                <div className="panel__title">
-                    partita
-                </div>
+                <Title text="partita" />
                 <div className="panel__items">
                     <div className="panel__item">
                         <FontAwesomeIcon

@@ -16,6 +16,8 @@ interface FieldProps {
     resetScore: any;
     player: number;
     ai: number;
+    playerAlias: string;
+    aiAlias: string;
     even: number;
     noresults: number;
     currentAction: number;
@@ -26,6 +28,7 @@ interface FieldProps {
 export default class Field extends React.Component<FieldProps, FieldState> {
 
     constructor(props: any) {
+
         super(props);
 
         this.state = {
@@ -45,19 +48,22 @@ export default class Field extends React.Component<FieldProps, FieldState> {
 
 
     // React componentDidMount
-    componentDidMount() {
+    componentDidMount(): void {
+
         this.props.setMatchStatus(this.props.noresults);
     }
 
 
     // React componentDidUpdate
-    componentDidUpdate(prevProps: any, prevState: any) {
+    componentDidUpdate(prevProps: any, prevState: any): void {
+
         if (prevState.matchStatus !== this.state.matchStatus && (this.state.matchStatus === this.props.player || this.state.matchStatus === this.props.ai)) {
             this.setState({ enabled: false }, () => {
                 this.decorateField(1000);
                 this.props.setScore(this.state.matchStatus);
             });
         }
+
         if (prevProps.currentAction !== this.props.currentAction) {
             this.manageAction(this.props.currentAction);
         }
@@ -65,7 +71,8 @@ export default class Field extends React.Component<FieldProps, FieldState> {
 
 
     // React render
-    public render() {
+    public render(): Object {
+
         return <>
             <div className="field__container">
                 <div className='field__perimeter'>
@@ -92,39 +99,66 @@ export default class Field extends React.Component<FieldProps, FieldState> {
     }
 
 
-    // Handle the current move
+    // Handle the current user move
     handleMove(event: any): void {
-        const moveCoordinates = event.currentTarget.id.split("-");
-        this.makeMove(moveCoordinates[0], moveCoordinates[1], 'player');
+
+        const { currentTarget } = event;
+        this.setState({ enabled: false }, () => {
+            const moveCoordinates = currentTarget.id.split("-");
+            this.makeMove(moveCoordinates[0], moveCoordinates[1], 'player');
+        });
     }
 
 
     // Call AI service to get AI response
-    async callAiResponse() {
-        const move = await getNextMove(this.state.field, this.props.ai, this.props.player, this.props.even, this.props.noresults);
-        this.makeMove(move.row, move.col, 'ai');
+    callAiResponse(): void {
+        this.setState({ enabled: false }, async () => {
+            const move = await getNextMove(
+                this.state.field,
+                this.props.ai,
+                this.props.player,
+                this.props.even,
+                this.props.noresults
+            );
+            this.makeMove(move.row, move.col, 'ai');
+        });
     }
+
 
     // Make player ora AI move
     makeMove(x: number, y: number, who: string): void {
+
         this.setState(prevState => {
             const field = Object.assign({}, prevState.field);
             field[x][y] = who === 'player' ? this.props.player : this.props.ai;
             return { field };
         }, () => {
-            const currentMatchStatus = checkCurrentState(this.state.field, this.props.ai, this.props.player, this.props.even, this.props.noresults, 'status');
+            const currentMatchStatus = checkCurrentState(
+                this.state.field,
+                this.props.ai,
+                this.props.player,
+                this.props.even,
+                this.props.noresults,
+                'status'
+            );
             if (currentMatchStatus !== this.props.noresults) {
-                this.setState({ matchStatus: currentMatchStatus });
+                this.setState({
+                    matchStatus: currentMatchStatus,
+                    enabled: true
+                });
                 this.props.setMatchStatus(currentMatchStatus);
-            } else if (who === 'player') {
+            } else if (who === this.props.playerAlias) {
                 setTimeout(() => { this.callAiResponse(); }, 500);
+            } else if (who === this.props.aiAlias) {
+                this.setState({ enabled: true });
             }
         });
     }
 
 
-    // Empty the Tic-Tac-Toe field
-    emptyField() {
+    // Empty the game field
+    resetField(): Promise<any> {
+
         return new Promise((resolve: any) => {
             this.setState(prevState => {
                 const field = Object.assign({}, prevState.field);
@@ -140,22 +174,30 @@ export default class Field extends React.Component<FieldProps, FieldState> {
 
 
     // Switch turn and perform related operations
-    switchTurn() {
+    switchTurn(): void {
+
         this.setState(prevState => ({
             playerTurn: !prevState.playerTurn,
             matchStatus: this.props.noresults
         }), async () => {
             this.props.setMatchStatus(this.props.noresults);
-            await this.emptyField();
+            await this.resetField();
             if (!this.state.playerTurn) { this.callAiResponse() }
         });
     }
 
 
     // Highlight the winner line
-    decorateField(delay: number) {
+    decorateField(delay: number): void {
 
-        const winningCode = checkCurrentState(this.state.field, this.props.player, this.props.ai, this.props.even, this.props.noresults, 'where');
+        const winningCode = checkCurrentState(
+            this.state.field,
+            this.props.player,
+            this.props.ai,
+            this.props.even,
+            this.props.noresults,
+            'where'
+        );
 
         // Diagonal 1
         if (winningCode === 11) {
@@ -210,6 +252,7 @@ export default class Field extends React.Component<FieldProps, FieldState> {
 
     // Perform action required from panel
     manageAction(currentAction: number) {
+
         switch (currentAction) {
             case 1:
                 this.props.panelAction(0);

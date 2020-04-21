@@ -19,6 +19,7 @@ import * as React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faLaptop, faUser } from '@fortawesome/free-solid-svg-icons';
 import { faCircle } from '@fortawesome/free-regular-svg-icons';
+import Title from './../title/Title';
 import './Scoreboard.scss';
 
 interface ScoreboardState { }
@@ -33,9 +34,7 @@ export default class Scoreboard extends React.Component<ScoreboardProps, Scorebo
     public render() {
         return (
             <div className="scoreboard__container">
-                <div className="scoreboard__title">
-                    punteggio
-                </div>
+                <Title text="punteggio" />
                 <div className="scoreboard__cross-score">
                     <div className="scoreboard__symbol">
                         <FontAwesomeIcon icon={faTimes} size="sm" />

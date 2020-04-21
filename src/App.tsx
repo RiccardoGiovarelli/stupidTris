@@ -54,6 +54,8 @@ export default class App extends React.Component<AppProps, AppState> {
   ai: number = 10;
   even: number = 3;
   noresults: number = 6;
+  playerAlias: string = "player";
+  aiAlias: string = "ai";
 
   // React render
   public render() {
@@ -65,6 +67,8 @@ export default class App extends React.Component<AppProps, AppState> {
             resetScore={this.resetScore}
             player={this.player}
             ai={this.ai}
+            playerAlias={this.playerAlias}
+            aiAlias={this.aiAlias}
             even={this.even}
             noresults={this.noresults}
             currentAction={this.state.currentAction}
@@ -79,8 +83,6 @@ export default class App extends React.Component<AppProps, AppState> {
           <Panel
             panelAction={this.setAction}
             matchStatus={this.state.currentStatus}
-            player={this.player}
-            ai={this.ai}
             even={this.even}
             noresults={this.noresults}
           />
