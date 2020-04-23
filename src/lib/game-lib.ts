@@ -28,11 +28,18 @@
  * @return  Number  Field current state
  * 
  * RETURN DETAILS:
- * output = "status" => 1 for EVEN, 5 for PLAYER WIN, 10 for AI WIN and 6 for no results
+ * output = "status" => value for EVEN, 5 for PLAYER WIN, 10 for AI WIN and 6 for no results
  * output = "where"  => three digit number: First = Player/IA, Second = Kind of win, Third = diagonal/row/column
  */
 
-export function checkCurrentState(field: any, playerMarker: number, aiMarker: number, evenMaker: number, noresultsMaker: number, output: "status" | "where"): number {
+export function checkCurrentState(
+    field: any,
+    playerMarker: number,
+    aiMarker: number,
+    evenMaker: number,
+    noresultsMaker: number,
+    output: "status" | "where"
+): number {
 
     const hitMatrix = {
         player: {

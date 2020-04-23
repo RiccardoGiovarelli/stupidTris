@@ -16,7 +16,7 @@
 // Copyright 2020 Riccardo Giovarelli <riccardo.giovarelli@gmail.com>
 
 import Tictactoe from './minimax';
-import { checkCurrentState } from './../lib/gameLib';
+import { checkCurrentState } from './game-lib';
 
 
 /**
@@ -24,10 +24,21 @@ import { checkCurrentState } from './../lib/gameLib';
  *
  * Return the next move for AI
  *
- * @param    Object     field  Field for the current Tic-tac-toe match
+ * @param   Object  field           Field for the current Tic-tac-toe match
+ * @param   Number  aiMarker        Maker number for AI
+ * @param   Number  playerMarker    Maker number for Player
+ * @param   Number  evenMaker       Maker number for even
+ * @param   Number  noresultsMaker  Maker number for no result
+ * @param   Number  algorithm       Algorithm to use
  * @return   Object     The best move for AI by coordinates
  */
-export function getNextMove(field: any, aiMarker: number, playerMarker: number, evenMaker: number, noresultsMaker: number): Promise<any> {
+export function getNextMove(
+    field: any,
+    aiMarker: number,
+    playerMarker: number,
+    evenMaker: number,
+    noresultsMaker: number,
+): Promise<any> {
     let tictactoe = new Tictactoe(field, checkCurrentState, aiMarker, playerMarker, evenMaker, noresultsMaker);
     return tictactoe.findBestMove();
 }

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Square from './../square/Square';
 import { getNextMove } from './../../lib/api';
-import { checkCurrentState } from './../../lib/gameLib';
+import { checkCurrentState } from '../../lib/game-lib';
 import './Field.scss';
 
 interface FieldState {
