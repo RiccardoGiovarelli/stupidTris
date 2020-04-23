@@ -17,12 +17,12 @@
 
 
 /**
- * Tictactoe
+ * Minimax
  *
  * @author Riccardo Giovarelli
  * @copyright 2020 Riccardo Giovarelli <riccardo.giovarelli@gmail.com>
  */
-export default class Tictactoe {
+export default class Minimax {
 
     // Class properties
     aiMarker: number;
@@ -31,6 +31,7 @@ export default class Tictactoe {
     noresultsMaker: number;
     currentField: any;
     checkCurrentState: any;
+    dimension: number;
 
 
     /**
@@ -38,7 +39,7 @@ export default class Tictactoe {
      *
      * @param   Object  currentField    Current Tic-tac-toe field
      */
-    constructor(currentField: any, checkCurrentState: any, aiMarker: number, playerMarker: number, evenMaker: number, noresultsMaker: number) {
+    constructor(currentField: any, checkCurrentState: any, aiMarker: number, playerMarker: number, evenMaker: number, noresultsMaker: number, dimension: number) {
 
         // Init properties
         this.aiMarker = aiMarker;
@@ -47,6 +48,7 @@ export default class Tictactoe {
         this.noresultsMaker = noresultsMaker;
         this.currentField = currentField;
         this.checkCurrentState = checkCurrentState;
+        this.dimension = dimension;
     }
 
 
@@ -75,8 +77,8 @@ export default class Tictactoe {
         switch (isMax) {
             case true:
                 let rankTrue = -1000;
-                for (let i = 0; i < 3; i++) {
-                    for (let j = 0; j < 3; j++) {
+                for (let i = 0; i < this.dimension; i++) {
+                    for (let j = 0; j < this.dimension; j++) {
                         if (field[i][j] === 0) {
                             field[i][j] = this.aiMarker;
                             rankTrue = Math.max(rankTrue, this.minimax(field, !isMax));
@@ -87,8 +89,8 @@ export default class Tictactoe {
                 return rankTrue;
             case false:
                 let rankFalse = 1000;
-                for (let i = 0; i < 3; i++) {
-                    for (let j = 0; j < 3; j++) {
+                for (let i = 0; i < this.dimension; i++) {
+                    for (let j = 0; j < this.dimension; j++) {
                         if (field[i][j] === 0) {
                             field[i][j] = this.playerMarker;
                             rankFalse = Math.min(rankFalse, this.minimax(field, !isMax));
@@ -119,8 +121,8 @@ export default class Tictactoe {
         };
 
         return new Promise(resolve => {
-            for (let i = 0; i < 3; i++) {
-                for (let j = 0; j < 3; j++) {
+            for (let i = 0; i < this.dimension; i++) {
+                for (let j = 0; j < this.dimension; j++) {
                     if (this.currentField[i][j] === 0) {
                         this.currentField[i][j] = this.aiMarker;
                         const moveVal = this.minimax(this.currentField, false);
@@ -131,7 +133,7 @@ export default class Tictactoe {
                             bestVal = moveVal;
                         }
                     }
-                    if (i === 2 && j === 2) resolve(bestMove);
+                    if (i === (this.dimension - 1) && j === (this.dimension - 1)) resolve(bestMove);
                 }
             }
         });

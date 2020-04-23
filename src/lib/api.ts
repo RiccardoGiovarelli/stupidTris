@@ -15,7 +15,7 @@
 
 // Copyright 2020 Riccardo Giovarelli <riccardo.giovarelli@gmail.com>
 
-import Tictactoe from './minimax';
+import Minimax from '../game/minimax';
 import { checkCurrentState } from './game-lib';
 
 
@@ -38,7 +38,8 @@ export function getNextMove(
     playerMarker: number,
     evenMaker: number,
     noresultsMaker: number,
+    dimension: number
 ): Promise<any> {
-    let tictactoe = new Tictactoe(field, checkCurrentState, aiMarker, playerMarker, evenMaker, noresultsMaker);
-    return tictactoe.findBestMove();
+    let minimax = new Minimax(field, checkCurrentState, aiMarker, playerMarker, evenMaker, noresultsMaker, dimension);
+    return minimax.findBestMove();
 }

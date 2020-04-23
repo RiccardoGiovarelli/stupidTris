@@ -56,6 +56,7 @@ export default class App extends React.Component<AppProps, AppState> {
   noresults: number = 6;
   playerAlias: string = "player";
   aiAlias: string = "ai";
+  dimension: number = 3;
 
   // React render
   public render() {
@@ -74,6 +75,7 @@ export default class App extends React.Component<AppProps, AppState> {
             currentAction={this.state.currentAction}
             panelAction={this.setAction}
             setMatchStatus={this.setMatchStatus}
+            dimension={this.dimension}
           />
         </div>
         <div className="app__tool-area">

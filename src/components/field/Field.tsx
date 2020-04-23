@@ -23,6 +23,7 @@ interface FieldProps {
     currentAction: number;
     panelAction: any;
     setMatchStatus: any;
+    dimension: number;
 }
 
 export default class Field extends React.Component<FieldProps, FieldState> {
@@ -32,11 +33,7 @@ export default class Field extends React.Component<FieldProps, FieldState> {
         super(props);
 
         this.state = {
-            field: {
-                0: { 0: 0, 1: 0, 2: 0 },
-                1: { 0: 0, 1: 0, 2: 0 },
-                2: { 0: 0, 1: 0, 2: 0 }
-            },
+            field: this.buildEmptyField(this.props.dimension),
             matchStatus: props.noresults,
             playerTurn: true,
             enabled: true
@@ -49,7 +46,6 @@ export default class Field extends React.Component<FieldProps, FieldState> {
 
     // React componentDidMount
     componentDidMount(): void {
-
         this.props.setMatchStatus(this.props.noresults);
     }
 
@@ -72,19 +68,18 @@ export default class Field extends React.Component<FieldProps, FieldState> {
 
     // React render
     public render(): Object {
-
         return <>
             <div className="field__container">
                 <div className='field__perimeter'>
-                    {[0, 1, 2].map((rowNumber: number, rowIndex: number) => (
-                        <div className={"field__row field__row-" + rowNumber} key={rowIndex}>
-                            {[0, 1, 2].map((columnNumber: number, columnIndex: number) => (
-                                <div className={"field__column field__column-" + columnNumber} key={columnIndex}>
+                    {Array.from(Array(this.props.dimension)).map((_, rowIndex: number) => (
+                        <div className={"field__row field__row-" + rowIndex} key={rowIndex}>
+                            {Array.from(Array(this.props.dimension)).map((_, columnIndex: number) => (
+                                <div className={"field__column field__column-" + columnIndex} key={columnIndex}>
                                     <Square
                                         moveHandler={this.handleMove}
-                                        squareStatus={this.state.field[rowNumber][columnNumber]}
-                                        x={rowNumber}
-                                        y={columnNumber}
+                                        squareStatus={this.state.field[rowIndex][columnIndex]}
+                                        x={rowIndex}
+                                        y={columnIndex}
                                         enabled={this.state.enabled}
                                         player={this.props.player}
                                         ai={this.props.ai}
@@ -96,6 +91,19 @@ export default class Field extends React.Component<FieldProps, FieldState> {
                 </div>
             </div>
         </>
+    }
+
+    // Build an empty field by
+    buildEmptyField(dimension: number): any {
+        const field: any = {};
+        for (let i = 0; i < dimension; i++) {
+            const row: any = {};
+            field[i] = row;
+            for (let j = 0; j < dimension; j++) {
+                field[i][j] = 0;
+            }
+        }
+        return field;
     }
 
 
@@ -118,7 +126,8 @@ export default class Field extends React.Component<FieldProps, FieldState> {
                 this.props.ai,
                 this.props.player,
                 this.props.even,
-                this.props.noresults
+                this.props.noresults,
+                this.props.dimension
             );
             this.makeMove(move.row, move.col, 'ai');
         });
