@@ -19,12 +19,14 @@ import * as React from 'react'
 import Field from './components/field/Field';
 import Scoreboard from './components/scoreboard/Scoreboard';
 import Panel from './components/panel/Panel';
+import Level from './components/level/Level';
 import './App.scss';
 
 interface AppState {
   score: any;
   currentAction: number;
   currentStatus: number;
+  currentLevel: number;
 }
 
 interface AppProps { }
@@ -34,20 +36,25 @@ export default class App extends React.Component<AppProps, AppState> {
   constructor(props: any) {
     super(props);
 
+    // Init State
     this.state = {
       score: {
         cross: 0,
         circle: 0
       },
       currentAction: 0,
-      currentStatus: 0
+      currentStatus: 0,
+      currentLevel: 0
     }
 
+    // Methods binding
     this.setScore = this.setScore.bind(this);
     this.resetScore = this.resetScore.bind(this);
     this.setAction = this.setAction.bind(this);
     this.setMatchStatus = this.setMatchStatus.bind(this);
+    this.setLevel = this.setLevel.bind(this);
   }
+
 
   // Identifiers
   player: number = 5;
@@ -57,6 +64,11 @@ export default class App extends React.Component<AppProps, AppState> {
   playerAlias: string = "player";
   aiAlias: string = "ai";
   dimension: number = 3;
+  levels: Array<any> = [
+    { label: 'Medio', id: 'random' },
+    { label: 'Difficile', id: 'minimax' }
+  ]
+
 
   // React render
   public render() {
@@ -76,6 +88,8 @@ export default class App extends React.Component<AppProps, AppState> {
             panelAction={this.setAction}
             setMatchStatus={this.setMatchStatus}
             dimension={this.dimension}
+            level={this.state.currentLevel}
+            levels={this.levels}
           />
         </div>
         <div className="app__tool-area">
@@ -87,6 +101,10 @@ export default class App extends React.Component<AppProps, AppState> {
             matchStatus={this.state.currentStatus}
             even={this.even}
             noresults={this.noresults}
+          />
+          <Level
+            setLevel={this.setLevel}
+            levels={this.levels}
           />
         </div>
       </div>
@@ -123,5 +141,11 @@ export default class App extends React.Component<AppProps, AppState> {
   // Set the match status on parent component
   setMatchStatus(currentStatus: number) {
     this.setState({ currentStatus });
+  }
+
+
+  // Set difficult level for the game
+  setLevel(currentLevel: number) {
+    this.setState({ currentLevel });
   }
 }

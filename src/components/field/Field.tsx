@@ -1,3 +1,20 @@
+// This file is part of Sloth's Tic-tac-toe.
+
+// Sloth's Tic-tac-toe is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+
+// Sloth's Tic-tac-toe is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+
+// You should have received a copy of the GNU General Public License
+// along with Sloth's Tic-tac-toe.  If not, see <http://www.gnu.org/licenses/>.
+
+// Copyright 2020 Riccardo Giovarelli <riccardo.giovarelli@gmail.com>
+
 import * as React from 'react'
 import Square from './../square/Square';
 import { getNextMove } from './../../lib/api';
@@ -24,6 +41,8 @@ interface FieldProps {
     panelAction: any;
     setMatchStatus: any;
     dimension: number;
+    level: number;
+    levels: Array<any>;
 }
 
 export default class Field extends React.Component<FieldProps, FieldState> {
@@ -32,6 +51,7 @@ export default class Field extends React.Component<FieldProps, FieldState> {
 
         super(props);
 
+        // Init state
         this.state = {
             field: this.buildEmptyField(this.props.dimension),
             matchStatus: props.noresults,
@@ -39,7 +59,7 @@ export default class Field extends React.Component<FieldProps, FieldState> {
             enabled: true
         }
 
-        // Methods bind
+        // Methods binding
         this.handleMove = this.handleMove.bind(this);
     }
 
@@ -68,6 +88,7 @@ export default class Field extends React.Component<FieldProps, FieldState> {
 
     // React render
     public render(): Object {
+
         return <>
             <div className="field__container">
                 <div className='field__perimeter'>
@@ -93,8 +114,10 @@ export default class Field extends React.Component<FieldProps, FieldState> {
         </>
     }
 
+
     // Build an empty field by
     buildEmptyField(dimension: number): any {
+
         const field: any = {};
         for (let i = 0; i < dimension; i++) {
             const row: any = {};
@@ -120,6 +143,7 @@ export default class Field extends React.Component<FieldProps, FieldState> {
 
     // Call AI service to get AI response
     callAiResponse(): void {
+
         this.setState({ enabled: false }, async () => {
             const move = await getNextMove(
                 this.state.field,
@@ -127,7 +151,9 @@ export default class Field extends React.Component<FieldProps, FieldState> {
                 this.props.player,
                 this.props.even,
                 this.props.noresults,
-                this.props.dimension
+                this.props.dimension,
+                this.props.levels,
+                this.props.level
             );
             this.makeMove(move.row, move.col, 'ai');
         });

@@ -1,0 +1,40 @@
+.level__container {
+    width: 100%;
+    padding-top: 2vh;
+
+    .level__selector-container {
+        width: 100%;
+
+        .level__arrow-left {
+            width: 20%;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .level__text-container {
+            width: 60%;
+            display: inline-block;
+            text-align: center;
+            overflow: hidden;
+
+            .level__text-label{
+                width: 100%;
+                font-size: 1.4em;
+
+                &--hidden {
+                    display: none;
+                }
+
+                &--visible {
+                    display: unset;
+                }
+            }
+        }
+
+        .level__arrow-right {
+            width: 20%;
+            display: inline-block;
+            text-align: center;
+        }
+    }
+}

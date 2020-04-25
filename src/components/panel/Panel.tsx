@@ -35,6 +35,7 @@ export default class Panel extends React.Component<PanelProps, PanelState> {
     constructor(props: any) {
         super(props);
 
+        // Method binding
         this.handleClick = this.handleClick.bind(this);
     }
 

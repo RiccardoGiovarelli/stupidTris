@@ -46,6 +46,7 @@ export default class Square extends React.Component<SquareProps, SquareState> {
         </>
     }
 
+
     // Return classes for this square
     getContentClass(): string {
 

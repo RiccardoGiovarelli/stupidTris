@@ -15,14 +15,13 @@
 
 // Copyright 2020 Riccardo Giovarelli <riccardo.giovarelli@gmail.com>
 
-import Minimax from '../game/minimax';
 import { checkCurrentState } from './game-lib';
 
 
 /**
  * getNextMove
  *
- * Return the next move for AI
+ * Return the next move for AI by selected algorithm
  *
  * @param   Object  field           Field for the current Tic-tac-toe match
  * @param   Number  aiMarker        Maker number for AI
@@ -38,8 +37,17 @@ export function getNextMove(
     playerMarker: number,
     evenMaker: number,
     noresultsMaker: number,
-    dimension: number
+    dimension: number,
+    levels: Array<any>,
+    level: number
 ): Promise<any> {
-    let minimax = new Minimax(field, checkCurrentState, aiMarker, playerMarker, evenMaker, noresultsMaker, dimension);
-    return minimax.findBestMove();
+    return new Promise(resolve => {
+        const imported = import('../game/' + levels[level].id);
+        imported.then((alg: any) => {
+            let game = new alg.default(field, checkCurrentState, aiMarker, playerMarker, evenMaker, noresultsMaker, dimension)
+            game.findBestMove().then((result: any) => {
+                resolve(result);
+            })
+        })
+    })
 }
