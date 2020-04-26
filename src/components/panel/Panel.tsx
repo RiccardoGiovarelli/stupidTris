@@ -21,6 +21,7 @@ import { faPlay, faStop } from '@fortawesome/free-solid-svg-icons';
 import Title from './../title/Title';
 import './Panel.scss';
 
+
 interface PanelState { }
 
 interface PanelProps {
@@ -80,11 +81,7 @@ export default class Panel extends React.Component<PanelProps, PanelState> {
     getIconClass(itemId: number): string {
         switch (itemId) {
             case 1:
-                if (this.props.matchStatus === this.props.noresults) {
-                    return "--disabled";
-                } else {
-                    return "--enabled";
-                }
+                return (this.props.matchStatus === this.props.noresults) ? "--disabled" : "--enabled"
             case 2:
                 return "--enabled";
             default:

@@ -15,7 +15,6 @@
 
 // Copyright 2020 Riccardo Giovarelli <riccardo.giovarelli@gmail.com>
 
-
 /**
  * Random
  *
@@ -33,14 +32,18 @@ export default class Random {
     checkCurrentState: any;
     dimension: number;
 
-
     /**
      * Class constructor
      *
-     * @param   Object  currentField    Current Tic-tac-toe field
+     * @param   {Object}      currentField        Current Tic-tac-toe field
+     * @param   {Function}    checkCurrentState   Function that return the field status
+     * @param   {Number}      aiMarker            The AI id
+     * @param   {Number}      playerMarker        The player id
+     * @param   {Number}      evenMaker           Even result id
+     * @param   {Number}      noresultsMaker      No result id
+     * @param   {Number}      dimension           Field dimension
      */
     constructor(currentField: any, checkCurrentState: any, aiMarker: number, playerMarker: number, evenMaker: number, noresultsMaker: number, dimension: number) {
-
 
         // Init properties
         this.aiMarker = aiMarker;
@@ -58,7 +61,7 @@ export default class Random {
      *
      * Return the best move for AI
      *
-     * @return  Object  The best move for AI
+     * @return  {Object}  The best move for AI
      */
     findBestMove(): Promise<any> {
 
@@ -67,7 +70,7 @@ export default class Random {
             const availableMove: Array<any> = this.getAvailableMove();
             const rejectedMoves: Array<any> = [];
 
-            while (Object.keys(availableMove).length > 0) {
+            while (availableMove.length > 0) {
                 const randomIndex = Math.floor(Math.random() * availableMove.length);
                 if (!this.isDangerous(availableMove[randomIndex])) {
                     resolve(availableMove[randomIndex]);
@@ -78,9 +81,7 @@ export default class Random {
                 }
             }
 
-            if (rejectedMoves.length > 0) {
-                resolve(rejectedMoves[Math.floor(Math.random() * rejectedMoves.length)])
-            }
+            if (rejectedMoves.length > 0) { resolve(rejectedMoves[Math.floor(Math.random() * rejectedMoves.length)]) }
         });
     }
 
@@ -90,16 +91,14 @@ export default class Random {
      *
      * Return a random move
      *
-     * @return  Object  A random move
+     * @return  {Object}  A random move
      */
     getAvailableMove() {
         const freeSquare: any = [];
         for (let i = 0; i < this.dimension; i++) {
             for (let j = 0; j < this.dimension; j++) {
-                if (this.currentField[i][j] === 0) {
-                    freeSquare.push({ row: i, col: j });
-                    if (i === (this.dimension - 1) && j === (this.dimension - 1)) return freeSquare;
-                }
+                if (this.currentField[i][j] === 0) { freeSquare.push({ row: i, col: j }); }
+                if (i === (this.dimension - 1) && j === (this.dimension - 1)) { return freeSquare; }
             }
         }
     }
@@ -110,7 +109,8 @@ export default class Random {
      *
      * Check if move is dangerous
      * 
-     * @return  Boolean  True if a move is dangerous, false otherwise
+     * @param   {Object}   move  Move to test
+     * @return  {Boolean}        True if a move is dangerous, false otherwise
      */
     isDangerous(move: any) {
         this.currentField[move.row][move.col] = this.aiMarker;

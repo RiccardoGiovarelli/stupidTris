@@ -15,7 +15,6 @@
 
 // Copyright 2020 Riccardo Giovarelli <riccardo.giovarelli@gmail.com>
 
-
 /**
  * Minimax
  *
@@ -33,11 +32,16 @@ export default class Minimax {
     checkCurrentState: any;
     dimension: number;
 
-
     /**
      * Class constructor
      *
-     * @param   Object  currentField    Current Tic-tac-toe field
+     * @param   {Object}      currentField        Current Tic-tac-toe field
+     * @param   {Function}    checkCurrentState   Function that return the field status
+     * @param   {Number}      aiMarker            The AI id
+     * @param   {Number}      playerMarker        The player id
+     * @param   {Number}      evenMaker           Even result id
+     * @param   {Number}      noresultsMaker      No result id
+     * @param   {Number}      dimension           Field dimension
      */
     constructor(currentField: any, checkCurrentState: any, aiMarker: number, playerMarker: number, evenMaker: number, noresultsMaker: number, dimension: number) {
 
@@ -57,13 +61,20 @@ export default class Minimax {
      *
      * Implement the Minimax algorithm
      *
-     * @param    Object     field  Field for the current Tic-tac-toe match
-     * @param    Boolean    isMax  Current turn: maximizer or minimizer
-     * @return   Number     The best rank for the current situation
+     * @param    {Object}     field  Field for the current Tic-tac-toe match
+     * @param    {Boolean}    isMax  Current turn: maximizer or minimizer
+     * @return   {Number}     The best rank for the current situation
      */
     minimax(field: any, isMax: boolean): number {
 
-        const state = this.checkCurrentState(field, this.playerMarker, this.aiMarker, this.evenMaker, this.noresultsMaker, 'status');
+        const state = this.checkCurrentState(
+            field,
+            this.playerMarker,
+            this.aiMarker,
+            this.evenMaker,
+            this.noresultsMaker,
+            'status'
+        );
 
         switch (state) {
             case this.aiMarker:
@@ -110,7 +121,7 @@ export default class Minimax {
      *
      * Return the best move for AI
      *
-     * @return  Object  The best move for AI
+     * @return  {Object}  The best move for AI
      */
     findBestMove(): any {
 

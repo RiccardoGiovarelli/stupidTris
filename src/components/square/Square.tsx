@@ -18,57 +18,41 @@
 import * as React from 'react'
 import './Square.scss';
 
-interface SquareState { }
+export default function Square(props: any) {
 
-interface SquareProps {
-    moveHandler: any;
-    squareStatus: number;
-    x: number;
-    y: number;
-    enabled: boolean;
-    player: number;
-    ai: number;
+    return (
+        <div
+            id={props.x + "-" + props.y}
+            className="square__container"
+            onClick={props.squareStatus === 0 && props.enabled ? props.moveHandler : undefined}
+        >
+            <div className={"square__content square__content" + getContentClass(props)}></div>
+        </div>
+    );
 }
 
-export default class Square extends React.Component<SquareProps, SquareState> {
 
-    // React render
-    public render() {
-        return <>
-            <div
-                id={this.props.x + "-" + this.props.y}
-                className="square__container"
-                onClick={this.props.squareStatus === 0 && this.props.enabled ? this.props.moveHandler : undefined}
-            >
-                <div className={"square__content square__content" + this.getContentClass()}>
-                </div>
-            </div>
-        </>
+// Return classes for this square
+function getContentClass(props: any) {
+
+    let test = 0;
+    let decorate = false;
+
+    if (props.squareStatus >= 100) {
+        test = props.squareStatus - 100;
+        decorate = true;
+    } else {
+        test = props.squareStatus;
     }
 
-
-    // Return classes for this square
-    getContentClass(): string {
-
-        let test = 0;
-        let decorate = false;
-
-        if (this.props.squareStatus >= 100) {
-            test = this.props.squareStatus - 100;
-            decorate = true;
-        } else {
-            test = this.props.squareStatus;
-        }
-
-        switch (test) {
-            case 0:
-                return "--empty" + (this.props.enabled ? " square__clickable" : " square__full");
-            case this.props.ai:
-                return "--circle square__full" + (decorate ? " square__decorate" : "");
-            case this.props.player:
-                return "--cross square__full" + (decorate ? " square__decorate" : "");
-            default:
-                return "--error square__full";
-        }
+    switch (test) {
+        case 0:
+            return "--empty" + (props.enabled ? " square__clickable" : " square__full");
+        case props.ai:
+            return "--circle square__full" + (decorate ? " square__decorate" : "");
+        case props.player:
+            return "--cross square__full" + (decorate ? " square__decorate" : "");
+        default:
+            return "--error square__full";
     }
 }

@@ -17,19 +17,18 @@
 
 import { checkCurrentState } from './game-lib';
 
-
 /**
  * getNextMove
  *
  * Return the next move for AI by selected algorithm
  *
- * @param   Object  field           Field for the current Tic-tac-toe match
- * @param   Number  aiMarker        Maker number for AI
- * @param   Number  playerMarker    Maker number for Player
- * @param   Number  evenMaker       Maker number for even
- * @param   Number  noresultsMaker  Maker number for no result
- * @param   Number  algorithm       Algorithm to use
- * @return   Object     The best move for AI by coordinates
+ * @param   {Object}  field           Field for the current Tic-tac-toe match
+ * @param   {Number}  aiMarker        Maker number for AI
+ * @param   {Number}  playerMarker    Maker number for Player
+ * @param   {Number}  evenMaker       Maker number for even
+ * @param   {Number}  noresultsMaker  Maker number for no result
+ * @param   {Number}  algorithm       Algorithm to use
+ * @return  {Object}     The best move for AI by coordinates
  */
 export function getNextMove(
     field: any,
@@ -44,7 +43,7 @@ export function getNextMove(
     return new Promise(resolve => {
         const imported = import('../game/' + levels[level].id);
         imported.then((alg: any) => {
-            let game = new alg.default(field, checkCurrentState, aiMarker, playerMarker, evenMaker, noresultsMaker, dimension)
+            let game = new alg.default(field, checkCurrentState, aiMarker, playerMarker, evenMaker, noresultsMaker, dimension);
             game.findBestMove().then((result: any) => { resolve(result); });
         });
     });

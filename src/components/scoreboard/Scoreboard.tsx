@@ -22,49 +22,39 @@ import { faCircle } from '@fortawesome/free-regular-svg-icons';
 import Title from './../title/Title';
 import './Scoreboard.scss';
 
-interface ScoreboardState { }
+export default function Scoreboard(props: any) {
 
-interface ScoreboardProps {
-    scoreCross: number;
-    scoreCircle: number;
-}
-
-export default class Scoreboard extends React.Component<ScoreboardProps, ScoreboardState> {
-
-    // React render
-    public render() {
-        return (
-            <div className="scoreboard__container">
-                <Title text="punteggio" />
-                <div className="scoreboard__cross-score">
-                    <div className="scoreboard__symbol">
-                        <FontAwesomeIcon icon={faTimes} size="sm" />
-                    </div>
-                    <div className="scoreboard__colon">
-                        :
-                    </div>
-                    <div className="scoreboard__score">
-                        {this.props.scoreCross}
-                    </div>
-                    <div className="scoreboard__icon">
-                        <FontAwesomeIcon icon={faLaptop} size="sm" />
-                    </div>
+    return (
+        <div className="scoreboard__container">
+            <Title text="punteggio" />
+            <div className="scoreboard__cross-score">
+                <div className="scoreboard__symbol">
+                    <FontAwesomeIcon icon={faTimes} size="sm" />
                 </div>
-                <div className="scoreboard__circle-score">
-                    <div className="scoreboard__symbol">
-                        <FontAwesomeIcon icon={faCircle} size="sm" />
+                <div className="scoreboard__colon">
+                    :
                     </div>
-                    <div className="scoreboard__colon">
-                        :
-                    </div>
-                    <div className="scoreboard__score">
-                        {this.props.scoreCircle}
-                    </div>
-                    <div className="scoreboard__icon">
-                        <FontAwesomeIcon icon={faUser} size="sm" />
-                    </div>
+                <div className="scoreboard__score">
+                    {props.scoreCross}
+                </div>
+                <div className="scoreboard__icon">
+                    <FontAwesomeIcon icon={faLaptop} size="sm" />
                 </div>
             </div>
-        )
-    }
+            <div className="scoreboard__circle-score">
+                <div className="scoreboard__symbol">
+                    <FontAwesomeIcon icon={faCircle} size="sm" />
+                </div>
+                <div className="scoreboard__colon">
+                    :
+                    </div>
+                <div className="scoreboard__score">
+                    {props.scoreCircle}
+                </div>
+                <div className="scoreboard__icon">
+                    <FontAwesomeIcon icon={faUser} size="sm" />
+                </div>
+            </div>
+        </div>
+    )
 }

@@ -84,7 +84,6 @@ export default class Level extends React.Component<LevelProps, LevelState> {
 
     // Handle click to perform user action
     handleClick(event: any) {
-        console.log(event.currentTarget.id);
         switch (event.currentTarget.id) {
             case 'left':
                 if (this.state.levelSelected > 0) {

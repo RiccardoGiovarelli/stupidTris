@@ -15,21 +15,20 @@
 
 // Copyright 2020 Riccardo Giovarelli <riccardo.giovarelli@gmail.com>
 
-
 /**
  * checkCurrentState
  *
  * Check current field state
  *
- * @param   Object  field           Field for the current Tic-tac-toe match
- * @param   number  playerMarker    Identifier number for palyer
- * @param   number  aiMarker        Identifier number for AI
- * @param   string  output          Type of output
- * @return  Number  Field current state
+ * @param   {Object}  field           Field for the current Tic-tac-toe match
+ * @param   {number}  playerMarker    Identifier number for palyer
+ * @param   {number}  aiMarker        Identifier number for AI
+ * @param   {string}  output          Type of output
+ * @return  {Number}  Field current state
  * 
  * RETURN DETAILS:
- * output = "status" => value for EVEN, 5 for PLAYER WIN, 10 for AI WIN and 6 for no results
- * output = "where"  => three digit number: First = Player/IA, Second = Kind of win, Third = diagonal/row/column
+ * output = "status" => id for EVEN or PLAYER WIN or AI WIN or NO RESULT
+ * output = "where"  => two digit that indicate where is the win
  */
 
 export function checkCurrentState(
