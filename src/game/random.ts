@@ -41,6 +41,7 @@ export default class Random {
      */
     constructor(currentField: any, checkCurrentState: any, aiMarker: number, playerMarker: number, evenMaker: number, noresultsMaker: number, dimension: number) {
 
+
         // Init properties
         this.aiMarker = aiMarker;
         this.playerMarker = playerMarker;
@@ -59,24 +60,29 @@ export default class Random {
      *
      * @return  Object  The best move for AI
      */
-    findBestMove(): any {
+    findBestMove(): Promise<any> {
+
         return new Promise(resolve => {
-            const availableMove: any = this.getAvailableMove();
-            Object.keys(availableMove).forEach((key: string) => {
+
+            const availableMove: Array<any> = this.getAvailableMove();
+            const rejectedMoves: Array<any> = [];
+
+            while (Object.keys(availableMove).length > 0) {
                 const randomIndex = Math.floor(Math.random() * availableMove.length);
-                const currentMove = availableMove[randomIndex];
-                this.currentField[currentMove.row][currentMove.col] = this.aiMarker;
-                const status = this.hazardSearch(this.currentField);
-                this.currentField[currentMove.row][currentMove.col] = 0;
-                if (!status) {
-                    resolve(currentMove);
+                if (!this.isDangerous(availableMove[randomIndex])) {
+                    resolve(availableMove[randomIndex]);
+                    break;
                 } else {
+                    rejectedMoves.push(availableMove[randomIndex]);
                     availableMove.splice(randomIndex, 1);
                 }
-            });
+            }
+
+            if (rejectedMoves.length > 0) {
+                resolve(rejectedMoves[Math.floor(Math.random() * rejectedMoves.length)])
+            }
         });
     }
-
 
 
     /**
@@ -92,31 +98,45 @@ export default class Random {
             for (let j = 0; j < this.dimension; j++) {
                 if (this.currentField[i][j] === 0) {
                     freeSquare.push({ row: i, col: j });
+                    if (i === (this.dimension - 1) && j === (this.dimension - 1)) return freeSquare;
                 }
             }
         }
-        return freeSquare;
     }
 
-    hazardSearch(field: any) {
+
+    /**
+     * Method isDangerous
+     *
+     * Check if move is dangerous
+     * 
+     * @return  Boolean  True if a move is dangerous, false otherwise
+     */
+    isDangerous(move: any) {
+        this.currentField[move.row][move.col] = this.aiMarker;
         for (let i = 0; i < this.dimension; i++) {
             for (let j = 0; j < this.dimension; j++) {
-                if (field[i][j] === 0) {
-                    field[i][j] = this.playerMarker;
-                    if (
-                        this.checkCurrentState(
-                            field,
-                            this.playerMarker,
-                            this.aiMarker,
-                            this.evenMaker,
-                            this.noresultsMaker,
-                            'status'
-                        ) === this.playerMarker
-                    ) { return true; }
-                    field[i][j] = 0;
+                if (this.currentField[i][j] === 0) {
+                    this.currentField[i][j] = this.playerMarker;
+                    const status = this.checkCurrentState(
+                        this.currentField,
+                        this.playerMarker,
+                        this.aiMarker,
+                        this.evenMaker,
+                        this.noresultsMaker,
+                        'status'
+                    );
+                    this.currentField[i][j] = 0;
+                    if (status === this.playerMarker) {
+                        this.currentField[move.row][move.col] = 0;
+                        return true;
+                    }
+                }
+                if (i === (this.dimension - 1) && j === (this.dimension - 1)) {
+                    this.currentField[move.row][move.col] = 0;
+                    return false;
                 }
             }
         }
-        return false;
     }
 }

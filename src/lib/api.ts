@@ -45,9 +45,7 @@ export function getNextMove(
         const imported = import('../game/' + levels[level].id);
         imported.then((alg: any) => {
             let game = new alg.default(field, checkCurrentState, aiMarker, playerMarker, evenMaker, noresultsMaker, dimension)
-            game.findBestMove().then((result: any) => {
-                resolve(result);
-            })
-        })
-    })
+            game.findBestMove().then((result: any) => { resolve(result); });
+        });
+    });
 }

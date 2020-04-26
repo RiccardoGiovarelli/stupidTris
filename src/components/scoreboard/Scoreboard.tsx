@@ -25,7 +25,8 @@ import './Scoreboard.scss';
 interface ScoreboardState { }
 
 interface ScoreboardProps {
-    score: any;
+    scoreCross: number;
+    scoreCircle: number;
 }
 
 export default class Scoreboard extends React.Component<ScoreboardProps, ScoreboardState> {
@@ -43,7 +44,7 @@ export default class Scoreboard extends React.Component<ScoreboardProps, Scorebo
                         :
                     </div>
                     <div className="scoreboard__score">
-                        {this.props.score.cross}
+                        {this.props.scoreCross}
                     </div>
                     <div className="scoreboard__icon">
                         <FontAwesomeIcon icon={faLaptop} size="sm" />
@@ -57,7 +58,7 @@ export default class Scoreboard extends React.Component<ScoreboardProps, Scorebo
                         :
                     </div>
                     <div className="scoreboard__score">
-                        {this.props.score.circle}
+                        {this.props.scoreCircle}
                     </div>
                     <div className="scoreboard__icon">
                         <FontAwesomeIcon icon={faUser} size="sm" />

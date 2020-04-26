@@ -88,19 +88,19 @@ export function checkCurrentState(
         }
         if (hitMatrix.player.cross.right === 3) {
             if (output === 'status') return playerMarker;
-            if (output === 'where') return 11;
+            if (output === 'where') return 12;
         }
         if (hitMatrix.player.cross.left === 3) {
             if (output === 'status') return playerMarker;
-            if (output === 'where') return 12;
+            if (output === 'where') return 11;
         }
         if (hitMatrix.stupidAi.cross.left === 3) {
             if (output === 'status') return aiMarker;
-            if (output === 'where') return 11;
+            if (output === 'where') return 12;
         }
         if (hitMatrix.stupidAi.cross.right === 3) {
             if (output === 'status') return aiMarker;
-            if (output === 'where') return 12;
+            if (output === 'where') return 11;
         }
 
 

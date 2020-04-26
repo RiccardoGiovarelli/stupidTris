@@ -136,7 +136,7 @@ export default class Field extends React.Component<FieldProps, FieldState> {
         const { currentTarget } = event;
         this.setState({ enabled: false }, () => {
             const moveCoordinates = currentTarget.id.split("-");
-            this.makeMove(moveCoordinates[0], moveCoordinates[1], 'player');
+            this.makeMove(parseInt(moveCoordinates[0]), parseInt(moveCoordinates[1]), 'player');
         });
     }
 
@@ -162,7 +162,6 @@ export default class Field extends React.Component<FieldProps, FieldState> {
 
     // Make player ora AI move
     makeMove(x: number, y: number, who: string): void {
-
         this.setState(prevState => {
             const field = Object.assign({}, prevState.field);
             field[x][y] = who === 'player' ? this.props.player : this.props.ai;
@@ -197,8 +196,8 @@ export default class Field extends React.Component<FieldProps, FieldState> {
         return new Promise((resolve: any) => {
             this.setState(prevState => {
                 const field = Object.assign({}, prevState.field);
-                [0, 1, 2].forEach((rowNumber: number) => {
-                    [0, 1, 2].forEach((columnNumber: number) => {
+                Array.from(Array(this.props.dimension)).forEach((rowNumber: number) => {
+                    Array.from(Array(this.props.dimension)).forEach((columnNumber: number) => {
                         field[rowNumber][columnNumber] = 0;
                     });
                 });
@@ -239,7 +238,7 @@ export default class Field extends React.Component<FieldProps, FieldState> {
             setTimeout(() => {
                 this.setState(prevState => {
                     const field = Object.assign({}, prevState.field);
-                    [0, 1, 2].forEach((cursor: number) => {
+                    Array.from(Array(this.props.dimension)).forEach((cursor: number) => {
                         field[cursor][cursor] = this.state.matchStatus + 100;
                     });
                     return { field };
@@ -251,7 +250,7 @@ export default class Field extends React.Component<FieldProps, FieldState> {
             setTimeout(() => {
                 this.setState(prevState => {
                     const field = Object.assign({}, prevState.field);
-                    [0, 1, 2].forEach((cursor: number) => {
+                    Array.from(Array(this.props.dimension)).forEach((cursor: number) => {
                         field[cursor][2 - cursor] = this.state.matchStatus + 100;
                     });
                     return { field };
@@ -263,7 +262,7 @@ export default class Field extends React.Component<FieldProps, FieldState> {
             setTimeout(() => {
                 this.setState(prevState => {
                     const field = Object.assign({}, prevState.field);
-                    [0, 1, 2].forEach((columnNumber: number) => {
+                    Array.from(Array(this.props.dimension)).forEach((columnNumber: number) => {
                         field[winningCode - 20][columnNumber] = this.state.matchStatus + 100;
                     });
                     return { field };
@@ -275,7 +274,7 @@ export default class Field extends React.Component<FieldProps, FieldState> {
             setTimeout(() => {
                 this.setState(prevState => {
                     const field = Object.assign({}, prevState.field);
-                    [0, 1, 2].forEach((rowNumber: number) => {
+                    Array.from(Array(this.props.dimension)).forEach((rowNumber: number) => {
                         field[rowNumber][winningCode - 30] = this.state.matchStatus + 100;
                     });
                     return { field };

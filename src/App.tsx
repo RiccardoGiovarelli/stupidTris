@@ -15,6 +15,7 @@
 
 // Copyright 2020 Riccardo Giovarelli <riccardo.giovarelli@gmail.com>
 
+
 import * as React from 'react'
 import Field from './components/field/Field';
 import Scoreboard from './components/scoreboard/Scoreboard';
@@ -94,7 +95,8 @@ export default class App extends React.Component<AppProps, AppState> {
         </div>
         <div className="app__tool-area">
           <Scoreboard
-            score={this.state.score}
+            scoreCross={this.state.score.cross}
+            scoreCircle={this.state.score.circle}
           />
           <Panel
             panelAction={this.setAction}
@@ -116,9 +118,9 @@ export default class App extends React.Component<AppProps, AppState> {
   setScore(matchStatus: number) {
     this.setState(prevState => {
       const score = Object.assign({}, prevState.score);
-      if (matchStatus === 10) {
+      if (matchStatus === this.ai) {
         score.cross = score.cross + 1;
-      } else if (matchStatus === 5) {
+      } else if (matchStatus === this.player) {
         score.circle = score.circle + 1;
       }
       return { score };
