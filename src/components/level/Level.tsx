@@ -49,7 +49,7 @@ export default class Level extends React.Component<LevelProps, LevelState> {
     public render() {
         return <>
             <div className="level__container">
-                <Title text="livello" />
+                <Title text="Level" />
                 <div className="level__selector-container">
                     <div className="level__arrow-left">
                         <FontAwesomeIcon

@@ -1,6 +1,6 @@
 {
   "short_name": "Sloth's Tic-Tac-Toe",
-  "name": "Implementation of the Tic-tac-toe game with AI based on Minimax Algorithm",
+  "name": "Implementation of the Tic-tac-toe game",
   "icons": [
     {
       "src": "favicon.ico",

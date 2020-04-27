@@ -238,7 +238,7 @@ export default class Field extends React.Component<FieldProps, FieldState> {
         );
 
         // Diagonal 1
-        if (winningCode === 11) {
+        if (winningCode === 12) {
             setTimeout(() => {
                 this.setState(prevState => {
                     const field = Object.assign({}, prevState.field);
@@ -249,8 +249,9 @@ export default class Field extends React.Component<FieldProps, FieldState> {
                 });
             }, delay);
         }
+
         // Diagonal 2
-        else if (winningCode === 12) {
+        else if (winningCode === 11) {
             setTimeout(() => {
                 this.setState(prevState => {
                     const field = Object.assign({}, prevState.field);
@@ -261,6 +262,7 @@ export default class Field extends React.Component<FieldProps, FieldState> {
                 });
             }, delay);
         }
+
         // Row
         else if (winningCode >= 20 && winningCode < 30) {
             setTimeout(() => {
@@ -273,6 +275,7 @@ export default class Field extends React.Component<FieldProps, FieldState> {
                 });
             }, delay);
         }
+
         // Column
         else if (winningCode >= 30 && winningCode < 40) {
             setTimeout(() => {

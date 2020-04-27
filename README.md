@@ -7,6 +7,10 @@ Implementation of the Tic-tac-toe game with AI based on Minimax Algorithm.
 
 Riccardo Giovarelli - riccardo.giovarelli@gmail.com
 
+### Main goals
+
+The main goal of this project is learn and deepen some interesting technologies like React, TypeScript and Sass. The game implement also a simple AI based on Minimax Algorithm.
+
 ### License
 
 This project is licensed under the GNU General Public License v3.0 - see the LICENSE.md file for details

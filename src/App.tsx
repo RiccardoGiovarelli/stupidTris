@@ -56,8 +56,6 @@ export default class App extends React.Component<AppProps, AppState> {
     this.setLevel = this.setLevel.bind(this);
   }
 
-
-  // Identifiers
   player: number = 5;
   ai: number = 10;
   even: number = 3;
@@ -66,8 +64,8 @@ export default class App extends React.Component<AppProps, AppState> {
   aiAlias: string = "ai";
   dimension: number = 3;
   levels: Array<any> = [
-    { label: 'Medio', id: 'random' },
-    { label: 'Difficile', id: 'minimax' }
+    { label: 'Smart', id: 'random' },
+    { label: 'Genius', id: 'minimax' }
   ]
 
 

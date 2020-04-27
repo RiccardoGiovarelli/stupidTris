@@ -60,6 +60,7 @@
 }
 
 @media only screen and (max-width: $main__viewport-limit) {
+    
     .field__container {
         width: $field__lenght-relative-responsive;
         max-width: $field__lenght_responsive;

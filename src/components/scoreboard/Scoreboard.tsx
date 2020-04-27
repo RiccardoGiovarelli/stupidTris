@@ -26,7 +26,7 @@ export default function Scoreboard(props: any) {
 
     return (
         <div className="scoreboard__container">
-            <Title text="punteggio" />
+            <Title text="Score" />
             <div className="scoreboard__cross-score">
                 <div className="scoreboard__symbol">
                     <FontAwesomeIcon icon={faTimes} size="sm" />

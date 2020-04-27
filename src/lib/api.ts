@@ -40,6 +40,7 @@ export function getNextMove(
     levels: Array<any>,
     level: number
 ): Promise<any> {
+
     return new Promise(resolve => {
         const imported = import('../game/' + levels[level].id);
         imported.then((alg: any) => {

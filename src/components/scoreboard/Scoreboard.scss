@@ -37,11 +37,28 @@
 
 
 @media only screen and (max-width: $main__viewport-limit) {
+    
     .scoreboard__container {
     
         .scoreboard__cross-score, .scoreboard__circle-score {
-            width: 60%;
+            width: 80%;
             margin: auto;
+
+            .scoreboard__symbol {
+                font-size: 3em;
+            }
+    
+            .scoreboard__colon {
+                font-size: 3.3em;  
+            }
+    
+            .scoreboard__score { 
+                font-size: 3.2em;
+            }
+    
+            .scoreboard__icon {
+                font-size: 2.8em;
+            }
         }
     }
 }

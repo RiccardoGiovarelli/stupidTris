@@ -59,9 +59,9 @@ export default class Random {
     /**
      * Method findBestMove
      *
-     * Return the best move for AI
+     * Return the best move
      *
-     * @return  {Object}  The best move for AI
+     * @return  {Object}  The best move
      */
     findBestMove(): Promise<any> {
 
