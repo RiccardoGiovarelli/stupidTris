@@ -8,7 +8,7 @@ body {
   }
 
 .app__container {
-    width: 80%;
+    width: fit-content;
     margin:auto;
     display: block;
     padding-top: 15vh;
@@ -16,12 +16,37 @@ body {
     .app__game-area {
         display: inline-block;
         vertical-align: top;
-        width: 75%;
+        width: auto;
     }
 
     .app__tool-area {
         display: inline-block;
         vertical-align: top;
-        width: 25%;
+        margin-left: 20px;
+        width: 280px;
+        font-size: 1em
+    }
+}
+
+@media only screen and (max-width: $main__viewport-limit) {
+    .app__container {
+        width:100%;
+        padding-top: 2vh;
+    
+        .app__game-area {
+            padding-top: 1vh;
+            display: block;
+            width: 100%;
+            margin: auto;
+        }
+    
+        .app__tool-area {
+            width: 100%;
+            padding-top: 1vh;
+            padding-bottom: 3vh;
+            display: block;
+            margin: auto;
+            font-size:0.7em;
+        }
     }
 }

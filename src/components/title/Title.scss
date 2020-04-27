@@ -1,7 +1,17 @@
+@import './../../main.scss';
+
 .title__container {
     font-size: 2em;
     padding: 5px 0px;
     margin-bottom: 15px;
     border-bottom-style: solid;
     border-bottom-width: 2px;
+}
+
+@media only screen and (max-width: $main__viewport-limit) {
+    
+    .title__container {
+        text-align: center;
+        font-size: 2.4em;
+    }
 }

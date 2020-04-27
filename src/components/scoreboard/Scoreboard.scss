@@ -1,13 +1,7 @@
+@import './../../main.scss';
+
 .scoreboard__container {
-    padding-top: 2vh;
-
-    .scoreboard__title {
-        font-size: 2em;
-        padding: 5px 0px;
-        border-bottom-style: solid;
-        border-bottom-width: 2px;
-    }
-
+    
     .scoreboard__cross-score, .scoreboard__circle-score {
         width: 100%;
 
@@ -37,6 +31,17 @@
             width: 45%;
             text-align: center;
             font-size: 1.8em;
+        }
+    }
+}
+
+
+@media only screen and (max-width: $main__viewport-limit) {
+    .scoreboard__container {
+    
+        .scoreboard__cross-score, .scoreboard__circle-score {
+            width: 60%;
+            margin: auto;
         }
     }
 }

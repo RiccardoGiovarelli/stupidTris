@@ -114,3 +114,10 @@ $square__blinking-name:blinking;
           }
     }
 }
+
+@media only screen and (max-width: $main__viewport-limit) {
+    .square__container {
+        height: $square__height-relative-responsive;
+        max-height: $square__max-height-responsive;
+    }
+  }
