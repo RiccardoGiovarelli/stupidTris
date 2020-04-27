@@ -29,7 +29,7 @@ export default function Scoreboard(props: any) {
             <Title text="Score" />
             <div className="scoreboard__cross-score">
                 <div className="scoreboard__symbol">
-                    <FontAwesomeIcon icon={faTimes} size="sm" />
+                    <FontAwesomeIcon icon={faCircle} size="sm" />
                 </div>
                 <div className="scoreboard__colon">
                     :
@@ -43,7 +43,7 @@ export default function Scoreboard(props: any) {
             </div>
             <div className="scoreboard__circle-score">
                 <div className="scoreboard__symbol">
-                    <FontAwesomeIcon icon={faCircle} size="sm" />
+                    <FontAwesomeIcon icon={faTimes} size="sm" />
                 </div>
                 <div className="scoreboard__colon">
                     :
