@@ -2,6 +2,7 @@
 
 .level__container {
     width: 100%;
+    order: 3;
     padding-top: 2vh;
 
     .level__selector-container {
@@ -44,10 +45,12 @@
 @media only screen and (max-width: $main__viewport-limit) {
 
     .level__container {
+        order: 3;
+        padding-top: 0;
 
         .level__selector-container {
             width: 80%;
-            margin: auto;
+            margin: 10px auto;
 
             .level__text-container {
     

@@ -1,6 +1,7 @@
 @import './../../main.scss';
 
 .scoreboard__container {
+    order: 1;
     
     .scoreboard__cross-score, .scoreboard__circle-score {
         width: 100%;
@@ -39,25 +40,33 @@
 @media only screen and (max-width: $main__viewport-limit) {
     
     .scoreboard__container {
+        order: 2;
+
+        .scoreboard__cross-score {
+            margin: 10px auto 0px;
+        }
+
+        .scoreboard__circle-score {
+            margin: 0px auto 10px;
+        }
     
         .scoreboard__cross-score, .scoreboard__circle-score {
             width: 80%;
-            margin: auto;
 
             .scoreboard__symbol {
-                font-size: 3em;
+                font-size: 2em;
             }
     
             .scoreboard__colon {
-                font-size: 3.3em;  
+                font-size: 2.3em;  
             }
     
             .scoreboard__score { 
-                font-size: 3.2em;
+                font-size: 2.2em;
             }
     
             .scoreboard__icon {
-                font-size: 2.8em;
+                font-size: 1.8em;
             }
         }
     }

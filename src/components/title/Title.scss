@@ -12,6 +12,10 @@
     
     .title__container {
         text-align: center;
-        font-size: 3em;
+        font-size: 2.2em;
+        background-color: darken($main__background-color, 10%);
+        border-bottom-width: 0px;
+        margin-bottom: 0px;
+        padding: 2px 0px;
     }
 }

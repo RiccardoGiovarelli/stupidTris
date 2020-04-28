@@ -57,7 +57,7 @@ export default class Level extends React.Component<LevelProps, LevelState> {
                             icon={faChevronLeft}
                             size="2x"
                             onClick={this.handleClick}
-                            style={(this.state.levelSelected > 0) ? { cursor: "pointer" } : {}}
+                            style={(this.state.levelSelected > 0) ? { cursor: "pointer" } : { cursor: "not-allowed" }}
                         />
                     </div>
                     <div className="level__text-container">
@@ -73,7 +73,7 @@ export default class Level extends React.Component<LevelProps, LevelState> {
                             icon={faChevronRight}
                             size="2x"
                             onClick={this.handleClick}
-                            style={(this.props.levels.length > this.state.levelSelected + 1) ? { cursor: "pointer" } : {}}
+                            style={(this.props.levels.length > this.state.levelSelected + 1) ? { cursor: "pointer" } : { cursor: "not-allowed" }}
                         />
                     </div>
                 </div>

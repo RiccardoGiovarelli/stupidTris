@@ -10,42 +10,48 @@ body {
 .app__container {
     width: fit-content;
     margin:auto;
-    display: block;
+    display: flex;
+    flex-direction: row;
     padding-top: 15vh;
 
     .app__game-area {
-        display: inline-block;
+        flex-grow: 1;
         vertical-align: top;
         width: auto;
     }
 
     .app__tool-area {
-        display: inline-block;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
         vertical-align: top;
-        margin-left: 20px;
+        margin-left: 40px;
         width: 280px;
         font-size: 1em
     }
 }
+
 
 @media only screen and (max-width: $main__viewport-limit) {
     
     .app__container {
         width:100%;
         padding-top: 2vh;
+        flex-direction: column;
     
         .app__game-area {
+            width: 100%;
+            flex-grow: 1;
             padding-top: 1vh;
             display: block;
-            width: 100%;
             margin: auto;
         }
     
         .app__tool-area {
             width: 100%;
-            padding-top: 1vh;
-            padding-bottom: 3vh;
-            display: block;
+            flex-grow: 1;
+            padding-top: 3vh;
+            padding-bottom: 0.5vh;
             margin: auto;
             font-size:0.7em;
         }
