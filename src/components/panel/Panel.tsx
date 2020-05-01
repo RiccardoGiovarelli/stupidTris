@@ -53,8 +53,11 @@ export default function Panel(props: any) {
 
 // Handle click to perform user action
 function handleClick(event: React.MouseEvent, props: any) {
-    if (props.matchStatus !== props.noresults) {
-        props.panelAction(parseInt(event.currentTarget.id));
+    const action = parseInt(event.currentTarget.id);
+    if (action === 1 && props.matchStatus !== props.noresults) {
+        props.panelAction(action);
+    } else if (action === 2) {
+        props.panelAction(action);
     }
 }
 

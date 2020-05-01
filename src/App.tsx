@@ -64,9 +64,10 @@ export default class App extends React.Component<AppProps, AppState> {
   aiAlias: string = "ai";
   dimension: number = 3;
   levels: Array<any> = [
-    { label: 'Smart', id: 'random' },
-    { label: 'Genius', id: 'minimax' }
-  ]
+    { label: 'Beginner', id: 'stupid' },
+    { label: 'Intermediate', id: 'random' },
+    { label: 'Expert', id: 'minimax' }
+  ];
 
 
   // React render
