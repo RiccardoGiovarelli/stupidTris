@@ -24,11 +24,11 @@
  * @param   {number}  playerMarker    Identifier number for palyer
  * @param   {number}  aiMarker        Identifier number for AI
  * @param   {string}  output          Type of output
- * @return  {Number}  Field current state
+ * @return  {Number}                  Field current state
  * 
  * RETURN DETAILS:
- * output = "status" => id for EVEN or PLAYER WIN or AI WIN or NO RESULT
- * output = "where"  => two digit that indicate where is the win
+ * if output === "status" => id for EVEN or PLAYER WIN or AI WIN or NO RESULT
+ * if output === "where"  => two digit that indicate where is the win
  */
 
 export function checkCurrentState(

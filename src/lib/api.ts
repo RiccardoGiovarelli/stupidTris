@@ -23,12 +23,12 @@ import { checkCurrentState } from './game-lib';
  * Return the next move for AI by selected algorithm
  *
  * @param   {Object}  field           Field for the current Tic-tac-toe match
- * @param   {Number}  aiMarker        Maker number for AI
- * @param   {Number}  playerMarker    Maker number for Player
- * @param   {Number}  evenMaker       Maker number for even
- * @param   {Number}  noresultsMaker  Maker number for no result
+ * @param   {Number}  aiMarker        Marker number for AI
+ * @param   {Number}  playerMarker    Marker number for Player
+ * @param   {Number}  evenMaker       Marker number for even
+ * @param   {Number}  noresultsMaker  Marker number for no result
  * @param   {Number}  algorithm       Algorithm to use
- * @return  {Object}     The best move for AI by coordinates
+ * @return  {Object}                  The best move for AI by coordinates
  */
 export function getNextMove(
     field: any,

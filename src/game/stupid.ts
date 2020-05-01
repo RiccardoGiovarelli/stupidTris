@@ -16,7 +16,7 @@
 // Copyright 2020 Riccardo Giovarelli <riccardo.giovarelli@gmail.com>
 
 /**
- * Random
+ * Stupid
  *
  * @author Riccardo Giovarelli
  * @copyright 2020 Riccardo Giovarelli <riccardo.giovarelli@gmail.com>

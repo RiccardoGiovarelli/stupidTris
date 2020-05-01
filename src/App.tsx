@@ -129,7 +129,7 @@ export default class App extends React.Component<AppProps, AppState> {
 
   // Reset the score
   resetScore() {
-    this.setState({ score: { cross: 0, circle: 0 } })
+    this.setState({ score: { cross: 0, circle: 0 } });
   }
 
 

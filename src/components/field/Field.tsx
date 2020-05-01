@@ -115,7 +115,7 @@ export default class Field extends React.Component<FieldProps, FieldState> {
     }
 
 
-    // Build an empty field by
+    // Build an empty field by dimension
     buildEmptyField(dimension: number): any {
 
         const field: any = {};
@@ -163,7 +163,7 @@ export default class Field extends React.Component<FieldProps, FieldState> {
     }
 
 
-    // Make player ora AI move
+    // Make player or AI move
     makeMove(x: number, y: number, who: string): void {
 
         this.setState(prevState => {

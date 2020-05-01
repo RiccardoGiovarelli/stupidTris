@@ -1,7 +1,7 @@
 {
   "name": "tictactoe-web-app",
   "description": "Another implementation of the Tic-Tac-Toe game",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "keywords": [
     "Tic-Tac-Toe",
